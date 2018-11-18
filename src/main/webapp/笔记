@@ -1,0 +1,19 @@
+ssm
+
+webContent下的页面可以通过浏览器直接连接到，但是WEB-INF下的页面不可以从地址栏里面直接获得
+因此需要通过，<jsp:forword page="/WEB-INF/pages/index.jsp">来引导进下面的页面
+---------------------------------------------------------------------
+通过前后缀来隐藏访问的域名。
+"${pageContext.request.contextPath}/vr?pageName=register"
+使用restful spring+Mvc来进行开发：
+	@RequestMapping("/page/{pageName}")
+	public String forwardPage(@PathVariable String pageName){
+		System.out.println(pageName);
+		return pageName;
+	}
+	
+--------------------------------------------------------------------------
+加密：MD5
+
+find(@parm("cost") String code)
+1、通过uid code在数据库中find找到用户，如果找到了，那么更新update数据库中status，并将code清空
