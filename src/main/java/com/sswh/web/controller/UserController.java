@@ -37,7 +37,7 @@ public class UserController {
 		//设置id
 		user.setId(UUIDUtils.getCode());
 		//设置生日
-		user.setBirthday(String2Date.getDate(user.getYear(), user.getMonth(), user.getDay()));
+		//user.setBirthday(String2Date.getDate(user.getYear(), user.getMonth(), user.getDay()));
 		//设置状态
 		user.setStatus(0);
 		//设置激活码
