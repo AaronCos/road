@@ -1028,7 +1028,7 @@ body,div {
 }
 #container {
 	width: 200px;
-	border: 1px solid :   #F00;
+	border: 1px solid  #F00;
 	height: 140px;
 	overflow: hidden;
 }
@@ -1039,7 +1039,7 @@ body,div {
 
 #containers {
 	width: 200px;
-	border: 1px solid :   #F00;
+	border: 1px solid #F00;
 	height: 140px;
 	overflow: hidden;
 }
