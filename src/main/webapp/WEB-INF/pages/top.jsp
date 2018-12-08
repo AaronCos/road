@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <div id="header" class="wrap">
 	<div id="logo">
-		<img src="images/logo.gif" />
+		<img src="${path}/resources/images/logo.gif" />
 	</div>
 	<c:if test="${sessionScope.user == null}">
 		<div class="help">

@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>易买网 - 首页</title>
-		<link type="text/css" rel="stylesheet" href="css/style.css" />
-		<script type="text/javascript" src="scripts/function.js">
+		<link type="text/css" rel="stylesheet" href="${path}/resources/css/style.css" />
+		<script type="text/javascript" src="${path}/resources/scripts/function.js">
 </script>
 <script type="text/javascript">
 function selectCategory(c_id) {
@@ -39,11 +39,10 @@ function text_onkeyup(c_id) {
 			if (xhr.responseText.length != 0) {
 				var result = xhr.responseText.split('-');
 				var clew = "";
-				for ( var i = 0; i < result.length; i++) {
-					clew += "<li><a href='DoProductByTopCategory?name="
-							+ result[i] + "'>";
+				for ( var i = 0; i<result.length; i++) {
+					clew += "<li><a href='DoProductByTopCategory?name=result[i]'>";
 					clew += result[i];
-					clew += "</li>";
+					clew += "</li>"
 				}
 				document.getElementById("select").innerHTML = clew;
 			}
