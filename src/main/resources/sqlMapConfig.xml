@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 <!-- 别名的包扫描 -->
 <typeAliases>
-	<package name="com.sswh.entity"/>
+	<package name="com.sswh.entity.User"/>
 </typeAliases>
 </configuration>
+
