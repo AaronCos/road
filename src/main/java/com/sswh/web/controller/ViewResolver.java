@@ -17,7 +17,7 @@ public class ViewResolver {
 	@RequestMapping("/page/{name}")
 	public String forwardPage(@PathVariable("name") String page){
 		System.out.println(page);
-		return page;
+		return "sswh/"+page;
 	}
 	
 	

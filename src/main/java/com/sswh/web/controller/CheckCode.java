@@ -1,18 +1,14 @@
 package com.sswh.web.controller;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.Random;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 
 @Controller
 public class CheckCode {
@@ -35,7 +31,7 @@ public class CheckCode {
 		Graphics graphics = bufferedImage.getGraphics();
 
 		// 3、绘制背景颜色
-		graphics.setColor(Color.YELLOW);
+		graphics.setColor(Color.white);
 		graphics.fillRect(0, 0, width, height);
 
 		// 4、绘制图片边框
