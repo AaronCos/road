@@ -27,7 +27,7 @@ function check() {
 	</head>
 	<body>
 		<div id="header" class="wrap">
-			<%@include file="indexTop.jsp"%>
+			<%@include file="sswh/indexTop.jsp"%>
 		</div>
 		<div class="main">
 			<div class="guestbook">

@@ -57,7 +57,7 @@ function text_onkeyup(c_id){
 <div id="header" class="wrap">
 	<div id="logo"><img src="images/logo.gif" /></div>
 	<f:if test="${sessionScope.user == null}">
-	<div class="help"><a href="#" class="shopping">购物车</a><a href="login.jsp">登录</a><a href="register.jsp">注册</a><a href="DoCommentList">留言</a></div>
+	<div class="help"><a href="#" class="shopping">购物车</a><a href="sswh/login.jsp">登录</a><a href="register.jsp">注册</a><a href="DoCommentList">留言</a></div>
 	</f:if>
 	<f:if test="${sessionScope.user != null}">
 	<div class="help">欢迎您：${sessionScope.user.u_name}<a href="#" class="shopping">购物车</a><a href="DoCommentList">留言</a><a href="DoExitLogin">退出</a></div>
@@ -81,7 +81,7 @@ function text_onkeyup(c_id){
 	</div>
 </div>
 <div id="position" class="wrap">
-	您现在的位置：<a href="index.jsp">易买网</a> &gt; 购物车
+	您现在的位置：<a href="sswh/index.jsp">易买网</a> &gt; 购物车
 </div>
 <div class="wrap">
 	<div id="shopping">

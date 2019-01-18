@@ -10,7 +10,7 @@
 <body>
 <div id="header" class="wrap">
 	<div id="logo"><img src="../images/logo.gif" /></div>
-	<div class="help"><a href="../index.jsp">返回前台页面</a></div>
+	<div class="help"><a href="../sswh/index.jsp">返回前台页面</a></div>
 	<div class="navbar">
 		<ul class="clearfix">
 			<li class="current"><a href="index.html">首页</a></li>

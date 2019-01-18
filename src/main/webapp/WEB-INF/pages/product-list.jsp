@@ -9,7 +9,7 @@
 <script type="text/javascript" src="scripts/function.js"></script>
 </head>
 <body>
-<%@ include file="indexTop.jsp" %>
+<%@ include file="sswh/indexTop.jsp" %>
 		<div class="spacer"></div>
 		<div class="last-view">
 			<h2>最近浏览</h2>

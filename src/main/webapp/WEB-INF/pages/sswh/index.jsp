@@ -5,12 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>易买网 - 首页</title>
+    <title>莘深 - 首页</title>
     <link type="text/css" rel="stylesheet" href="${path}/resources/css/style.css"/>
     <script type="text/javascript" src="${path}/resources/scripts/function.js"></script>
 </head>
 <body>
-<%@include file="indexTop.jsp" %>
+<%--<%@include file="indexTop.jsp" %>--%>
+<jsp:include page="top.jsp"></jsp:include>
+<jsp:include page="indexTop.jsp"></jsp:include>
 <div class="spacer"></div>
 <div class="last-view">
     <h2>
@@ -18,16 +20,16 @@
     </h2>
     <dl class="clearfix">
         <dt>
-            <img src="resources/images/product/0_tiny.gif"/>
+            <img src="${path}/resources/images/product/0_tiny.gif"/>
         </dt>
         <dd>
-            <a href="product-view.jsp">法国德菲丝松露精品巧克力500g/盒</a>
+            <a href="../product-view.jsp">法国德菲丝松露精品巧克力500g/盒</a>
         </dd>
         <dt>
             <img src="${path}/resources/images/product/0_tiny.gif"/>
         </dt>
         <dd>
-            <a href="product-view.jsp">法国德菲丝松露精品巧克力500g/盒</a>
+            <a href="../product-view.jsp">法国德菲丝松露精品巧克力500g/盒</a>
         </dd>
     </dl>
 </div>

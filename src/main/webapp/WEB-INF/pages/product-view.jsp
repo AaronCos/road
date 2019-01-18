@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="header" class="wrap">
-	<%@include file="indexTop.jsp" %>
+	<%@include file="sswh/indexTop.jsp" %>
 	</div>
 	<div id="product" class="main">
 		<h1>${pro.name}</h1>

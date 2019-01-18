@@ -5,10 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>易买网 - 首页</title>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/scripts/function.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/scripts/register.js"></script>
+<link type="text/css" rel="stylesheet" href="${path }/resources/css/style.css" />
+<script type="text/javascript" src="${path }/resources/scripts/function.js"></script>
+<script type="text/javascript" src="${path }/resources/scripts/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${path }/resources/scripts/register.js"></script>
 <script type="text/javascript">
 	function selectCategory(c_id) {
 		var categorys = document.getElementsByTagName('li');
@@ -55,7 +55,7 @@
 	}
 	function flushValidataCode() {
 		var date = new Date();
-		document.getElementById("veryCode").src ="${pageContext.request.contextPath}/checkCode?a="
+		document.getElementById("veryCode").src ="${path}/checkCode.do?a="
 				+ date.getTime();
 	}
 </script>
@@ -63,7 +63,7 @@
 <body>
 	<div id="header" class="wrap">
 		<div id="logo">
-			<img src="images/logo.gif" />
+			<img src="${path }/resources/images/logo.gif" />
 		</div>
 		<div class="help">
 			<a href="#" class="shopping">购物车</a><a href="sswh/login.jsp">登录</a><a
@@ -173,9 +173,9 @@
 						<tr>
 							<td class="field">验证码：</td>
 							<td><input class="text verycode" type="text" name="veryCode"
-								onfocus="FocusItem(this)" onblur="CheckItem(this);" /> <img
+								onfocus="FocusItem(this)" onblur="CheckItem(this);"/> <img
 								id="veryCode" onclick="flushValidataCode()"
-								src="${pageContext.request.contextPath}/checkCode"/>
+								src="${path}/checkCode.do"/>
 								<a href="javascript:flushValidataCode();">看不清</a><span id=""></span></td>
 						</tr>
 						<tr>
@@ -191,7 +191,7 @@
 		<div class="clear"></div>
 	</div>
 	<div id="footer">
-<jsp:include page="sswh/footer.jsp"></jsp:include>
+<jsp:include page="footer.jsp"></jsp:include>
 		
 	</div>
 	

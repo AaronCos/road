@@ -56,7 +56,7 @@ function text_onkeyup(c_id){
 <body>
 <div id="header" class="wrap">
 	<div id="logo"><img src="images/logo.gif" /></div>
-	<div class="help"><a href="#" class="shopping">购物车</a><a href="login.jsp">登录</a><a href="register.jsp">注册</a><a href="DoCommentList">留言</a></div>
+	<div class="help"><a href="#" class="shopping">购物车</a><a href="sswh/login.jsp">登录</a><a href="register.jsp">注册</a><a href="DoCommentList">留言</a></div>
 	<div class="navbar">
 		<ul class="clearfix">
 			<li id = "0"  name = "category"  class="current"><a href="javascript:selectCategory('0');">首页</a></li>
