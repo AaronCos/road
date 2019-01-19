@@ -1,13 +1,20 @@
 package com.sswh.dao;
 
-import java.util.List;
-
 import com.sswh.entity.User;
 
 public interface UserDao {
-	
 	public void regist(User user);
-/*	public User findUser(String username);
-	public List<User> findAllUser();*/
 
+    public static void main(String[] args) {
+
+        if (1==1) {
+            try {
+                System.out.printf("hello world");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+            }
+        }
+
+    }
 }
