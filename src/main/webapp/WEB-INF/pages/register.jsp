@@ -5,10 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>易买网 - 首页</title>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/scripts/function.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/scripts/register.js"></script>
+<link type="text/css" rel="stylesheet" href="${path}/css/style.css" />
+<script type="text/javascript" src="${path}/scripts/function.js"></script>
+<script type="text/javascript" src="${path}/scripts/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${path}/scripts/register.js"></script>
 <script type="text/javascript">
 	function selectCategory(c_id) {
 		var categorys = document.getElementsByTagName('li');
@@ -55,7 +55,7 @@
 	}
 	function flushValidataCode() {
 		var date = new Date();
-		document.getElementById("veryCode").src ="${pageContext.request.contextPath}/checkCode?a="
+		document.getElementById("veryCode").src ="${path}/checkCode?a="
 				+ date.getTime();
 	}
 </script>
@@ -102,7 +102,7 @@
 				</ul>
 				<h3 style="text-align: center; color: red">
 					${sessionScope.massa}</h3>
-				<form id="regForm" method="post" action="${path}/user/regist"
+				<form id="regForm" method="post" action="${path}/user/regist.do"
 					onsubmit="checkForm(this);">
 					<table>
 						<tr>

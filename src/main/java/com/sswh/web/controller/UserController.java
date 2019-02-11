@@ -65,6 +65,7 @@ public class UserController {
         System.out.printf("");
         System.out.println("veryCode1 = " + veryCode1);
         System.out.println("user = " + user);
+        userService.regist(user);
         return "login";
     }
 

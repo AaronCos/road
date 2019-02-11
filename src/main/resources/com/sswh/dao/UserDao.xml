@@ -3,17 +3,15 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.dao.UserDao">
+<mapper namespace="com.sswh.dao.UserDao">
 
-	<insert id="regist" parameterType="user">
+	<insert id="regist" parameterType="com.sswh.entity.User">
 	INSERT INTO t_user(id,username,password,sex,birthday,identity,email,mobile,address,status,code) 
 	VALUES(#{id},#{userName},#{passWord},#{sex},#{birthday},#{identity},#{email},#{mobile},#{address},#{status},#{code})
 	</insert>
 <!-- 	<select id="findAllUser" resultType="user">
 	select * from t_user
 	</select>
-	
-	
 	<resultMap id="seeShare" type="cn.entity.User">
         <id column="iid" property="iid" />
         <result column="id" property="id" />
@@ -24,6 +22,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findAllUser" resultMap="seeShare">
          SELECT * FROM t_user
      </select> -->
-	
-
 </mapper>

@@ -134,5 +134,25 @@ public class User {
 	public void setDay(String day) {
 		this.day = day;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"iid=" + iid +
+				", id='" + id + '\'' +
+				", userName='" + userName + '\'' +
+				", passWord='" + passWord + '\'' +
+				", sex=" + sex +
+				", birthday=" + birthday +
+				", identity='" + identity + '\'' +
+				", email='" + email + '\'' +
+				", mobile='" + mobile + '\'' +
+				", address='" + address + '\'' +
+				", status=" + status +
+				", code='" + code + '\'' +
+				", year='" + year + '\'' +
+				", month='" + month + '\'' +
+				", day='" + day + '\'' +
+				'}';
+	}
 }

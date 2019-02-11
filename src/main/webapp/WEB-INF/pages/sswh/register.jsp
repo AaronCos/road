@@ -102,7 +102,7 @@
 				</ul>
 				<h3 style="text-align: center; color: red">
 					${sessionScope.massa}</h3>
-				<form id="regForm" method="post" action="${path}/user/regist"
+				<form id="regForm" method="post" action="${path}/user/regist.do"
 					onsubmit="checkForm(this);">
 					<table>
 						<tr>

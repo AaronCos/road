@@ -40,12 +40,12 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 <!-- 使用mapper扫描的方式去扫描mybtais的接口，生成实现类 -->
 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 	<property name="basePackage" value="com.sswh.dao"/>
-	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 </bean>
 
 <!-- 事务的管理器 -->
 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-	<property name="dataSource" ref="dataSource"></property>
+	<property name="dataSource" ref="dataSource"/>
 </bean>
 
 <!-- 配置基于注解的事务 -->
