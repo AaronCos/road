@@ -7,7 +7,7 @@ import com.sswh.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
+import java.util.List;
 
 
 @Service(value="userService")
@@ -23,7 +23,16 @@ public class UserServiceImpl implements UserService {
 		System.out.println("dao valid");
 	}
 
+	public User getByIid(int iid){
+		User user = dao.getByIid(1);
+		return user;
+	}
 
+	@Override
+	public List<User> findAllUser() {
+		List<User> allUser = dao.findAllUser();
+		return allUser;
+	}
 
 
 }

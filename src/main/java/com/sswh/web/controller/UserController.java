@@ -3,6 +3,7 @@ package com.sswh.web.controller;
 import com.sswh.entity.User;
 import com.sswh.service.UserService;
 import com.sswh.utils.MD5;
+import com.sswh.utils.String2Date;
 import com.sswh.utils.UUIDUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -20,8 +22,9 @@ public class UserController {
 
     @Resource(name = "userService")
     private UserService userService;
+
     /**
-     * ddfdsd
+     * 注册控制器
      *
      * @param user
      * @param veryCode
@@ -33,21 +36,17 @@ public class UserController {
     public String regist(User user, String veryCode, HttpSession session) throws Exception {
         String veryCode1 = (String) session.getAttribute("verycode");
         //判断验证码
-	/*	if(!veryCode1.equals(veryCode)){
-			session.setAttribute("msg", "验证码输入错误！！！");
-			session.setAttribute("registData", user);
-			return "redirect:/page/register";
-		}*/
+        if (!veryCode1.equals(veryCode)) {
+            session.setAttribute("msg", "验证码输入错误！！！");
+            session.setAttribute("registData", user);
+            return "redirect:/page/register";
+        }
         //将页面的年月日，传到birthday里面
-        System.out.println("验证码相等");
         user.setId(UUIDUtils.getCode());
         //设置生日
-        //user.setBirthday(String2Date.getDate(user.getYear(), user.getMonth(), user.getDay()));
+        user.setBirthday(String2Date.getDate(user.getYear(), user.getMonth(), user.getDay()));
         //设置状态
         user.setStatus(0);
-
-
-        //        user.set
         //设置激活
         String address = user.getAddress();
         String code = user.getCode();
@@ -76,6 +75,22 @@ public class UserController {
 
 
         return null;
+    }
+
+    @RequestMapping("/test")
+    public void getByIid(String iid) {
+        User byIid = userService.getByIid(Integer.valueOf(iid));
+        System.out.printf("iid:" + byIid);
+
+    }
+
+    @RequestMapping("allUser")
+    public void findAllUser() {
+        List<User> allUser = userService.findAllUser();
+        for (int i = 0; i < allUser.size(); i++) {
+            System.out.printf("allUser:" + i + "--" + allUser.get(i));
+            System.out.println();
+        }
     }
 
 

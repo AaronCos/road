@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set value="${pageContext.request.contextPath}" var="path" scope="session"></c:set>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/core" %>
+<f:set value="${pageContext.request.contextPath}" var="path" scope="session"></f:set>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,10 +9,12 @@
     <title>莘深 - 首页</title>
     <link type="text/css" rel="stylesheet" href="${path}/resources/css/style.css"/>
     <script type="text/javascript" src="${path}/resources/scripts/function.js"></script>
+    <script type="text/javascript" src="${path}/resources/scripts/function-manage.js"></script>
 <head>
 <body>
 <%--<%@include file="indexTop.jsp" %>--%>
-<jsp:include page="top.jsp"></jsp:include>
+<%--<jsp:include page="top.jsp"></jsp:include>--%>
+<%@include file="top.jsp"%>    <%--这种方式是把子页面当成整体的一个部分，和父级文件一起进行编译--%>
 <jsp:include page="indexTop.jsp"></jsp:include>
 <div class="spacer"></div>
 <div class="last-view">
@@ -41,7 +43,7 @@
             今日特价
         </h2>
         <ul class="product clearfix">
-            <%-- <c:forEach var="shop" items="${Products}">
+             <c:forEach var="shop" items="${Products}">
                 <li>
                     <dl>
                         <dt>
@@ -57,7 +59,7 @@
                         </dd>
                     </dl>
                 </li>
-            </c:forEach> --%>
+            </c:forEach>
         </ul>
     </div>
     <div class="side">
@@ -68,13 +70,13 @@
             <ul>
                 <div id="container" onmouseover="over_payce()"
                      onmouseout="out_connetion()">
-                    <%-- <f:forEach items="${requestScope.news}" var="n">
+                     <f:forEach items="${requestScope.news}" var="n">
                         <li id="Li">
                             <a href="DoNewsList?newsId=${n.id }" target="_blank">${n.title
                                 }</a>
                         </li>
                         <div id="copycTable"></div>
-                    </f:forEach> --%>
+                    </f:forEach>
                 </div>
             </ul>
         </div>
@@ -87,13 +89,13 @@
                 <div id="containers" onmouseover="over_payces()"
                      onmouseout="out_connetions()">
 
-                    <%-- <f:forEach items="${requestScope.news}" var="n">
+                    <f:forEach items="${requestScope.news}" var="n">
                         <li id="Lis">
                             <a href="DoNewsList?newsId=${n.id }" target="_blank">${n.title
                                 }</a>
                         </li>
                         <div id="copycTables"></div>
-                    </f:forEach> --%>
+                    </f:forEach>
                 </div>
             </ul>
         </div>
@@ -104,7 +106,7 @@
             热卖推荐
         </h2>
         <ul class="product clearfix">
-            <%-- <c:forEach var="shop" items="${NProducts}">
+            <c:forEach var="shop" items="${NProducts}">
                 <li>
                     <dl>
                         <dt>
@@ -120,7 +122,7 @@
                         </dd>
                     </dl>
                 </li>
-            </c:forEach> --%>
+            </c:forEach>
         </ul>
     </div>
 </div>

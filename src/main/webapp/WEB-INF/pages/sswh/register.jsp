@@ -66,8 +66,8 @@
 			<img src="${path }/resources/images/logo.gif" />
 		</div>
 		<div class="help">
-			<a href="#" class="shopping">购物车</a><a href="sswh/login.jsp">登录</a><a
-				href="register.jsp">注册</a><a href="DoCommentList">留言</a>
+			<a href="#" class="../shopping.jsp">购物车</a><a href="${path}/page/login.do">登录</a><a
+				href="${path}/page/register.do">注册</a><a href="DoCommentList">留言</a>
 		</div>
 		<div class="navbar">
 			<ul class="clearfix">
