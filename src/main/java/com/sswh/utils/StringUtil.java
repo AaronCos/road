@@ -14,7 +14,7 @@ public class StringUtil {
      * @return List<Integer>
      */
     public static List<Integer> strToNumList(String numString){
-        if (numString == null){
+        if(isEmpty(numString)){
             return null;
         }
         ArrayList<Integer> iids = new ArrayList<>();
