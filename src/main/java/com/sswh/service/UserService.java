@@ -9,5 +9,5 @@ public interface UserService {
 	public void regist(User user);
 	public User getByIid(int iid);
 	public List<User> findAllUser();
-
+	public List<User> findByIids(List<Integer> iids);
 }

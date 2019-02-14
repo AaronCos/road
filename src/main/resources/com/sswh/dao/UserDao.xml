@@ -9,23 +9,33 @@
 	INSERT INTO t_user(id,username,password,sex,birthday,identity,email,mobile,address,status,code) 
 	VALUES(#{id},#{userName},#{passWord},#{sex},#{birthday},#{identity},#{email},#{mobile},#{address},#{status},#{code})
 	</insert>
+    <!--指定参数类型，根据条件进行查询-->
     <select id="getByIid" parameterType="int" resultType="com.sswh.entity.User">
         select * from t_user
         <where>
             iid=#{iid}
         </where>
     </select>
-    <!-- 	<select id="findAllUser" resultType="user">
-        select * from t_user
-        </select>-->
+    <!--
+        查询的结果集是列表
+    -->
         <resultMap id="seeShare" type="com.sswh.entity.User">
             <id column="iid" property="iid" />
             <result column="id" property="id" />
             <result column="username" property="userName" />
             <result column="password" property="passWord" />
         </resultMap>
-
         <select id="findAllUser" resultMap="seeShare">
              SELECT * FROM t_user
-         </select>
+        </select>
+    <!--查询条件是集合的情况-->
+    <select id="findByIids" resultMap="seeShare">
+        select * from t_user
+        <where>
+            iid in
+            <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                            #{item}
+            </foreach>
+        </where>
+    </select>
 </mapper>

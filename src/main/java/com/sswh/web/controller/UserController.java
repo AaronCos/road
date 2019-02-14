@@ -4,6 +4,7 @@ import com.sswh.entity.User;
 import com.sswh.service.UserService;
 import com.sswh.utils.MD5;
 import com.sswh.utils.String2Date;
+import com.sswh.utils.StringUtil;
 import com.sswh.utils.UUIDUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,11 +80,18 @@ public class UserController {
 
     @RequestMapping("/test")
     public void getByIid(String iid) {
-        User byIid = userService.getByIid(Integer.valueOf(iid));
-        System.out.printf("iid:" + byIid);
-
+        User user = null;
+        try {
+            user = userService.getByIid(Integer.valueOf(iid));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        System.out.printf("iid:" + user);
     }
 
+    /**
+     * 查询用户的列表
+     */
     @RequestMapping("allUser")
     public void findAllUser() {
         List<User> allUser = userService.findAllUser();
@@ -93,5 +101,17 @@ public class UserController {
         }
     }
 
-
+    @RequestMapping("byiids")
+    public String findByIids(String siids) {
+        if(StringUtil.isEmpty(siids)){
+            System.out.println("输入的iid为空");
+            return "exception/error";
+        }
+        List<Integer> iids = StringUtil.strToNumList(siids);
+        List<User> byIids = userService.findByIids(iids);
+        for (int i = 0; i < byIids.size(); i++) {
+            System.out.println("user" + i + ":" + byIids.get(i));
+        }
+        return "exception/success";
+    }
 }
