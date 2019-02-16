@@ -2,6 +2,7 @@ package com.sswh.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 各类字符串的处理
@@ -24,6 +25,7 @@ public class StringUtil {
         }
         return iids;
     }
+
     public static boolean isNotEmpty(String param){
         boolean isNotEmpty = false;
         if(param != null){
@@ -43,6 +45,14 @@ public class StringUtil {
             }
         }
         return isEmpty;
+    }
+
+    /**
+     * 获取UUID
+     * @return
+     */
+    public static String uuid(){
+        return UUID.randomUUID().toString().replaceAll("-","");
     }
 
 }
