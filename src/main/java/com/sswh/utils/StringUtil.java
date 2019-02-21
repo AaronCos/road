@@ -11,11 +11,12 @@ import java.util.UUID;
 public class StringUtil {
     /**
      * 数字字符串转化为整型list
+     *
      * @param numString
      * @return List<Integer>
      */
-    public static List<Integer> strToNumList(String numString){
-        if(isEmpty(numString)){
+    public static List<Integer> strToNumList(String numString) {
+        if (isEmpty(numString)) {
             return null;
         }
         ArrayList<Integer> iids = new ArrayList<>();
@@ -26,33 +27,48 @@ public class StringUtil {
         return iids;
     }
 
-    public static boolean isNotEmpty(String param){
+    public static boolean isNotEmpty(String param) {
         boolean isNotEmpty = false;
-        if(param != null){
+        if (param != null) {
             String result = param.trim();
-            if(result != ""){
+            if (result != "") {
                 isNotEmpty = true;
             }
         }
         return isNotEmpty;
     }
-    public static boolean isEmpty(String param){
+
+    public static boolean isEmpty(String param) {
         boolean isEmpty = true;
-        if(param != null){
+        if (param != null) {
             String result = param.trim();
-            if(result != ""){
+            if (result != "") {
                 isEmpty = false;
             }
         }
         return isEmpty;
     }
 
+    public static boolean isEqual(String param1, String param2) {
+        boolean equal = false;
+        if (param1 == null || param2 == null) {
+            equal = false;
+        } else {
+            if (param1.equals(param2)) {
+                equal = true;
+            }
+        }
+        return equal;
+    }
+
+
     /**
      * 获取UUID
+     *
      * @return
      */
-    public static String uuid(){
-        return UUID.randomUUID().toString().replaceAll("-","");
+    public static String uuid() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
 }

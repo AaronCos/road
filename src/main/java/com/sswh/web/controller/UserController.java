@@ -37,10 +37,10 @@ public class UserController {
     public String regist(User user, String veryCode, HttpSession session) throws Exception {
         String veryCode1 = (String) session.getAttribute("verycode");
         //判断验证码
-        if (!veryCode1.equals(veryCode)) {
+        if (!veryCode1.toUpperCase().equals(veryCode.toUpperCase())) {
             session.setAttribute("msg", "验证码输入错误！！！");
             session.setAttribute("registData", user);
-            return "redirect:/page/register";
+            return "/sswh/register";
         }
         //将页面的年月日，传到birthday里面
         user.setId(UUIDUtils.getCode());
@@ -62,7 +62,6 @@ public class UserController {
         user.setCode(UUIDUtils.getCode());
         //设置密码  MD5加密密码
         user.setPassWord(MD5.md5(user.getPassWord()));
-        System.out.printf("");
         System.out.println("veryCode1 = " + veryCode1);
         System.out.println("user = " + user);
         userService.regist(user);
