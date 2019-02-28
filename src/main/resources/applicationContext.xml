@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-xmlns:context="http://www.springframework.org/schema/context"
-xmlns:aop="http://www.springframework.org/schema/aop"
-xmlns:tx="http://www.springframework.org/schema/tx"
-xmlns:mvc="http://www.springframework.org/schema/mvc"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-<!-- 组件扫描 -->
-<context:component-scan base-package="com.sswh"/>
+    <!-- 组件扫描 -->
+    <context:component-scan base-package="com.sswh"/>
 
-<!-- mvc的注解驱动 -->
-<mvc:annotation-driven/>
+    <!-- mvc的注解驱动 -->
+    <mvc:annotation-driven/>
 
-<!-- mvc静态资源的访问 -->
-<mvc:default-servlet-handler/>
+    <!-- mvc静态资源的访问 -->
+    <mvc:default-servlet-handler/>
 
-<!-- 加载db.properties配置文件 -->
-<!-- <context:property-placeholder location="classpath:db.properties"/> -->
+    <!-- 加载db.properties配置文件 -->
+    <!-- <context:property-placeholder location="classpath:db.properties"/> -->
 
-<!-- 创建数据源 c3p0 -->
-<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-	<property name="driverClass" value="com.mysql.jdbc.Driver"/>
-	<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/easybuy"/>
-	<property name="user" value="root"/>
-	<property name="password" value="aaron"/>
-</bean>
+    <!-- 创建数据源 c3p0 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/easybuy"/>
+        <property name="user" value="root"/>
+        <property name="password" value="aaron"/>
+    </bean>
 
-<!-- 创建mybaits的sqlSessionFactory -->
-<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	<property name="configLocation" value="classpath:sqlMapConfig.xml"/>
-	<property name="dataSource" ref="dataSource"/>
-</bean>
+    <!-- 创建mybaits的sqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="mapperLocations" value="classpath*:com/sswh/**/*Dao.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 
-<!-- 使用mapper扫描的方式去扫描mybtais的接口，生成实现类 -->
-<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-	<property name="basePackage" value="com.sswh.dao"/>
-	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-</bean>
+    <!-- 使用mapper扫描的方式去扫描mybtais的接口，生成实现类 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.**.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
 
-<!-- 事务的管理器 -->
-<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-	<property name="dataSource" ref="dataSource"/>
-</bean>
+    <!-- 事务的管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 
-<!-- 配置基于注解的事务 -->
-<tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- 配置基于注解的事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
-<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
-            id="internalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/pages/" />
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          id="internalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
-</bean>
+    </bean>
 
 </beans>
 
