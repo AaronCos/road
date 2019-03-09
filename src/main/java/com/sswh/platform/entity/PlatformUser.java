@@ -6,17 +6,17 @@ import com.sswh.utils.StringUtil;
 /**
  * Created by wangchengcheng on 2019/2/22
  */
-public class PlatformUserEntity {
+public class PlatformUser {
     private long iid;
     private String userName;
     private String password;
     private String mobilePhone;
     private String idCard;//个人身份证
 
-    public PlatformUserEntity() {
+    public PlatformUser() {
     }
 
-    public PlatformUserEntity(String userName, String password) {
+    public PlatformUser(String userName, String password) {
         this.userName = userName;
         if (StringUtil.isEmpty(password)){
             password = "123456";
@@ -64,14 +64,8 @@ public class PlatformUserEntity {
         this.idCard = idCard;
     }
 
-    @Override
-    public String toString() {
-        return "PlatformUserEntity{" +
-                "iid=" + iid +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", mobilePhone='" + mobilePhone + '\'' +
-                ", idCard='" + idCard + '\'' +
-                '}';
+    @Override public String toString() {
+        return "PlatformUser{" + "iid=" + iid + ", userName='" + userName + '\'' + ", password='" + password + '\''
+            + ", mobilePhone='" + mobilePhone + '\'' + ", idCard='" + idCard + '\'' + '}';
     }
 }
