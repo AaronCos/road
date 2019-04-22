@@ -44,7 +44,7 @@
                 <img alt="" src='${path}/resources/img/key.png'>
             </div>
             <input name="code" placeholder='验证码' maxlength="4" type='text' name="ValidateNum" autocomplete="off">
-            <div class='validation' style="opacity: 1; right: -5px;top: -3px;">
+            <div class='validation' style="opacity: 1; right: -100px;top: 3px;">
                 <canvas class="J_codeimg" id="myCanvas" onclick="Code();">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
             </div>
         </div>
@@ -55,7 +55,7 @@
     <div class='success'>
     </div>
     <div class='disclaimer'>
-        <p>欢迎登录后台管理系统  更多网站模板：<a href="http://www.sucaihuo.com/" target="_blank">素材火</a></p>
+        <p>欢迎登录莘深文化教育平台管理系统</p>
     </div>
 </div>
 <div class='authent'>
@@ -71,7 +71,8 @@
 <div class="OverWindows"></div>
 
 <link href="${path}/resources/layui/css/layui.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${path}/resources/scripts/jquery.min.js"></script>
+<%--<script type="text/javascript" src="${path}/resources/scripts/jquery.min.js"></script>--%>
+<script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
 <script type="text/javascript" src="${path}/resources/scripts/jquery-ui.min.js"></script>
 <script type="text/javascript" src='${path}/resources/scripts/stopExecutionOnTimeout.js?t=1'></script>
 <script type="text/javascript" src="${path}/resources/layui/layui.js"></script>
@@ -145,7 +146,7 @@
         var msgalert = '默认账号:' + truelogin + '<br/> 默认密码:' + truepwd;
         var index = layer.alert(msgalert, { icon: 6, time: 4000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });
         layer.style(index, {
-            color: '#777'
+            color: '#000'
         });
         //非空验证
         $('input[type="button"]').click(function () {
@@ -163,6 +164,9 @@
                 fullscreen();
                 $('.login').addClass('test'); //倾斜特效
                 setTimeout(function () {
+
+
+
                     $('.login').addClass('testtwo'); //平移特效
                 }, 300);
                 setTimeout(function () {
@@ -193,6 +197,7 @@
                         //ajax加载中
                     },
                     function (data) {
+                    console.log("data:"+data.Text);
                         //ajax返回
                         //认证完成
                         setTimeout(function () {
