@@ -12,12 +12,21 @@
 	INSERT INTO users(username,password,password_salt)
 	VALUES(#{username},#{password},#{password_salt});
 	</insert>
+
 	<delete id="deleteByUserId" parameterType="int">
 		DELETE FROM USERS
 		<where>
 			iid=#{iid}
 		</where>
 	</delete>
+
+	<select id="findByUserName" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM USERS
+		<where>
+			username = #{username}
+		</where>
+	</select>
+
 
 
 </mapper>

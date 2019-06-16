@@ -1,15 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}" scope="session"></c:set>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <%-- <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">--%>
-    <meta http-equiv="expires" content="0">
     <title>登录界面</title>
     <!-- CSS -->
     <%--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">--%>
@@ -24,6 +20,18 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="${path}/resources/images/loginimages/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="${path}/resources/images/loginimages/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="${path}/resources/images/loginimages/apple-touch-icon-57-precomposed.png">
+    <style type="text/css">
+        .error {
+            display: inline-block;
+            border: 1px solid #ff835a;
+            background-color: #ffe8e0;
+        }
+        .current {
+            background: #ffdc9a;
+            font-weight: bold;
+            color: #663300;
+        }
+    </style>
 </head>
 <body>
 <!-- Top content -->
@@ -56,36 +64,27 @@
                         <form role="form" action="${url}" method="post" class="login-form">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">用户名</label>
-                                <input type="text" name="userName" placeholder="用户名称..." class="form-username form-control" id="form-username" value="${platformUser.userName }">
+                                <input type="text" name="username" placeholder="用户名称..." class="form-username form-control" id="form-username"  onfocus="FocusItem(this)"
+                                       onblur="CheckItem(this);" value=""><span id=""></span>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">密码</label>
-                                <input type="password" name="password" placeholder="密码..." class="form-password form-control" id="form-password">
+                                <input type="password" name="password" placeholder="密码..." class="form-password form-control" id="form-password" onfocus="FocusItem(this)"
+                                       onblur="CheckItem(this);"><span id="msg"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-password">确认密码</label>
+                                <input type="password" name="rePassWord" placeholder="密码..." class="form-password form-control" id="rePassWord" onfocus="FocusItem(this)"
+                                       onblur="CheckItem(this);" > <span id="rePassWordmsg"></span>
                             </div>
                             <div style="min-height: 20px"></div>
-                            <button type="submit" class="btn">登录!</button>
+                            <button type="submit" class="btn">注册</button>
                             <div style="min-height: 10px"></div>
-                            <button type="button" class="btn btn-primary">返回!</button>
+                            <button type="button" class="btn">返回!</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <%--<div class="row">--%>
-                <%--<div class="col-sm-6 col-sm-offset-3 social-login">--%>
-                    <%--<h3>...也可以通过下面方式登录:</h3>--%>
-                    <%--<div class="social-login-buttons">--%>
-                        <%--<a class="btn btn-link-1 btn-link-1-facebook" href="#">--%>
-                            <%--<i class="fa fa-facebook"></i> Facebook--%>
-                        <%--</a>--%>
-                        <%--<a class="btn btn-link-1 btn-link-1-twitter" href="#">--%>
-                            <%--<i class="fa fa-twitter"></i> Twitter--%>
-                        <%--</a>--%>
-                        <%--<a class="btn btn-link-1 btn-link-1-google-plus" href="#">--%>
-                            <%--<i class="fa fa-google-plus"></i> Google Plus--%>
-                        <%--</a>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
         </div>
     </div>
 
@@ -98,7 +97,7 @@
 <script src="${path}/resources/js/bootstrap/bootstrap.min.js"></script>
 <script src="${path}/resources/js/loginjs/jquery.backstretch.min.js"></script>
 <script src="${path}/resources/js/loginjs/scripts.js"></script>
-
+<script src="${path}/resources/js/loginjs/register.js"></script>
 <!--[if lt IE 10]>
 <script src="${path}/resources/js/loginjs/placeholder.js"></script>
 <![endif]-->

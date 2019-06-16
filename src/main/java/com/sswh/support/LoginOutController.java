@@ -1,6 +1,8 @@
 package com.sswh.support;
 
 import com.sswh.platform.entity.PlatformUser;
+import com.sswh.platform.entity.Users;
+import com.sswh.platform.service.IUsersService;
 import com.sswh.platform.service.LoginOutService;
 import com.sswh.utils.StringUtil;
 import org.apache.shiro.SecurityUtils;
@@ -12,7 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +35,8 @@ public class LoginOutController {
     @Autowired
     LoginOutService loginOutService;
 
-
+    @Autowired
+    IUsersService usersService;
 
 
     @RequestMapping("login")
@@ -55,7 +61,7 @@ public class LoginOutController {
 
     @RequestMapping(value = "/dologin", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String subLogin(PlatformUser user,String gotoUrl) {
+    public String subLogin(PlatformUser user, String gotoUrl) {
         log.debug("username is:{} and password is:{}", user.getUserName(), user.getPassword());
         String url = null;
         Subject subject = SecurityUtils.getSubject();
@@ -67,22 +73,42 @@ public class LoginOutController {
         }
         boolean authenticated = subject.isAuthenticated();
         System.out.println(authenticated);
-        subject.checkRoles("admin");
-        subject.checkPermission("user:select");
+        /*subject.checkRoles("admin");
+        subject.checkPermission("user:select");*/
         return "登陆成功";
     }
-    @RequestMapping(value = "regist", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-    public ModelAndView registUserShow(PlatformUser user){
 
-        return null;
+    @RequestMapping(value = "regist")
+    public ModelAndView registUserShow() {
+        ModelAndView mv = new ModelAndView("support/regist");
+        mv.addObject("url", "doregist.do");
+        return mv;
     }
+
     @RequestMapping(value = "doregist", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String registUser(PlatformUser user){
+    public String registUser(Users user) {
+        String message = "添加失败";
+        if (user == null) {
+            message = "请填写用户信息";
+            return message;
+        }
+        //1. 判断此用户名称是否已经存在
+        int userNum = usersService.findByUserName(user.getUsername());
+        if (userNum > 0) {
+            message = "当前用户名已存在，请重新输入";
+            return message;
+        }
+        //2. 加密入库
+        boolean registSuccessful = usersService.registUsers(user);
+        if (!registSuccessful) {
+            message = "注册失败";
+            return message;
+        }
 
-        return null;
+        message = "注册成功，欢迎：" + user.getUsername();
+        return message;
     }
-
 
 
     @RequiresRoles("admin")
@@ -91,9 +117,10 @@ public class LoginOutController {
     public String testAdmin() {
         return "has admin role";
     }
+
     @RequestMapping("tab/{taburl}")
-    public String about(@PathVariable String taburl){
-        return "front/"+taburl;
+    public String about(@PathVariable String taburl) {
+        return "front/" + taburl;
     }
 
 }

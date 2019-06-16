@@ -34,12 +34,14 @@ public class UsersService implements IUsersService {
     public int deleteByUserId(int iid) {
         int i = usersDao.deleteByUserId(iid);
         return i;
+    }
 
-
-
-
-
-
+    @Override
+    public int findByUserName(String userName) {
+        if(StringUtil.isEmpty(userName)){
+            return 0;
+        }
+        return usersDao.findByUserName(userName);
     }
 
 }
