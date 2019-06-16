@@ -130,8 +130,8 @@ public class SpringTest {
         usersService.registUsers(users);
     }
     @Test
-    public void deleteByUserid(){
-
+    public void findByUserNam1e(){
+        System.out.println(usersService.findByUserName("wangchengch"));
     }
 
 }
