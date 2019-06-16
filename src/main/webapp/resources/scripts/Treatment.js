@@ -99,4 +99,25 @@ function getCookieValue(name) {
         return unescape(value);       //对它解码           
     }
     else return "-1";    //搜索失败，返回-1  
-}    
+}
+
+function checkUserInfo(name,randomCode) {
+    //1. 验证码的验证
+
+    //2. 若验证用户信息通过 返回true,否则返回false
+    $.ajax({
+        type: "post",
+        url: Url,
+        data: JsonData,
+        dataType: 'json',
+        async: 'false',
+        beforeSend: LodingFun,
+        error: function () { AjaxErro({ "Status": "Erro", "Erro": "500" }); },
+        success: ReturnFun
+    });
+
+}
+function  checkRandomCode() {
+    //1. 若验证通过，返回true,否则返回false
+
+}

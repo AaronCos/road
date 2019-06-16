@@ -1,0 +1,172 @@
+
+
+body a {
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+	font-family: 'Roboto', sans-serif;
+}
+
+/*-- team --*/
+.w3_agile_team_grids{
+	margin:3em 0 0;
+}
+.w3_agile_team_grid_info h3 {
+    font-size: 1.4em;
+    color: #fff;
+    margin: 2em 0 1em 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.w3_agile_team_grid_info p {
+    color: #4f5667;
+    margin-bottom: 1em;
+    font-size: 1.1em;
+    letter-spacing: 2px;
+}
+ul.team_icons_agile  li{
+	display:inline-block;
+	margin-right:1em;
+}
+.w3_agile_team_grid ul li:last-child{
+	margin:0;
+}
+.w3_agile_team_grid_info{
+text-align: center;
+    padding: 4em 2em;
+    background: #000;
+    width: 32%;
+    border: 2px solid #0e0e0e;
+    background: #0e0e0e;
+	    -webkit-transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -ms-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
+    transition: 0.5s ease-in;
+}
+.w3_agile_team_grid_info:hover{
+      border: 2px solid #05d561;
+}
+.w3_agile_team_grid_info:nth-child(2) {
+    margin: 0 1%;
+}
+ul.team_icons_agile li a {
+    color: #fff;
+}
+ul.team_icons_agile {
+    border-top:2px solid #252323;
+    padding: 1.5em 0;
+		    -webkit-transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -ms-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
+    transition: 0.5s ease-in;
+}
+.w3_agile_team_grid_info:hover ul.team_icons_agile{
+    border-top:2px solid #de0f17;
+}
+ul.team_icons_agile li a:hover {
+      color: #de0f17;
+}
+ul.team_icons_agile li {
+    display: inline-block;
+    list-style: none;
+    margin-right: 1em;
+}
+.w3_agile_team_grid_info img {
+    border-radius:50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	margin:0 auto;
+	text-align:center;
+	width: 66%;
+}
+
+.agileits_w3layouts_nav_right.team_agile._icons {
+    float: none;
+}
+#team {
+    background: #f7f7f8;
+}
+/*-- //team --*/
+
+/*--responsive--*/
+@media (max-width:1080px) {
+
+  .w3_agile_team_grid_info {
+       padding: 3em 2em;
+	}
+}
+
+@media (max-width:991px) {
+.w3_agile_team_grid_info {
+		padding: 3em 2em;
+		width: 49%;
+		float: left;
+	     margin:0%;
+	}
+	.w3_agile_team_grid_info:nth-child(3) {
+		margin: 2% 0% 0 0;
+		float:left;
+	}
+	.w3_agile_team_grid_info:nth-child(2) {
+	      margin:0
+	     margin-left: 1%;
+	}
+}
+@media (max-width: 640px) {
+.w3_agile_team_grid_info,.w3_agile_team_grid_info:nth-child(2),.w3_agile_team_grid_info:nth-child(3) {
+		padding: 3em 2em;
+		width: 62%;
+		float: none;
+		margin: 0 auto;
+	}
+	.w3_agile_team_grid_info:nth-child(2){
+	  margin:2% auto;
+	}
+}
+
+@media (max-width:568px) {
+.w3_agile_team_grid_info p {
+       font-size:0.9em;
+	}
+	.w3_agile_team_grid_info, .w3_agile_team_grid_info:nth-child(2), .w3_agile_team_grid_info:nth-child(3) {
+      padding: 2em 2em;
+	}
+}
+
+@media (max-width:480px) {
+	.w3_agile_team_grid_info h3 {
+      font-size: 1.1em;
+	}
+}
+
+@media (max-width: 384px) {
+
+}
+
+@media (max-width: 375px) {
+	.w3_agile_team_grid_info, .w3_agile_team_grid_info:nth-child(2), .w3_agile_team_grid_info:nth-child(3) {
+		width: 90%;
+	}
+	.w3layouts_stats_left h3 {
+      font-size: 0.8em;
+	}
+}
+@media(max-width:375px) {
+
+}
+
+@media(max-width:320px) {
+	.w3_agile_team_grid_info, .w3_agile_team_grid_info:nth-child(2), .w3_agile_team_grid_info:nth-child(3) {
+		width: 98%;
+	}
+	
+}
+
+
+/*--//responsive--*/

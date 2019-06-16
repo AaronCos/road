@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-
     <!--配置shiro-->
     <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
         <property name="securityManager" ref="securityManager"></property>
         <property name="filterChainDefinitions">
+            <!--authc：需要经过认证；anon:无需认证直接访问-->
             <value>
                 /index.html=anon
                 /login.do=anon
@@ -18,6 +18,7 @@
     <bean id="jdbcRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
         <property name="dataSource" ref="dataSource"></property>
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
+        <property name="saltStyle" value="COLUMN"></property>
         <property name="permissionsLookupEnabled" value="true"></property><!--开启权限控制-->
     </bean>
     <!--自定义realm-->

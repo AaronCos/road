@@ -23,7 +23,7 @@ public class JunitRedisTest {
 
     @Test
     public void testString() {
-        for (int i = 0; i < 100000000; i++) {
+        for (int i = 0; i < 100; i++) {
             jedis.set("trtorial-name", "Redis tutorial"+i);
           //  jedis.set("tutor-name", "wangcheng"+i);
             String cache = jedis.get("trtorial-name");
@@ -37,7 +37,7 @@ public class JunitRedisTest {
      */
     @Test
     public void testMap(){
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<String,String>();
         map.put("name","yc");
         map.put("age","22");
         map.put("qq","821658917");

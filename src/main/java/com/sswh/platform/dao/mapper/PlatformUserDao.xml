@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sswh.platform.dao.PlatformUserDao">
+
+    <insert id="registUser" parameterType="com.sswh.platform.entity.PlatformUser" >
+	<!--<selectKey resultType="java.lang.Integer" keyProperty="iid" keyColumn="t_iid">
+		select t_iid from
+	</selectKey>-->
+	INSERT INTO t_platformuser(t_username,t_password,t_mobilephone,t_idcard)
+	VALUES(#{userName},#{password},#{mobilePhone},#{idCard});
+	</insert>
+
+	<select id="findByIid" parameterType="long" resultMap="seeShare">
+		select t_iid,t_username,t_password,t_mobilephone,t_idcard from t_platformuser where t_iid = #{iid}
+	</select>
+	<select id="findByIids" resultMap="seeShare">
+		select t_iid,t_username,t_password,t_mobilephone,t_idcard from t_platformuser where t_iid in 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<resultMap id="seeShare" type="com.sswh.platform.entity.PlatformUser">
+		<id column="t_iid" property="iid" />
+		<result column="t_username" property="userName" />
+		<result column="t_password" property="password" />
+		<result column="t_mobilephone" property="mobilePhone" />
+		<result column="t_idcard" property="idCard" />
+	</resultMap>
+	<!-- 插入物品信息 -->
+	<insert id="registUsers" parameterType="java.util.List">
+		insert into t_platformuser
+		(
+        t_username, t_password, t_mobilephone, t_idcard
+		)
+		values
+		<foreach collection="list" item="item" index= "index" separator =",">
+			(
+			#{item.userName},
+			#{item.password},
+			#{item.mobilePhone},
+			#{item.idCard}
+			)
+		</foreach>
+	</insert>
+	<select id="findByUserName" parameterType="java.lang.String" resultMap="seeShare">
+		select * from t_platformuser where t_username like #{userName}
+	</select>
+	<select id="findByIdCard" parameterType="java.lang.String" resultMap="seeShare">
+		select t_iid,t_username,t_password,t_mobilephone,t_idcard  from t_platformuser where t_idcard = #{idCard}
+	</select>
+</mapper>

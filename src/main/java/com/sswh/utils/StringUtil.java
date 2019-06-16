@@ -1,5 +1,7 @@
 package com.sswh.utils;
 
+import org.apache.shiro.crypto.hash.Md5Hash;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +21,7 @@ public class StringUtil {
         if (isEmpty(numString)) {
             return null;
         }
-        ArrayList<Integer> iids = new ArrayList<>();
+        ArrayList<Integer> iids = new ArrayList<Integer>();
         String[] split = numString.split(",");
         for (int i = 0; i < split.length; i++) {
             iids.add(Integer.valueOf(split[i]));
@@ -31,7 +33,7 @@ public class StringUtil {
         boolean isNotEmpty = false;
         if (param != null) {
             String result = param.trim();
-            if (result != "") {
+            if (!result.equals("")) {
                 isNotEmpty = true;
             }
         }
@@ -42,7 +44,7 @@ public class StringUtil {
         boolean isEmpty = true;
         if (param != null) {
             String result = param.trim();
-            if (result != "") {
+            if (!result.equals("")) {
                 isEmpty = false;
             }
         }
@@ -69,6 +71,14 @@ public class StringUtil {
      */
     public static String uuid() {
         return UUID.randomUUID().toString().replaceAll("-", "");
+    }
+    //得到加盐的md5加密值
+    public static String md5Util(String source,String salt){
+        if (source.isEmpty())
+            source = "123456";
+        if (salt.isEmpty())
+            salt = "123456";
+        return new Md5Hash(source,salt).toString();
     }
 
 }

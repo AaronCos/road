@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
-PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-config.dtd">
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<!-- 别名的包扫描 -->
-<typeAliases>
-	<package name="com.sswh.entity.User"/>
-</typeAliases>
-
+    <settings>
+        <!--标准输出，参数还是用？的形式-->
+    <!--    <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+        <setting name="logImpl" value="SLF4J"></setting>
+    </settings>
+    <!-- 别名的包扫描 -->
+    <typeAliases>
+        <typeAlias type="com.sswh.entity.User" alias="user"></typeAlias>
+        <!--<package name="com.sswh.entity"/>-->
+    </typeAliases>
 </configuration>
 

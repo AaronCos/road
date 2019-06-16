@@ -12,6 +12,10 @@
         <welcome-file>default.htm</welcome-file>
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
+    <context-param>
+        <param-name>log4jConfiguration</param-name>
+        <param-value>classpath:log4j2.xml</param-value>
+    </context-param>
 
     <!-- 配置mvc前端控制器 -->
     <servlet>
@@ -19,7 +23,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:*applicationContext.xml</param-value>
+            <param-value>classpath:applicationContext.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -42,23 +46,35 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- 公共的页面跳转 -->
-    <!-- 	<servlet>
-            <servlet-name>ViewResolver</servlet-name>
-            <servlet-class>cn.web.servlet.ViewResolver</servlet-class>
-            <init-param>
-                <param-name>prefix</param-name>
-                <param-value>/WEB-INF/pages/</param-value>
-            </init-param>
-            <init-param>
-                <param-name>suffix</param-name>
-                <param-value>.jsp</param-value>
-            </init-param>
-            <load-on-startup>2</load-on-startup>
-        </servlet>
-        <servlet-mapping>
-            <servlet-name>ViewResolver</servlet-name>
-            <url-pattern>/vr</url-pattern>
-        </servlet-mapping> -->
+    <!-- The filter-name matches name of a 'shiroFilter' bean inside applicationContext.xml -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <!-- Make sure any request you want accessible to Shiro is filtered. /* catches all -->
+    <!-- requests.  Usually this filter mapping is defined first (before all others) to -->
+    <!-- ensure that Shiro works in subsequent filters in the filter chain:             -->
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+  <!--  <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/pages/support/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/WEB-INF/pages/support/error/500.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/pages/support/error/500.jsp</location>
+    </error-page>-->
+
 
 </web-app>
