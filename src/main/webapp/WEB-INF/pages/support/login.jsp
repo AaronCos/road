@@ -13,10 +13,6 @@
     <title>登录界面</title>
 </head>
 <body>
-<form action="${url}" method="post">
-    登录名：<input type="text" name="userName" value="${platformUser.userName}">
-    密码：<input type="password" name="password" value="${platformUser.password}">
-    <input type="submit" value="登录">
-</form>
+
 </body>
 </html>
