@@ -103,7 +103,8 @@ public class LoginOutController {
         boolean registSuccessful = usersService.registUsers(user);
         if (!registSuccessful) {
             message = "注册失败";
-            return message;
+            return message
+                    ;
         }
 
         message = "注册成功，欢迎：" + user.getUsername();
