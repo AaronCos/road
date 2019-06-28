@@ -1,12 +1,8 @@
 package com.sswh;
 
-import com.sswh.platform.dao.PlatformUserDao;
-import com.sswh.platform.entity.PlatformUser;
-import com.sswh.platform.entity.Users;
-import com.sswh.platform.service.IUsersService;
-import com.sswh.shiropool.CustomRealm;
+import com.sswh.dao.IPlatformUserDao;
+import com.sswh.entity.PlatformUser;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.mgt.SecurityManager;
@@ -28,14 +24,12 @@ import java.util.List;
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"}) //加载配置文件
 public class SpringTest {
     @Autowired
-    PlatformUserDao pdao;
-    @Autowired
-    CustomRealm customRealm;
+    IPlatformUserDao pdao;
+
 
     @Resource(name = "securityManager")
     SecurityManager securityManager;
-    @Resource(name = "")
-    IUsersService usersService;
+
 
    /* @BeforeClass
     public void setShiro() {
@@ -53,7 +47,6 @@ public class SpringTest {
         SecurityUtils.setSecurityManager(securityManager);
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken("mark", "qwer1234");
-        AuthenticationInfo authenticationInfo = customRealm.getAuthenticationInfo(token);
         subject.login(token);
         subject.isAuthenticated();
 
@@ -66,7 +59,7 @@ public class SpringTest {
 
     @Test
     public void registUser() {
-        PlatformUser puser = new PlatformUser("wang9", "qwer");
+        PlatformUser puser = new PlatformUser();
         puser.setMobilePhone("2373230956");
         puser.setIdCard("3209211993");
         Integer integer = pdao.registUser(puser);
@@ -81,7 +74,7 @@ public class SpringTest {
         PlatformUser puser = null;
         ArrayList<PlatformUser> pes = new ArrayList<PlatformUser>();
         for (int i = 5; i < 10; i++) {
-            puser = new PlatformUser("wang" + i, "qwer");
+            puser = new PlatformUser();
             pes.add(puser);
         }
         pdao.registUsers(pes);
@@ -108,7 +101,7 @@ public class SpringTest {
 
     @Test
     public void findByUserName() {
-        PlatformUser wang7 = pdao.findByUserName("wang7");
+        PlatformUser wang7 = pdao.findByUsername("wang7");
         System.out.println("wang:" + wang7.toString());
     }
 
@@ -122,16 +115,6 @@ public class SpringTest {
         Md5Hash md5Hash = new Md5Hash("123456","hello");
         System.out.println(md5Hash.toString());
     }
-    @Test
-    public void regist(){
-        Users users = new Users();
-        users.setPassword("qwer1234");
-        users.setUsername("wangchengcheng1");
-        usersService.registUsers(users);
-    }
-    @Test
-    public void findByUserNam1e(){
-        System.out.println(usersService.findByUserName("wangchengch"));
-    }
+
 
 }

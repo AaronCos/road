@@ -1,7 +1,7 @@
 package com.sswh.platform.service.impl;
 
-import com.sswh.platform.dao.PlatformUserDao;
-import com.sswh.platform.entity.PlatformUser;
+import com.sswh.dao.IPlatformUserDao;
+import com.sswh.entity.PlatformUser;
 import com.sswh.platform.service.LoginOutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class LoginOutServiceImpl implements LoginOutService {
 
     @Autowired
-    PlatformUserDao userDao;
+    IPlatformUserDao userDao;
 
     @Override
     public PlatformUser findByUserName(String userName) {
-        PlatformUser byUserName = userDao.findByUserName(userName);
+        PlatformUser byUserName = userDao.findByUsername(userName);
         return byUserName;
     }
 }

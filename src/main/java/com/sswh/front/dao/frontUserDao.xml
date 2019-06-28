@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sswh.front.dao.IFrontUserDao">
+
+    <insert id="registerUser" parameterType="com.sswh.front.entity.FrontUserEntity" >
+	<!--<selectKey resultType="java.lang.Integer" keyProperty="iid" keyColumn="t_iid">
+		select t_iid from
+	</selectKey>-->
+	INSERT INTO FRONTUSER(username,password,password_salt)
+	VALUES(#{username},#{password},#{password_salt});
+	</insert>
+
+	<delete id="deleteByUserId" parameterType="int">
+		DELETE FROM FRONTUSER
+		<where>
+			iid=#{iid}
+		</where>
+	</delete>
+
+	<select id="getPasswordByUserName" parameterType="string" resultType="string">
+		SELECT password FROM FRONTUSER
+		<where>
+			username = #{username}
+		</where>
+	</select>
+
+	<select id="getPasswordSaltByUserName" parameterType="string" resultType="string">
+		SELECT password_salt FROM FRONTUSER
+		<where>
+			username = #{username}
+		</where>
+	</select>
+
+
+
+</mapper>

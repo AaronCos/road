@@ -73,7 +73,7 @@
     <!-- 根logger的设置-->
     <root>
         <!--优先级设置，假设设置为“info”，则无法输出debug级别的日志-->
-        <priority value="debug"/>
+        <priority value="error"/>
         <!--<priority value="info"/>-->
         <!--<priority value="warn"/>-->
         <!--<priority value="error"/>-->

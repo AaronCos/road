@@ -10,7 +10,7 @@
     </settings>
     <!-- 别名的包扫描 -->
     <typeAliases>
-        <typeAlias type="com.sswh.entity.User" alias="user"></typeAlias>
+        <typeAlias type="com.sswh.front.entity.FrontUserEntity" alias="user"></typeAlias>
         <!--<package name="com.sswh.entity"/>-->
     </typeAliases>
 </configuration>

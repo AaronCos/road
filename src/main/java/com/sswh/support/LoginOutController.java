@@ -1,14 +1,14 @@
 package com.sswh.support;
 
-import com.sswh.platform.entity.PlatformUser;
-import com.sswh.platform.entity.Users;
-import com.sswh.platform.service.IUsersService;
+import com.sswh.dao.IPlatformUserDao;
+import com.sswh.entity.PlatformUser;
 import com.sswh.platform.service.LoginOutService;
 import com.sswh.utils.StringUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +35,9 @@ public class LoginOutController {
     @Autowired
     LoginOutService loginOutService;
 
+
     @Autowired
-    IUsersService usersService;
+    IPlatformUserDao platformUserDao;
 
 
     @RequestMapping("login")
@@ -46,12 +47,9 @@ public class LoginOutController {
         PlatformUser platformUser = new PlatformUser();
         String username = (String) SecurityUtils.getSubject().getPrincipal();
         if (StringUtil.isEmpty(username)) {
-            platformUser.setUserName("");
-            platformUser.setPassword("");
             mv.addObject("platformUser", platformUser);
         } else {
-            platformUser.setUserName(username);
-            platformUser.setPassword("");
+            platformUser.setUsername(username);
             mv.addObject("platformUser", platformUser);
         }
 
@@ -62,19 +60,14 @@ public class LoginOutController {
     @RequestMapping(value = "/dologin", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
     public String subLogin(PlatformUser user, String gotoUrl) {
-        log.debug("username is:{} and password is:{}", user.getUserName(), user.getPassword());
-        String url = null;
+        log.info("username is:{} and password is:{}", user.getUsername(), user.getPassword());
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
             return e.getMessage();
         }
-        boolean authenticated = subject.isAuthenticated();
-        System.out.println(authenticated);
-        /*subject.checkRoles("admin");
-        subject.checkPermission("user:select");*/
         return "登陆成功";
     }
 
@@ -87,24 +80,27 @@ public class LoginOutController {
 
     @RequestMapping(value = "doregist", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String registUser(Users user) {
+    public String registUser(PlatformUser user) {
         String message = "添加失败";
         if (user == null) {
             message = "请填写用户信息";
             return message;
         }
         //1. 判断此用户名称是否已经存在
-        int userNum = usersService.findByUserName(user.getUsername());
-        if (userNum > 0) {
+        Integer count = platformUserDao.findCountByUsername(user.getUsername());
+        if (count > 0) {
             message = "当前用户名已存在，请重新输入";
             return message;
         }
+        String password_salt = StringUtil.uuid();
+        user.setPassword_salt(password_salt);
+        user.setPassword(new Md5Hash(user.getPassword(),password_salt).toString());
+
         //2. 加密入库
-        boolean registSuccessful = usersService.registUsers(user);
-        if (!registSuccessful) {
+        Integer registSuccessful = platformUserDao.registUser(user);
+        if (registSuccessful < 1) {
             message = "注册失败";
-            return message
-                    ;
+            return message;
         }
 
         message = "注册成功，欢迎：" + user.getUsername();
@@ -122,6 +118,17 @@ public class LoginOutController {
     @RequestMapping("tab/{taburl}")
     public String about(@PathVariable String taburl) {
         return "front/" + taburl;
+    }
+
+    @RequestMapping(value = "wang", produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String testWang() {
+        UsernamePasswordToken token = new UsernamePasswordToken("wang", "123456");
+        Subject subject = SecurityUtils.getSubject();
+        subject.login(token);
+        boolean authenticated = subject.isAuthenticated();
+        System.out.println(authenticated);
+        return "登陆成功";
     }
 
 }

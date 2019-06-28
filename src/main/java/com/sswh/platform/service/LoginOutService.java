@@ -1,6 +1,7 @@
 package com.sswh.platform.service;
 
-import com.sswh.platform.entity.PlatformUser;
+
+import com.sswh.entity.PlatformUser;
 
 /**
  * Created by wangchengcheng on 2019/3/10

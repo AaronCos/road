@@ -9,10 +9,9 @@ import org.junit.Test;
  */
 
 public class RedisTest {
-    {
-        System.out.println("hello big pig");
-    }
-
+    /**
+     * 利用fastJson解析json
+     */
     @Test
     public void helloTest() {
         String a = "{\n" +
@@ -73,20 +72,8 @@ public class RedisTest {
         String type = (String) jsonObject.get("policy_code");
         System.out.println(type);
     }
-    @Test
-    public void test() {
-        final long count = 100000000l;
-        long start = System.currentTimeMillis();
-        int a = 0;
-        for(long i = 0; i < count; i++){
-            a+=5;
-        }
-        int b = 0;
-        for(long i = 0; i< count;i++){
-            b--;
-        }
-        long time = System.currentTimeMillis() - start;
-        System.out.println(time);
-    }
+
+
+
 
 }

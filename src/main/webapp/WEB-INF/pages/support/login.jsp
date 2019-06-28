@@ -56,7 +56,7 @@
                         <form role="form" action="${url}" method="post" class="login-form">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">用户名</label>
-                                <input type="text" name="userName" placeholder="用户名称..." class="form-username form-control" id="form-username" value="${platformUser.userName }">
+                                <input type="text" name="username" placeholder="用户名称..." class="form-username form-control" id="form-username" value="${platformUser.username }">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">密码</label>

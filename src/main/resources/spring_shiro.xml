@@ -21,20 +21,19 @@
         <property name="saltStyle" value="COLUMN"></property>
         <property name="permissionsLookupEnabled" value="true"></property><!--开启权限控制-->
     </bean>
-    <!--自定义realm-->
-    <bean id="customRealm" class="com.sswh.shiropool.CustomRealm">
-
+    <bean id="customRealm" class="com.sswh.support.CustomRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
-
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realm" ref="jdbcRealm"/>
+        <!--<property name="realm" ref="jdbcRealm"/>-->
+        <property name="realm" ref="customRealm"/>
     </bean>
     <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher" id="credentialsMatcher">
         <property name="hashAlgorithmName" value="md5"/>
         <property name="hashIterations" value="1"/>
     </bean>
 
-    <aop:config proxy-target-class="true" />
+    <aop:config proxy-target-class="true"/>
     <bean class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>

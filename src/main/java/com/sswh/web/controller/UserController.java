@@ -1,7 +1,6 @@
 package com.sswh.web.controller;
 
-import com.sswh.entity.User;
-import com.sswh.service.UserService;
+import com.sswh.front.entity.FrontUserEntity;
 import com.sswh.utils.MD5;
 import com.sswh.utils.String2Date;
 import com.sswh.utils.StringUtil;
@@ -9,7 +8,6 @@ import com.sswh.utils.UUIDUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -21,8 +19,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    @Resource(name = "userService")
-    private UserService userService;
+
 
     /**
      * 注册控制器
@@ -34,7 +31,7 @@ public class UserController {
      * @throws Exception
      */
     @RequestMapping("/regist")
-    public String regist(User user, String veryCode, HttpSession session) throws Exception {
+    public String regist(FrontUserEntity user, String veryCode, HttpSession session) throws Exception {
         String veryCode1 = (String) session.getAttribute("verycode");
         //判断验证码
         if (!veryCode1.toUpperCase().equals(veryCode.toUpperCase())) {
@@ -43,7 +40,7 @@ public class UserController {
             return "/sswh/register";
         }
         //将页面的年月日，传到birthday里面
-        user.setId(UUIDUtils.getCode());
+        user.setCode(UUIDUtils.getCode());
         //设置生日
         user.setBirthday(String2Date.getDate(user.getYear(), user.getMonth(), user.getDay()));
         //设置状态
@@ -64,7 +61,7 @@ public class UserController {
         user.setPassWord(MD5.md5(user.getPassWord()));
         System.out.println("veryCode1 = " + veryCode1);
         System.out.println("user = " + user);
-        userService.regist(user);
+//        userService.regist(user);
         return "login";
     }
 
@@ -79,13 +76,13 @@ public class UserController {
 
     @RequestMapping("/test")
     public void getByIid(String iid) {
-        User user = null;
-        try {
-            user = userService.getByIid(Integer.valueOf(iid));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        System.out.printf("iid:" + user);
+        FrontUserEntity user = null;
+//        try {
+//            user = userService.getByIid(Integer.valueOf(iid));
+//        } catch (NumberFormatException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.printf("iid:" + user);
     }
 
     /**
@@ -93,11 +90,11 @@ public class UserController {
      */
     @RequestMapping("allUser")
     public void findAllUser() {
-        List<User> allUser = userService.findAllUser();
-        for (int i = 0; i < allUser.size(); i++) {
-            System.out.printf("allUser:" + i + "--" + allUser.get(i));
-            System.out.println();
-        }
+//        List<FrontUserEntity> allUser = userService.findAllUser();
+//        for (int i = 0; i < allUser.size(); i++) {
+//            System.out.printf("allUser:" + i + "--" + allUser.get(i));
+//            System.out.println();
+//        }
     }
 
     @RequestMapping("byiids")
@@ -107,10 +104,10 @@ public class UserController {
             return "exception/error";
         }
         List<Integer> iids = StringUtil.strToNumList(siids);
-        List<User> byIids = userService.findByIids(iids);
-        for (int i = 0; i < byIids.size(); i++) {
-            System.out.println("user" + i + ":" + byIids.get(i));
-        }
+//        List<FrontUserEntity> byIids = userService.findByIids(iids);
+//        for (int i = 0; i < byIids.size(); i++) {
+//            System.out.println("user" + i + ":" + byIids.get(i));
+//        }
         return "exception/success";
     }
 }
