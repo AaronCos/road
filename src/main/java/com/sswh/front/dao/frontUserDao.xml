@@ -5,7 +5,7 @@
 
 <mapper namespace="com.sswh.front.dao.IFrontUserDao">
 
-    <insert id="registerUser" parameterType="com.sswh.front.entity.FrontUserEntity" >
+    <insert id="registUser" parameterType="com.sswh.front.entity.FrontUserEntity" >
 	<!--<selectKey resultType="java.lang.Integer" keyProperty="iid" keyColumn="t_iid">
 		select t_iid from
 	</selectKey>-->
@@ -33,7 +33,18 @@
 			username = #{username}
 		</where>
 	</select>
-
+	<select id="findBaseUserInfo" parameterType="string" resultType="com.sswh.front.entity.FrontUserEntity">
+			SELECT iid,username,password,password_salt FROM frontuser
+			<where>
+				username like #{%username%}
+			</where>
+	</select>
+	<select id="findCountByUsername" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM frontuser
+		<where>
+			username like #{%username%}
+		</where>
+	</select>
 
 
 </mapper>

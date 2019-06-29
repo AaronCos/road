@@ -49,16 +49,16 @@ public class UserController {
         String address = user.getAddress();
         String code = user.getCode();
         String address1 = user.getAddress();
-        String passWord = user.getPassWord();
+        String passWord = user.getPassword();
         String day = user.getDay();
-        String passWord1 = user.getPassWord();
-        String hello2222 = user.getPassWord();
+        String passWord1 = user.getPassword();
+        String hello2222 = user.getPassword();
         String helo = user.getAddress();
         Date birthday = user.getBirthday();
 
         user.setCode(UUIDUtils.getCode());
         //设置密码  MD5加密密码
-        user.setPassWord(MD5.md5(user.getPassWord()));
+        user.setPassword(MD5.md5(user.getPassword()));
         System.out.println("veryCode1 = " + veryCode1);
         System.out.println("user = " + user);
 //        userService.regist(user);

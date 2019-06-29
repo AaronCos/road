@@ -10,7 +10,7 @@
    <%-- <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">--%>
     <meta http-equiv="expires" content="0">
-    <title>登录界面</title>
+    <title>后台登录界面</title>
     <!-- CSS -->
     <%--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">--%>
     <link rel="stylesheet" href="${path}/resources/css/bootstrap/bootstrap.min.css">

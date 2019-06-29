@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>后台注册</title>
+    <title>拥抱未来</title>
     <!-- CSS -->
     <%--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">--%>
     <link rel="stylesheet" href="${path}/resources/css/bootstrap/bootstrap.min.css">

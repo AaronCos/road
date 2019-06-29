@@ -112,7 +112,7 @@ public class SpringTest {
     }
     @Test
     public void getMdt(){
-        Md5Hash md5Hash = new Md5Hash("123456","hello");
+        Md5Hash md5Hash = new Md5Hash("qwer1234","dab4d1f5e7a94b7c8b927aebef6ee8d4");
         System.out.println(md5Hash.toString());
     }
 

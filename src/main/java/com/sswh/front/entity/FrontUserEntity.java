@@ -7,8 +7,8 @@ import java.util.Date;
  */
 public class FrontUserEntity {
 	private int iid;
-	private String userName;
-	private String passWord;
+	private String username;
+	private String password;
 	private String password_salt;
 	private Integer sex;//0:女 1：男
 	private Date birthday;
@@ -34,20 +34,20 @@ public class FrontUserEntity {
 		this.iid = iid;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getPassWord() {
-		return passWord;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getPassword_salt() {
