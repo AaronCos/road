@@ -3,8 +3,10 @@ package com.sswh.utils;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DateToolBag {
     public static String getMonth(Date date) {
@@ -49,6 +51,23 @@ public class DateToolBag {
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = sd.format(date);
         return format.toString();
+    }
+
+    /**
+     * List<Date>--->List<String> date(yyyy-mm-dd)日期列表转为字符串列表
+     * @param dateList
+     * @return
+     */
+    public static List<String> changeDatesListToStringList(List<Date> dateList){
+        List<String> dateStringList = new ArrayList<>();
+        if (dateList != null && dateList.size()>0) {
+            for (int i = 0; i < dateList.size(); i++) {
+                dateStringList.add(getCharDate(dateList.get(i)));
+            }
+            return dateStringList;
+        }else {
+            return null;
+        }
     }
 
     public static String getYearAfter(Integer year) {

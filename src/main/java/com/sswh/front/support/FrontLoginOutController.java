@@ -100,7 +100,9 @@ public class FrontLoginOutController {
         Integer registSuccessful = frontUserDao.registUser(user);
         if (registSuccessful < 1) {
             message = "注册失败";
+            //region Description
             return message;
+            //endregion
         }
 
         message = "注册成功，欢迎：" + user.getUsername();
@@ -109,6 +111,7 @@ public class FrontLoginOutController {
 
     private FrontUserEntity findByUserName(String username) {
         FrontUserEntity frontUser = frontUserDao.findBaseUserInfo(username);
+
         return frontUser;
     }
 

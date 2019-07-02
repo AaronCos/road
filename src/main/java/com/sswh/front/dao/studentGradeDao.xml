@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sswh.front.dao.IStudentGradeDao">
+
+    <insert id="insertGrade" parameterType="com.sswh.front.entity.StudentGradeEntity">
+	INSERT `studentgrade`(sequence,username,submittime,main_subject,score,main_sequence) VALUES(#{sequence},#{username},#{submitTime},#{mainSubject},#{socres},#{main_sequece})
+	</insert>
+
+    <select id="queryMainSequeceListByUserName" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT main_sequence FROM studentgrade
+        <where>
+            username = #{username}
+        </where>
+        group by main_sequence
+
+    </select>
+
+    <select id="queryMainSubjectListByMainSequece" resultType="java.lang.String">
+        SELECT distinct main_subject FROM studentgrade
+        <where>
+            username = #{username} and main_sequence=#{mainSequence}
+        </where>
+    </select>
+
+    <select id="queryScoreByMainSubject" resultType="java.lang.Float">
+        SELECT scores FROM studentgrade
+        <where>
+            username = #{2} and main_sequence=#{0} and main_subject=#{1}
+        </where>
+    </select>
+    <select id="queryScoreListMapByMainSubject" resultType="java.util.Map">
+    SELECT scores,submittime FROM studentgrade
+    <where>
+        username = #{1} and main_subject=#{0}
+    </where>
+    order by main_sequence
+</select>
+    <select id="queryScoreListByMainSubject" resultType="java.lang.String">
+        SELECT scores FROM studentgrade
+        <where>
+            username = #{1} and main_subject=#{0}
+        </where>
+        order by main_sequence
+    </select>
+    <select id="querySubmitTimeByMainSubject" resultType="java.util.Date">
+        SELECT submittime FROM studentgrade
+        <where>
+            username = #{1} and main_subject=#{0}
+        </where>
+        order by main_sequence
+    </select>
+    <select id="querySubmitTimeByMainSequece" parameterType="java.util.List" resultType="java.util.Date">
+        SELECT submittime FROM studentgrade
+        <where>
+            main_sequence in
+            <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+        group by main_sequence order by main_sequence
+    </select>
+
+
+
+</mapper>
