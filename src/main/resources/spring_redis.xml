@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+        <description>REDIS缓存配置</description>
+
+        <!-- JEDIS SHARD 池配置 -->
+        <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+            <constructor-arg index="0" ref="jedisPoolConfig" />
+            <constructor-arg index="1">
+                <list>
+                    <ref bean="jedis.shardInfo.default" />
+                </list>
+            </constructor-arg>
+        </bean>
+
+        <!-- JEDIS连接池配置 -->
+        <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+            <property name="maxTotal" value="100" />
+            <property name="maxIdle" value="20" />
+            <property name="maxWaitMillis" value="5000" />
+            <property name="testOnBorrow" value="true" />
+        </bean>
+
+        <!-- JEDIS SHARD信息配置[START]		在此添加REDIS集群配置 -->
+        <bean id="jedis.shardInfo.default" class="redis.clients.jedis.JedisShardInfo">
+            <constructor-arg index="0" value="127.0.0.1" />
+            <constructor-arg index="1" type="int" value="6379" />
+            <constructor-arg index="2" type="java.lang.String" value="127.0.0.1" />
+        </bean>
+        <!-- JEDIS SHARD信息配置 [END] -->
+
+
+</beans>

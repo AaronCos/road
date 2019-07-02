@@ -32,6 +32,7 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
         <property name="password" value="aaron"/>
     </bean>
 
+
     <!-- 事务的管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
@@ -49,6 +50,7 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 
     <import resource="spring_shiro.xml"></import>
     <import resource="spring_mybatis.xml"></import>
+    <import resource="spring_redis.xml"></import>
 </beans>
 
 

@@ -10,7 +10,7 @@
     </bean>
     <!-- 使用mapper扫描的方式去扫描mybtais的接口，生成实现类 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.**.dao"/>
+        <property name="basePackage" value="com.sswh.**.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 </beans>
