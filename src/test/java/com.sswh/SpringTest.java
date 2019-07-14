@@ -1,7 +1,10 @@
 package com.sswh;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.sswh.dao.IPlatformUserDao;
 import com.sswh.entity.PlatformUser;
+import com.sswh.front.dao.IStudentGradeDao;
+import com.sswh.front.studentgrade.service.IStudentGradeService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -12,10 +15,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.ShardedJedisPool;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by wangchengcheng on 2019/1/12
@@ -25,10 +32,64 @@ import java.util.List;
 public class SpringTest {
     @Autowired
     IPlatformUserDao pdao;
+    @Autowired
+    IStudentGradeDao studentGradeDao;
+    @Autowired
+    IStudentGradeService gradeService;
 
 
     @Resource(name = "securityManager")
     SecurityManager securityManager;
+
+
+    /**
+     * jedis集群获取对象
+     */
+    @Autowired
+    private ShardedJedisPool shardedJedisPool;
+
+    @Test
+    public void testSet() {//
+        if (shardedJedisPool==null) {
+            System.out.println("aaron_kwe");
+        }
+        ShardedJedis jedis = shardedJedisPool.getResource();
+
+        jedis.set("name", "test1");
+        Boolean name = jedis.exists("name");
+        List<String> strings = new ArrayList<>();
+        strings.add("good");
+        strings.add("morning");
+        strings.add("zhangqingqing");
+
+        System.out.println(name);;
+    }
+    @Test
+    public void regPattern(){
+        String regExp = ".+(\\..+)$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher matcher = p.matcher("hel.lo.doc");
+        boolean b = matcher.find();
+        if (b) {
+            System.out.println(b);
+        }
+        System.out.println(matcher.group(0)+"---------"+matcher.group(1).substring(1));
+    }
+
+    @Test
+    public void testStudentGrade(){
+        /*List<String> aaron = studentGradeDao.queryMainSubjectListByMainSequece("000001", "aaron");
+        List<String> mainSequences = studentGradeDao.queryMainSequeceListByUserName("aaron");
+        Float floats = studentGradeDao.queryScoreByMainSubject("000001", "语文", "aaron");
+        List<Map> mapScoreList = studentGradeDao.queryScoreListMapByMainSubject("语文", "aaron");
+        System.out.println(mapScoreList.get(0).get("scores"));
+        List<Date> dates = studentGradeDao.querySubmitTimeByMainSubject("语文", "aaron");
+        List<String> strings = DateToolBag.changeDatesListToStringList(dates);
+        System.out.println(strings.toString());*/
+        List<List<String>> aaron1 = gradeService.source("aaron");
+        String s = JSONUtils.toJSONString(aaron1);
+        System.out.println(s);
+    }
 
 
    /* @BeforeClass

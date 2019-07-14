@@ -95,7 +95,7 @@
 					</div>
 					<div class="icon-right">
 						<h5>学习规划 </h5>
-						<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat..</p>
+						<p>专业的师资为孩子量身定制学习方案，针对性复习，迅速提高成绩</p>
 					</div>
 					<div class="clearfix"> </div>
 
@@ -108,7 +108,7 @@
 					</div>
 					<div class="icon-right">
 						<h5>心理辅导</h5>
-						<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat..</p>
+						<p>守护那份童真，守护那份好奇心，童年很真，青春很美，我们一起护航..</p>
 					</div>
 					<div class="clearfix"> </div>
 
@@ -121,7 +121,7 @@
 					</div>
 					<div class="icon-right">
 						<h5> 走进自然 </h5>
-						<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat..</p>
+						<p>大自然赐予我们幸福，你我一起遇见自然，与自然来次亲密约会..</p>
 					</div>
 					<div class="clearfix"> </div>
 
@@ -134,7 +134,7 @@
 					</div>
 					<div class="icon-right">
 						<h5>拥抱科技</h5>
-						<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat..</p>
+						<p>时不我待，积极应对变化，拥抱科技，享受未来..</p>
 					</div>
 					<div class="clearfix"> </div>
 
