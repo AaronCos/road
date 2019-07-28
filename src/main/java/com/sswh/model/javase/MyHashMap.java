@@ -3,83 +3,63 @@ package com.sswh.model.javase;
 /**
  * Created by wangchengcheng on 2019/7/25
  */
-public class MyHashMap<K,V> {
+public class MyHashMap<K, V> {
 
-    public static void main(String[] args) {
-    float a = 12.0f;
-        System.out.println(isNaN(a));
+    public Entry<K, V>[] table;
+    static final Integer DEFAULT_CAPACITY = 8;
 
-    }
-    public static boolean isNaN(float num){
-        return num != num;
+    public MyHashMap() {
+        this(DEFAULT_CAPACITY);
     }
 
-    private Entry[] table;
-    public static Integer DEFAULT_CAPACITY = 8;
+    public MyHashMap(int size) {
+        table = new Entry[size];
 
-    public MyHashMap(){
-       this(DEFAULT_CAPACITY);
     }
-    public MyHashMap(Integer size){
-        this.table = new Entry[size];
-    }
-    public int size(){
-        return 0;
-    }
-    public V get(Object key){
-        int hash = key.hashCode();
-        int i = intforhash(hash, table.length);
-        for (Entry<K,V> e = table[i]; e != null;e = e.next) {
-            if (e.k.equals(key)) {
-                return e.v;
+    public V get(K key){
+        int i = getI(key);
+        for (Entry<K,V> e=table[i];e != null;e=e.next){
+            if (key.equals(e.key)) {
+                return e.value;
             }
         }
         return null;
-
-    }
-
-    private int intforhash(int hash, int length) {
-        return hash % length;
     }
 
     public V put(K key, V value) {
-        Entry<K, V> entry = new Entry<>(key,value,null);
-        Integer i = getByKey(key, table.length);
-        V oldvalue = value;
-        for(Entry e = table[i];e != null;e = e.next){
-            if (e.k.equals(key)) {
-                e.v = value;
-                return oldvalue;
+        Entry entry = new Entry(key, value, null);
+        int i = getI(key);
+        for (Entry<K, V> e = table[i]; e != null; e = e.next) {
+            V oldValue;
+            if (e.key.equals(key)) {
+                oldValue = e.value;
+                e.value = value;
+                return oldValue;
             }
         }
-        addEntry(key, value, i);
 
+        Entry<K, V> kvEntry = new Entry<>(key, value, table[i]);
+        table[i] = kvEntry;
         return null;
     }
 
-    private void addEntry(K key, V value, Integer i) {
-        Entry<K, V> entryone = new Entry<>(key, value, table[i]);
-        table[i] = entryone;
+    private int getI(K k) {
+        int hash = k.hashCode();
+        return hash % table.length;
     }
 
-    public Integer getByKey(K key,int length){
-        int hash = key.hashCode();
-        return hash % length;
-    }
+    class Entry<K, V> {
+        private K key;
+        private V value;
+        private Entry<K, V> next;
 
-    class Entry<K,V>{
-        private K k;
-        private V v;
-        private Entry<K,V> next;
-
-        public Entry(){
-
+        public Entry() {
         }
-        public Entry(K k,V v,Entry entry){
-            this.k = k;
-            this.v = v;
-            this.next = entry;
+
+        public Entry(K key, V value, Entry<K, V> next) {
+            this.key = key;
+            this.value = value;
+            this.next = next;
         }
     }
-
 }
