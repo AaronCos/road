@@ -27,7 +27,6 @@ public class MyHashMap<K, V> {
     }
 
     public V put(K key, V value) {
-        Entry entry = new Entry(key, value, null);
         int i = getI(key);
         for (Entry<K, V> e = table[i]; e != null; e = e.next) {
             V oldValue;
