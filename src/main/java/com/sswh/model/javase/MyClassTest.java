@@ -7,11 +7,13 @@ import java.util.*;
  */
 public class MyClassTest  {
 
-    public void main(){
+    private void main(){
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> linkedHashMap = new LinkedHashMap<>();
         HashSet<String> strings = new HashSet<>();
         ArrayList<Object> objects = new ArrayList<>();
+
+        MyClassTest[] myClassTests = new MyClassTest[10];
     }
 
 
