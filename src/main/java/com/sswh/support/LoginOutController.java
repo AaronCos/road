@@ -58,17 +58,21 @@ public class LoginOutController {
     }
 
     @RequestMapping(value = "/dologin", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-    @ResponseBody
-    public String subLogin(PlatformUser user, String gotoUrl) {
+    public ModelAndView subLogin(PlatformUser user, String gotoUrl) {
         log.info("username is:{} and password is:{}", user.getUsername(), user.getPassword());
+        ModelAndView mv = new ModelAndView("support/managerpage");
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
-            return e.getMessage();
+
         }
-        return "登陆成功";
+
+
+        mv.addObject("username", token.getUsername());
+
+        return mv;
     }
 
     @RequestMapping(value = "regist")
@@ -94,7 +98,7 @@ public class LoginOutController {
         }
         String password_salt = StringUtil.uuid();
         user.setPassword_salt(password_salt);
-        user.setPassword(new Md5Hash(user.getPassword(),password_salt).toString());
+        user.setPassword(new Md5Hash(user.getPassword(), password_salt).toString());
 
         //2. 加密入库
         Integer registSuccessful = platformUserDao.registUser(user);
@@ -120,7 +124,7 @@ public class LoginOutController {
         return "front/" + taburl;
     }
 
-    @RequestMapping(value = "wang", produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "wang",produces = "application/json;charset=utf-8")
     @ResponseBody
     public String testWang() {
         UsernamePasswordToken token = new UsernamePasswordToken("wang", "123456");
