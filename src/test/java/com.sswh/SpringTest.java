@@ -62,7 +62,7 @@ public class SpringTest {
         strings.add("morning");
         strings.add("zhangqingqing");
 
-        System.out.println(name);;
+        System.out.println(name);
     }
     @Test
     public void regPattern(){
