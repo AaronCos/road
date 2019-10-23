@@ -12,23 +12,26 @@
         <welcome-file>default.htm</welcome-file>
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
+
+
     <listener>
         <listener-class>com.sswh.model.servlet.MyServletContextListener</listener-class>
     </listener>
-    <listener>
+  <!--  <listener>
         <listener-class>com.sswh.model.servlet.MyServletContextAttributeListener</listener-class>
-    </listener>
-    <listener>
+    </listener>-->
+  <!--  <listener>
         <listener-class>com.sswh.model.servlet.MyHttpSessionListener</listener-class>
-    </listener>
+    </listener>-->
+
     <context-param>
         <param-name>log4jConfiguration</param-name>
         <param-value>classpath:log4j2.xml</param-value>
     </context-param>
-    <context-param>
+<!--    <context-param>
         <param-name>dog</param-name>
         <param-value>tao</param-value>
-    </context-param>
+    </context-param>-->
 
     <!-- 配置mvc前端控制器 -->
     <servlet>
@@ -36,7 +39,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:applicationContext.xml</param-value>
+            <param-value>classpath*:applicationContext.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -44,7 +47,9 @@
         <servlet-name>springmvc</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-
+    <listener>
+        <listener-class>com.sswh.platform.visitcount.servlet.VisitCountListener</listener-class>
+    </listener>
     <!-- post请求乱码过滤器 -->
     <filter>
         <filter-name>encoding</filter-name>
@@ -75,6 +80,8 @@
         <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+
 
   <!--  <error-page>
         <error-code>404</error-code>

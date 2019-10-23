@@ -1,74 +1,81 @@
 package com.sswh.front.support;
 
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
 import com.sswh.front.dao.IFrontUserDao;
 import com.sswh.front.entity.CurrentFrontUserEntity;
 import com.sswh.front.entity.FrontUserEntity;
 import com.sswh.utils.StringUtil;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by wangchengcheng on 2019/6/26
  */
-@RestController
+@Controller
 @RequestMapping("front")
 public class FrontLoginOutController {
     @Autowired
     IFrontUserDao frontUserDao;
 
     @RequestMapping("login")
-    public ModelAndView login(HttpServletRequest request, HttpSession session) {
+    public ModelAndView login() {
         ModelAndView mv = new ModelAndView("front/login");
-        mv.addObject("url", "dologin.do");
-        CurrentFrontUserEntity currentUser = FrontUserSessionInfo.getCurrentUser();
-        FrontUserEntity frontUserEntity = new FrontUserEntity();
-        String username = null;
-        if (currentUser != null) {
-            username = currentUser.getUsername();
-            frontUserEntity.setUsername(currentUser.getUsername());
-        }
-        if (StringUtil.isEmpty(username)) {
-            mv.addObject("frontUser", frontUserEntity);
-        } else {
-            mv.addObject("frontUser", frontUserEntity);
-        }
-
-        // mv.addObject("platformUser",currentUser);
+        mv.addObject("url", "jumpToIndex.do");
         return mv;
     }
 
     @RequestMapping(value = "/dologin", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-    private String validateFrontUser(FrontUserEntity user, HttpSession session) {
+    private void validateFrontUser(FrontUserEntity user, HttpSession session, HttpServletResponse response) {
         CurrentFrontUserEntity currentFrontUserEntity = new CurrentFrontUserEntity();
-        List<String> messages = new ArrayList<>();
-        if (user == null) {
-            messages.add("请输入用户信息");
-            return messages.get(0);
+        Map<String,String> map = new HashMap<>();
+        PrintWriter  writer  = null;
+         try {
+             response.setContentType("text/json;charset=utf-8");
+             writer = response.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (user == null || StrUtil.isEmpty(user.getUsername()) || StrUtil.isEmpty(user.getPassword())) {
+            map.put("code","00");
+            map.put("msg","请输入用户名和密码");
+            String s = JSON.toJSONString(map);
+            writer.write(s);
         }
         FrontUserEntity resultUser = findByUserName(user.getUsername());
         Md5Hash md5Hash = new Md5Hash(user.getPassword(), resultUser.getPassword_salt());
-        if (resultUser == null) {
-            messages.add("用户不存在，请重新输入");
-            return messages.get(0);
-        }
         if (resultUser.getPassword().equals(md5Hash.toString())) {
             currentFrontUserEntity.setUsername(resultUser.getUsername());
             session.setAttribute("currentFrontUser", currentFrontUserEntity);
-            return "登陆成功";
-        }else {
-            return "用户不存在，请重新输入";
-        }
 
+            map.put("code","01");
+            map.put("msg","登陆成功");
+            String s = JSON.toJSONString(map);
+            writer.write(s);
+        }else {
+            map.put("code","03");
+            map.put("msg","登陆失败，请重新登录");
+            String s = JSON.toJSONString(map);
+            writer.write(s);
+        }
+        writer.close();
+    }
+    @RequestMapping("jumpToIndex")
+    private String jumpToIndex(HttpServletRequest request){
+        return "redirect:/support/tab/index.do";
     }
 
     @RequestMapping(value = "regist")
@@ -114,6 +121,12 @@ public class FrontLoginOutController {
 
         return frontUser;
     }
-
+   @RequestMapping("logout")
+    private String logout(HttpSession session){
+        if (null != session.getAttribute("currentFrontUser")) {
+           session.removeAttribute("currentFrontUser");
+        }
+        return "redirect:/support/tab/index.do";
+    }
 
 }

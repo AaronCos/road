@@ -1,6 +1,7 @@
 package com.sswh.model.servlet;
 
-import javax.servlet.ServletContext;
+import cn.hutool.cron.CronUtil;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -12,10 +13,7 @@ public class MyServletContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        ServletContext sc = servletContextEvent.getServletContext();
-        String dog = sc.getInitParameter("dog");
-        DogEntity dogEntity = new DogEntity(dog);
-        sc.setAttribute("dog",dogEntity);
+        CronUtil.start();
     }
 
     @Override

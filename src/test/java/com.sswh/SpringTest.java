@@ -61,8 +61,17 @@ public class SpringTest {
         strings.add("good");
         strings.add("morning");
         strings.add("zhangqingqing");
-
-        System.out.println(name);
+        String listName = "list";
+        for (String value : strings) {
+            jedis.lpush(listName,value);
+        }
+        List<String> lrange = jedis.lrange(listName, 0, 12);
+        System.out.println(jedis.lrange(listName, 0, 12));
+        jedis.set("pv",jedis.get("pv"));
+        System.out.println(jedis.incrBy("pv",5));
+        System.out.println(jedis.get("pv"));
+        //   String name1 = jedis.getrange(listName, 0, 12);
+       /// System.out.println(name1);
     }
     @Test
     public void regPattern(){

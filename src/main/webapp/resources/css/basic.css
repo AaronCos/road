@@ -1,0 +1,11 @@
+body{
+    background: url("../../resources/images/banner.jpg") no-repeat;
+}
+top{
+    height: 20px;
+}
+footer1{
+    height: 30px;
+    background: #00FF00;
+    
+}

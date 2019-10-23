@@ -47,6 +47,15 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--项目配置文件-->
+<!--    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/front/**"/>
+            <mvc:exclude-mapping path="/front/login.do"/>
+            <bean class="com.sswh.interceptors.BaseInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
+
 
     <import resource="spring_shiro.xml"></import>
     <import resource="spring_mybatis.xml"></import>

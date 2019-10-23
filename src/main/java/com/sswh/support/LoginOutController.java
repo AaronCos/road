@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
  * Created by wangchengcheng on 2019/3/9
@@ -49,6 +50,11 @@ public class LoginOutController {
         if (StringUtil.isEmpty(username)) {
             mv.addObject("platformUser", platformUser);
         } else {
+            try {
+                respose.sendRedirect(request.getContextPath()+"/support/managerpage.do");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             platformUser.setUsername(username);
             mv.addObject("platformUser", platformUser);
         }
@@ -111,6 +117,14 @@ public class LoginOutController {
         return message;
     }
 
+    @RequestMapping(value = "logout")
+    public void logout(){
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        if (!username.isEmpty()) {
+           subject.logout();
+        }
+    }
 
     @RequiresRoles("admin")
     @RequestMapping(value = "testAdmino")

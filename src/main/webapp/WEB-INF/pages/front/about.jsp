@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-<title>About</title>
+<title>莘深文化—关于我们</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 <meta name="keywords" content="" />
@@ -29,7 +29,9 @@
 <!--// css -->
 <link rel="stylesheet" href="${path}/resources/css/owl.carousel.css" type="text/css" media="all">
 <!-- font-awesome icons -->
-<link href="${path}/resources/css/font-awesome.css" rel="stylesheet">
+<link href="${path}/resources/layui/css/layui.css"  media="all">
+
+	<link href="${path}/resources/css/font-awesome.css" rel="stylesheet">
 <!-- //font-awesome icons -->
 <!-- font -->
 <link href="http://fonts.googleapis.com/css?family=Montserrat:200,200i,300,400,400i,500,600,700" rel="stylesheet">
@@ -43,308 +45,96 @@
 		<jsp:include page="top.jsp"/>
 	</div>
 </div>
-<!-- //banner -->
-<!--/w3_short-->
-<div class="services-breadcrumb">
-	<div class="agile_inner_breadcrumb">
 
-		<ul class="w3_short">
-			<li><a href="index.html">Home</a><span>|</span></li>
-			<li>About</li>
-		</ul>
-	</div>
-</div>
 <!--//w3_short-->
+<div  style="text-align: center">
 
-<!-- /banner_bottom_w3ls_agile -->
-<div class="banner_bottom_w3ls_agile">
-	<div class="banner_bottom_w3ls_info">
-		<h3 class="agile_heading">合适的教育支撑孩子的未来</h3>
-		<p>对待教育，我们从不执念于最好，我们执着于改进我们的方法。</p>
-		<div class="agileits-button">
-			<a href="single.html" class="read scroll hvr-shutter-out-vertical">了解 更多</a>
-		</div>
-	</div>
-</div>
-<!-- //banner_bottom_w3ls_agile -->
-<!-- /services -->
-<div class="agile_services">
-	<div class="col-md-6 agile_services_img_wthree">
-	</div>
-	<div class="col-md-6 agile_inner_grids">
-		<h3 class="agile_heading two">Our Services</h3>
-		<div class="w3ls-markets-grid_top">
-			<div class="col-md-6 w3ls-markets-grid">
-				<div class="agileits-icon-grid">
-					<div class="icon-left">
-						<i class="fa fa-laptop" aria-hidden="true"></i>
-					</div>
-					<div class="icon-right">
-						<h5>Graphic Design </h5>
-						<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat..</p>
-					</div>
-					<div class="clearfix"> </div>
+<div style="margin: 0 auto;">
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+		<legend>一路走来，我们脚踏实地</legend>
+	</fieldset>
+	<ul class="layui-timeline">
+		<li class="layui-timeline-item">
+			<i class="layui-icon layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<h3 class="layui-timeline-title">2019年6月1日</h3>
+				<p>
+					古语有云：凡事谋定而动
+					<br>学习同样需有章法
+					<br>2019年6月，莘深启动"授人以渔"计划
+					<br>帮助广大学子学会规划自己的学习内容，找出知识盲点，针对性学习
+					<i class="layui-icon"></i>
+				</p>
+			</div>
+		</li>
+		<li class="layui-timeline-item">
+			<i class="layui-icon layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<h3 class="layui-timeline-title">2019年1月1日</h3>
+				<p>
+					身心的健康是前行的根本，我们深深的认识到，身心健康的重要性
+					<br>莘深开辟心理教育模块，填补教育板块的确实
+					<br>是年与南医大心理系达成合作，为青少年的健康成长，保驾护航<i class="layui-icon"></i>
+				</p>
+			</div>
+		</li>
+		<li class="layui-timeline-item">
+			<i class="layui-icon layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<h3 class="layui-timeline-title">2018年8月18日</h3>
+				<p>
+					科技的发展日新月异，莘深壮士断腕，拥抱科技的力量，为学员提供个性化的编程教育内容。
+					<br>不枉近百个日日夜夜的殚精竭虑，为的是成功的喜悦
+					<br>无论莘深如何发展，始终秉承着因才施教的理念，带着责任感与使命感努力前行<i class="layui-icon"></i>
+				</p>
+			</div>
+		</li>
+		<li class="layui-timeline-item">
+			<i class="layui-icon layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<h3 class="layui-timeline-title">2018年3月1日</h3>
+				<p>莘深做出全面迎合素质教育的要求
+					<br>丰富学生的寒暑期课余生活
+					<br>与携程旅行达成合作协议
+					<br>确立 "行万里路，读万卷书，求学在路上" 的教育方式
+			    </p>
 
-				</div>
 			</div>
-			<div class="col-md-6 w3ls-markets-grid">
-				<div class="agileits-icon-grid">
-					<div class="icon-left">
-						<i class="fa fa-pencil" aria-hidden="true"></i>
-					</div>
-					<div class="icon-right">
-						<h5>Web Design</h5>
-						<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat..</p>
-					</div>
-					<div class="clearfix"> </div>
-
-				</div>
+		</li>
+		<li class="layui-timeline-item">
+			<i class="layui-icon layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<h3 class="layui-timeline-title">2017年10月1日</h3>
+				<p>莘深成功突破50人</p>
+				<ul>
+					<li>于莘深，这是一份信任，这是一份鼓励，莘深定会全力向前</li>
+					<li>于此同时，莘深确立做合适的教育的目标</li>
+				</ul>
 			</div>
-			<div class="col-md-6 w3ls-markets-grid">
-				<div class="agileits-icon-grid">
-					<div class="icon-left">
-						<i class="fa fa-pied-piper" aria-hidden="true"></i>
-					</div>
-					<div class="icon-right">
-						<h5> Branding </h5>
-						<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat..</p>
-					</div>
-					<div class="clearfix"> </div>
-
-				</div>
+		</li>
+		<li class="layui-timeline-item">
+			<i class="layui-icon layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<h3 class="layui-timeline-title">2017年6月15日</h3>
+				<p>
+					莘深文化艺术培训有限公司成立
+					<br>这一刻，属于莘深，他将砥砺前行
+					<br>他更将承担起他的使命
+					<br>悉心守护天使的成长
+				</p>
 			</div>
-			<div class="col-md-6 w3ls-markets-grid">
-				<div class="agileits-icon-grid">
-					<div class="icon-left">
-						<i class="fa fa-camera-retro" aria-hidden="true"></i>
-					</div>
-					<div class="icon-right">
-						<h5>Photography</h5>
-						<p>Phasellus dapibus felis elit, sed accumsan arcu gravida vitae. Nullam aliquam erat..</p>
-					</div>
-					<div class="clearfix"> </div>
-
-				</div>
+		</li>
+		<li class="layui-timeline-item">
+			<i class="layui-icon layui-timeline-axis"></i>
+			<div class="layui-timeline-content layui-text">
+				<div class="layui-timeline-title">莘深承载着使命向着时代走来</div>
 			</div>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
-	<div class="clearfix"> </div>
-</div>
-<!-- //services -->
-<!-- stats -->
-<div class="stats" id="stats">
-	<div class="container">
-		<div class="agile_inner_info_stats">
-			<div class="col-md-3 w3layouts_stats_left w3_counter_grid">
-				<i class="fa fa-laptop" aria-hidden="true"></i>
-				<p class="counter">45</p>
-				<h3>Projects</h3>
-			</div>
-			<div class="col-md-3 w3layouts_stats_left w3_counter_grid1">
-				<i class="fa fa-smile-o" aria-hidden="true"></i>
-				<p class="counter">165</p>
-				<h3>Members</h3>
-			</div>
-			<div class="col-md-3 w3layouts_stats_left w3_counter_grid2">
-				<i class="fa fa-trophy" aria-hidden="true"></i>
-				<p class="counter">563</p>
-				<h3>Awards</h3>
-			</div>
-			<div class="col-md-3 w3layouts_stats_left w3_counter_grid3">
-				<i class="fa fa-user" aria-hidden="true"></i>
-				<p class="counter">245</p>
-				<h3>Investors</h3>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
-</div>
-<!-- //stats -->
-<!-- team -->
-<div id="team" class="team featured_services">
-	<div class="container">
-		 <h3 class="agile_heading">Our Team</h3>
-		<p class="sub_cap">Phasellus dapibus felis elit, sed accumsan arcu gravida vitae.</p>
-		<div class="agile_inner_info">
-			<div class="col-md-4 w3_agile_team_grid_info">
-			   <img src="${path}/resources/images/team1.jpg" alt=" " class="img-responsive" />
-				<h3>Amanda Seylon</h3>
-				<p>Manager</p>
-			 <div class="agileits_w3layouts_nav_right team_agile _icons">
-					   <ul>
-							<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-							<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-							<li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-							
-						</ul>
-				</div>
-			</div>
-			<div class="col-md-4 w3_agile_team_grid_info">
-				  <img src="${path}/resources/images/team2.jpg" alt=" " class="img-responsive" />
-				<h3>Laura Mark</h3>
-			   <p>Ceo</p>
-				 <div class="agileits_w3layouts_nav_right team_agile _icons">
-					 <ul>
-							<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-							<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-							<li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-							
-						</ul>
-				</div>
-			</div>
-			<div class="col-md-4 w3_agile_team_grid_info">
-				  <img src="${path}/resources/images/team3.jpg" alt=" " class="img-responsive" />
-				<h3>Minnie Lott</h3>
-					<p>Director</p>
-				  <div class="agileits_w3layouts_nav_right team_agile _icons">
-						<ul>
-							<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-							<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-							<li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-							
-						</ul>
-					</div>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
-</div>
-<!-- team -->
-<!-- /services -->
-<div class="featured_services">
-	<div class="container">
-		<h3 class="agile_heading">Featured Services</h3>
-		<p class="sub_cap">Phasellus dapibus felis elit, sed accumsan arcu gravida vitae.</p>
-		<div class="agile_inner_info">
-			<div class="col-md-4 w3_agile_services_grid">
-				<div class="agile_services_grid">
-					<div class="hover06 column">
-						<div>
-							<figure><img src="${path}/resources/images/g2.jpg" alt=" " class="img-responsive"></figure>
-						</div>
-					</div>
-					<div class="agile_services_grid_pos">
-						<i class="fa fa-cubes" aria-hidden="true"></i>
-					</div>
-				</div>
-				<h4>Tempus eu turpis</h4>
-				<p>Lorem ipsum dolor sit amet, do eiusmod tempor incididunt .Aliquam lacus turpis, lobortis quis dolor sed, dignissim rhoncus
-					neque.</p>
-			</div>
-			<div class="col-md-4 w3_agile_services_grid">
-				<div class="agile_services_grid">
-					<div class="hover06 column">
-						<div>
-							<figure><img src="${path}/resources/images/g3.jpg" alt=" " class="img-responsive"></figure>
-						</div>
-					</div>
-					<div class="agile_services_grid_pos">
-						<i class="fa fa-line-chart" aria-hidden="true"></i>
-					</div>
-				</div>
-				<h4>Lobortis quis dolor</h4>
-				<p>Lorem ipsum dolor sit amet, do eiusmod tempor incididunt .Aliquam lacus turpis, lobortis quis dolor sed, dignissim rhoncus
-					neque.</p>
-			</div>
-			<div class="col-md-4 w3_agile_services_grid">
-				<div class="agile_services_grid">
-					<div class="hover06 column">
-						<div>
-							<figure><img src="${path}/resources/images/g6.jpg" alt=" " class="img-responsive"></figure>
-						</div>
-					</div>
-					<div class="agile_services_grid_pos">
-						<i class="fa fa-cog" aria-hidden="true"></i>
-					</div>
-				</div>
-				<h4>Dignissim rhoncus</h4>
-				<p>Lorem ipsum dolor sit amet, do eiusmod tempor incididunt .Aliquam lacus turpis, lobortis quis dolor sed, dignissim rhoncus
-					neque.</p>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
-</div>
-<!-- //services -->
-<!-- /testimonials-->
-<div class="agile_testimonials">
-	<div class="col-md-6 testmonial_agile_info">
-		<h3 class="agile_heading two">What Clients Say</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at placerat ante. Praesent nulla nunc, pretium dapibus
-			efficitur in, auctor eget elit. Lorem ipsum dolor sit amet fusce eget erat nunc..</p>
-		<div class="agileits-button two">
-			<a href="single.html" class="read scroll hvr-shutter-out-vertical">More Details</a>
-		</div>
-	</div>
-	<div class="col-md-6 clients_agile_slider">
-		<div id="owl-demo" class="owl-carousel owl-theme">
-			<div class="item">
-				<div class="agile_tesimonials_content">
-					<div class="about-midd-main">
-						<img class="agile-img" src="${path}/resources/images/t1.png" alt=" " class="img-responsive">
-						<h4>Smith Kevin</h4>
-						<p> consectetur adipiscing elit, sed do eiusmod idunt ut labore. sed do eiusmod tempor incididunt ut labore et dolore.</p>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="agile_tesimonials_content">
-					<div class="about-midd-main">
-						<img class="agile-img" src="${path}/resources/images/t2.png" alt=" " class="img-responsive">
-						<h4>Laura Hill</h4>
-						<p> Lorem ipsum adipiscing elit, sed do eiusmod idunt ut labore. sed do eiusmod tempor incididunt.</p>
-					</div>
-				</div>
-			</div>
-			<div class="item">
-				<div class="agile_tesimonials_content">
-					<div class="about-midd-main">
-						<img class="agile-img" src="${path}/resources/images/t3.png" alt=" " class="img-responsive">
-						<h4>Thomson Doe</h4>
-						<p> Lorem ipsum adipiscing elit, sed do eiusmod idunt ut labore. sed do eiusmod tempor incididunt.</p>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<div class="clearfix"> </div>
-	</div>
-	<div class="clearfix"> </div>
-</div>
-<!-- //testimonials-->
+		</li>
+	</ul>
+</div></div>
+<div style="height: 100px;"></div>
 <!-- footer -->
 <div class="footer">
-	<div class="container">
-		<h2><a href="index.html"><i class="fa fa-magic" aria-hidden="true"></i>  Exec</a></h2>
-		<h3>Subscribe To Our Newsletter</h3>
-		<p class="footer_info_w3ls_agile">Subscribe to our newsletter and we will inform you about newest projects and promotions.</p>
-		<form action="#" method="post">
-			<input type="email" name="email" placeholder="Your email..." required="">
-			<input type="submit" value="Subscribe">
-		</form>
-		<div class="agileits_w3layouts_nav">
-			<div class="agileits_w3layouts_nav_left">
-				<ul>
-					<li class="active"><a href="index.html">Home</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="icons.html">Icons</a></li>
-					<li><a href="mail.html">Mail Us</a></li>
-				</ul>
-			</div>
-			<div class="agileits_w3layouts_nav_right">
-				<ul>
-					<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-					<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-					<li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-					<li><a href="#" class="w3_agile_vimeo"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
-				</ul>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-
-
-
 		<%--<p>Copyright &copy; 2017.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>--%>
 		<jsp:include page="footer.jsp"/>
 	</div>
@@ -379,7 +169,7 @@
 	});
 </script>
 <!-- //carousel -->
-<script src="${path}/resources/js/bootstrap.js"></script>
+<script src="${path}/resources/js/bootstrap/bootstrap.js"></script>
 </body>
 
 </html>

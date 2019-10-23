@@ -18,7 +18,7 @@
 		window.scrollTo(0, 1);
 	}
 	function showLogin(){
-	    parent.location.href="${path}/support/login.do";
+	    parent.location.href="${path}/front/login.do";
 	}
 </script>
 <!-- bootstrap-css -->
@@ -348,37 +348,13 @@
 </div>
 <!-- //testimonials-->
 <!-- footer -->
+
 <div class="footer">
-	<div class="container">
-		<h2><a href="index.html"><i class="fa fa-magic" aria-hidden="true"></i>  Exec</a></h2>
-		<h3>Subscribe To Our Newsletter</h3>
-		<p class="footer_info_w3ls_agile">Subscribe to our newsletter and we will inform you about newest projects and promotions.</p>
-		<form action="#" method="post">
-			<input type="email" name="email" placeholder="Your email..." required="">
-			<input type="submit" value="Subscribe">
-		</form>
-		<div class="agileits_w3layouts_nav">
-			<div class="agileits_w3layouts_nav_left">
-				<ul>
-					<li class="active"><a href="index.html">Home</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="icons.html">Icons</a></li>
-					<li><a href="mail.html">Mail Us</a></li>
-				</ul>
-			</div>
-			<div class="agileits_w3layouts_nav_right">
-				<ul>
-					<li><a href="#" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-					<li><a href="#" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-					<li><a href="#" class="w3_agile_dribble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-					<li><a href="#" class="w3_agile_vimeo"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
-				</ul>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-		<p>Copyright &copy; 2017.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-	</div>
+	<%--<p>Copyright &copy; 2017.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>--%>
+	<jsp:include page="footer.jsp"/>
 </div>
+
+
 <!-- //footer -->
 <script src="${path}/resources/js/jquery-2.1.4.min.js"></script>
 <script src="${path}/resources/js/search.js"></script>
@@ -459,7 +435,7 @@
 	});
 </script>
 <!-- //carousel -->
-<script src="${path}/resources/js/bootstrap.js"></script>
+<script src="${path}/resources/js/bootstrap/bootstrap.js"></script>
 
 </body>
 </html>
