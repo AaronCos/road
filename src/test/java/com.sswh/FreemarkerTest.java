@@ -30,9 +30,10 @@ public class FreemarkerTest {
         //3、准备数据，Map或POJO类型，推荐Map
         Map<String, Object> data = new HashMap<>();
         data.put("test", "第一个Freemarker例子");
+        data.put("good","ftl是如此的简单");
         //4、创建Writer对象，指定输出文件
         Writer writer = new FileWriter("E:/ftl_out/test.txt");
-        //5、生成模板
+        //5、生成模板文件
         template.process(data, writer);
     }
 
