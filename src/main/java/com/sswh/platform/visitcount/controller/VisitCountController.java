@@ -27,6 +27,7 @@ public class VisitCountController {
             ShardedJedis jedis = shardedJedisPool.getResource();
             System.out.println(jedis.get("pv"));
             System.out.println("gggggggggg");
+            System.out.println("hello git");
         }
 
     }
