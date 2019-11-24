@@ -12,8 +12,15 @@ import java.util.List;
  */
 public interface ISubjectGrade {
     /**
+     * 根据登录名查询成绩列表
+     * @param loginname 登录名
+     * @return 各科成绩实体列表
+     */
+    List<SubjectGrade> findByFrontLoginname(String loginname);
+
+    /**
      * 根据用户名查询成绩列表
-     * @param username 用户名
+     * @param username 登录名
      * @return 各科成绩实体列表
      */
     List<SubjectGrade> findByFrontUsername(String username);
@@ -26,7 +33,7 @@ public interface ISubjectGrade {
 
     /**
      * 插入一条成绩信息
-     * @param subjectGrade  成绩实体，该成绩实体必须含有用户的uuid
+     * @param subjectGrade  成绩实体，该成绩实体必须含有用户的登录名loginname
      * @return
      */
     int insertByFrontUserUuid(SubjectGrade subjectGrade);
@@ -53,11 +60,11 @@ public interface ISubjectGrade {
     int deleteByGradeUuids(List<String> gradeUuids);
 
     /**
-     * 根据当前信息的uuid,更新成绩
-     * @param userUuid
+     * 根据当前信息的gradeUuid,更新成绩
+     * @param subjectGrade 此实体中必须包含 gradeUuid
      * @return
      */
-    int updateByFrontUserUuid(String userUuid);
+    int updateByFrontUserUuid(SubjectGrade subjectGrade);
 
 
 }

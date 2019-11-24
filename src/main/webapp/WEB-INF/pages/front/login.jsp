@@ -61,9 +61,9 @@
                         <form action="${url}" method="post" class="login-form" enctype="multipart/form-data"
                               onsubmit="return check();">
                             <div class="form-group">
-                                <label class="sr-only" for="form-username">用户名</label>
-                                <input type="text" name="username" placeholder="用户名称..."
-                                       class="form-username form-control" id="form-username" value="">
+                                <label class="sr-only" for="form-loginname">用户名</label>
+                                <input type="text" name="loginname" placeholder="用户名称..."
+                                       class="form-username form-control" id="form-loginname" value="">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">密码</label>
@@ -87,9 +87,9 @@
 <script>
     function check() {
         var result = true;
-        let username = $('#form-username').val();
+        let loginname = $('#form-loginname').val();
         let password = $('#form-password').val();
-        if (username == '' || password == '') {
+        if (loginname == '' || password == '') {
             layer.alert("用户名和密码不能为空",{offset:'180px'});
             return false;
         }
@@ -99,7 +99,7 @@
             type: "post",
             cache:"false",
             data: {
-                "username":username,
+                "loginname":loginname,
                 "password":password
             },
             success: function (data) {

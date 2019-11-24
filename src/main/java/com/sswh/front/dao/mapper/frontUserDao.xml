@@ -5,46 +5,56 @@
 
 <mapper namespace="com.sswh.front.dao.IFrontUserDao">
 
-    <insert id="registUser" parameterType="com.sswh.front.entity.FrontUserEntity" >
-	<!--<selectKey resultType="java.lang.Integer" keyProperty="iid" keyColumn="t_iid">
-		select t_iid from
-	</selectKey>-->
-	INSERT INTO FRONTUSER(username,password,password_salt)
-	VALUES(#{username},#{password},#{password_salt});
-	</insert>
+    <insert id="registUser" parameterType="com.sswh.front.entity.FrontUserEntity">
+        <!--<selectKey resultType="java.lang.Integer" keyProperty="iid" keyColumn="t_iid">
+            select t_iid from
+        </selectKey>-->
+        INSERT INTO FRONTUSER(loginname,password,password_salt)
+        VALUES(#{loginname},#{password},#{password_salt});
+    </insert>
+    <update id="updateByLoginname">
+        update frontuser
+        <trim prefix="set" suffixOverrides=",">
+            <if test="username!=null">username=#{username},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="password_salt!=null">password_salt=#{password_salt},</if>
+        </trim>
+        loginname = #{loginname}
 
-	<delete id="deleteByUserId" parameterType="int">
-		DELETE FROM FRONTUSER
-		<where>
-			iid=#{iid}
-		</where>
-	</delete>
+    </update>
 
-	<select id="getPasswordByUserName" parameterType="string" resultType="string">
-		SELECT password FROM FRONTUSER
-		<where>
-			username = #{username}
-		</where>
-	</select>
+    <delete id="deleteByUserId" parameterType="int">
+        DELETE FROM FRONTUSER
+        <where>
+            iid=#{iid}
+        </where>
+    </delete>
 
-	<select id="getPasswordSaltByUserName" parameterType="string" resultType="string">
-		SELECT password_salt FROM FRONTUSER
-		<where>
-			username = #{username}
-		</where>
-	</select>
-	<select id="findBaseUserInfo" parameterType="string" resultType="com.sswh.front.entity.FrontUserEntity">
-			SELECT iid,username,password,password_salt FROM frontuser
-			<where>
-				username like #{%username%}
-			</where>
-	</select>
-	<select id="findCountByUsername" parameterType="string" resultType="int">
-		SELECT COUNT(*) FROM frontuser
-		<where>
-			username like #{%username%}
-		</where>
-	</select>
+    <select id="getPasswordByLoginame"  resultType="string">
+        SELECT password FROM FRONTUSER
+        <where>
+            loginname = #{loginname}
+        </where>
+    </select>
 
+    <select id="getPasswordSaltByLoginname"  resultType="string">
+        SELECT password_salt FROM FRONTUSER
+        <where>
+            loginname = #{loginname}
+        </where>
+    </select>
 
+    <select id="findCountByLoginname"  resultType="int">
+        SELECT COUNT(*) FROM frontuser
+        <where>
+            loginname = #{loginname}
+        </where>
+    </select>
+
+    <select id="findByLoginName" resultType="com.sswh.front.entity.FrontUserEntity">
+        SELECT iid,loginname,username,password,password_salt FROM frontuser
+        <where>
+            loginname like #{%loginname%}
+        </where>
+    </select>
 </mapper>

@@ -15,9 +15,9 @@ function CheckItem(obj)
 	obj.parentNode.className = "";
 	var msgBox = obj.parentNode.getElementsByTagName("span")[0];
 	switch(obj.name) {
-	case "userName":
+	case "loginname":
 		if(obj.value == "") {
-			msgBox.innerHTML = "用户名不能为空";
+			msgBox.innerHTML = "登录名不能为空";
 			msgBox.className = "error";
 			return false;
 		}

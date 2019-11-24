@@ -63,8 +63,8 @@
                     <div class="form-bottom">
                         <form role="form" action="${url}" method="post" class="login-form">
                             <div class="form-group">
-                                <label class="sr-only" for="form-username">用户名</label>
-                                <input type="text" name="username" placeholder="用户名称..." class="form-username form-control" id="form-username"  onfocus="FocusItem(this)"
+                                <label class="sr-only" for="form-loginname">用户名</label>
+                                <input type="text" name="loginname" placeholder="用户名称..." class="form-loginname form-control" id="form-loginname"  onfocus="FocusItem(this)"
                                        onblur="CheckItem(this);" value=""><span id=""></span>
                             </div>
                             <div class="form-group">

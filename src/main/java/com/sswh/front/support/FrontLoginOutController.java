@@ -49,16 +49,16 @@ public class FrontLoginOutController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (user == null || StrUtil.isEmpty(user.getUsername()) || StrUtil.isEmpty(user.getPassword())) {
+        if (user == null || StrUtil.isEmpty(user.getLoginname()) || StrUtil.isEmpty(user.getPassword())) {
             map.put("code","00");
             map.put("msg","请输入用户名和密码");
             String s = JSON.toJSONString(map);
             writer.write(s);
         }
-        FrontUserEntity resultUser = findByUserName(user.getUsername());
+        FrontUserEntity resultUser = findByUserName(user.getLoginname());
         Md5Hash md5Hash = new Md5Hash(user.getPassword(), resultUser.getPassword_salt());
         if (resultUser.getPassword().equals(md5Hash.toString())) {
-            currentFrontUserEntity.setUsername(resultUser.getUsername());
+            currentFrontUserEntity.setLoginname(resultUser.getLoginname());
             session.setAttribute("currentFrontUser", currentFrontUserEntity);
 
             map.put("code","01");
@@ -93,8 +93,8 @@ public class FrontLoginOutController {
             message = "请填写用户信息";
             return message;
         }
-        //1. 判断此用户名称是否已经存在
-        Integer count = frontUserDao.findCountByUsername(user.getUsername());
+        //1. 判断此登录名称是否已经存在
+        Integer count = frontUserDao.findCountByLoginname(user.getLoginname());
         if (count > 0) {
             message = "当前登录名已存在，请重新输入";
             return message;
@@ -112,12 +112,12 @@ public class FrontLoginOutController {
             //endregion
         }
 
-        message = "注册成功，欢迎：" + user.getUsername();
+        message = "注册成功，欢迎：" + user.getLoginname();
         return message;
     }
 
     private FrontUserEntity findByUserName(String username) {
-        FrontUserEntity frontUser = frontUserDao.findBaseUserInfo(username);
+        FrontUserEntity frontUser = frontUserDao.findByLoginName(username);
 
         return frontUser;
     }
