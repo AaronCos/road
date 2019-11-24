@@ -47,9 +47,6 @@
         <servlet-name>springmvc</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-    <listener>
-        <listener-class>com.sswh.platform.visitcount.servlet.VisitCountListener</listener-class>
-    </listener>
     <!-- post请求乱码过滤器 -->
     <filter>
         <filter-name>encoding</filter-name>
