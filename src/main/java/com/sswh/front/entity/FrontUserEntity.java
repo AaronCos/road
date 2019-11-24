@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class FrontUserEntity {
 	private int iid;
-	private String frontUserUuid;
+	private String loginname;
 	private String username;
 	private String password;
 	private String password_salt;
@@ -36,13 +36,7 @@ public class FrontUserEntity {
 		this.iid = iid;
 	}
 
-	public String getFrontUserUuid() {
-		return frontUserUuid;
-	}
 
-	public void setFrontUserUuid(String frontUserUuid) {
-		this.frontUserUuid = frontUserUuid;
-	}
 
 	public String getUsername() {
 		return username;
@@ -162,5 +156,13 @@ public class FrontUserEntity {
 
 	public void setIsStudent(int isStudent) {
 		this.isStudent = isStudent;
+	}
+
+	public String getLoginname() {
+		return loginname;
+	}
+
+	public void setLoginname(String loginname) {
+		this.loginname = loginname;
 	}
 }
