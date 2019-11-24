@@ -5,11 +5,13 @@ package com.sswh.entity;
  */
 public class PlatformUser {
     private long iid;
+    private String userUuid;
     private String username;
     private String password;
     private String mobilePhone;
     private String idCard;//个人身份证
     private String password_salt;//盐值
+
 
     public PlatformUser() {
     }
@@ -60,6 +62,14 @@ public class PlatformUser {
 
     public void setPassword_salt(String password_salt) {
         this.password_salt = password_salt;
+    }
+
+    public String getUserUuid() {
+        return userUuid;
+    }
+
+    public void setUserUuid(String userUuid) {
+        this.userUuid = userUuid;
     }
 
     @Override

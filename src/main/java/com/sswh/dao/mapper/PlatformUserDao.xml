@@ -5,38 +5,37 @@
 
 <mapper namespace="com.sswh.dao.IPlatformUserDao">
 
-    <insert id="registUser" parameterType="com.sswh.entity.PlatformUser">
-        <!--<selectKey resultType="java.lang.Integer" keyProperty="iid" keyColumn="t_iid">
-            select t_iid from
-        </selectKey>-->
-        INSERT INTO t_platformuser(t_username,t_password,t_mobilephone,t_idcard,t_password_salt)
-        VALUES(#{username},#{password},#{mobilePhone},#{idCard},#{password_salt});
-    </insert>
-
     <select id="findByIid" parameterType="long" resultMap="seeShare">
-        select t_iid, t_username, t_password, t_mobilephone, t_idcard
-        from t_platformuser
-        where t_iid = #{iid}
+        select iid, username, password, mobilephone, idcard
+        from platformuser
+        <where>
+            iid = #{iid}
+        </where>
     </select>
+
+    <insert id="registUser" parameterType="com.sswh.entity.PlatformUser">
+        INSERT INTO platformuser(useruuid,username,password,mobilephone,idcard,password_salt)
+        VALUES(#{userUuid},#{username},#{password},#{mobilePhone},#{idCard},#{password_salt});
+    </insert>
     <select id="findByIids" resultMap="seeShare">
-        select t_iid,t_username,t_password,t_mobilephone,t_idcard from t_platformuser where t_iid in
+        select iid,username,password,mobilephone,idcard from platformuser where iid in
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>
     <resultMap id="seeShare" type="com.sswh.entity.PlatformUser">
-        <id column="t_iid" property="iid"/>
-        <result column="t_username" property="username"/>
-        <result column="t_password" property="password"/>
-        <result column="t_mobilephone" property="mobilePhone"/>
-        <result column="t_idcard" property="idCard"/>
-        <result column="t_password_salt" property="password_salt"/>
+        <id column="iid" property="iid"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="mobilephone" property="mobilePhone"/>
+        <result column="idcard" property="idCard"/>
+        <result column="password_salt" property="password_salt"/>
     </resultMap>
     <!-- 插入物品信息 -->
-    <insert id="registUsers" parameterType="java.util.List">
-        insert into t_platformuser
+    <insert id="registUsers"  parameterType="java.util.List">
+        insert into platformuser
         (
-        t_username, t_password, t_mobilephone, t_idcard,t_password_salt
+        username, password, mobilephone, idcard,password_salt
         )
         values
         <foreach collection="list" item="item" index="index" separator=",">
@@ -50,18 +49,26 @@
         </foreach>
     </insert>
     <select id="findByUsername" parameterType="java.lang.String" resultMap="seeShare">
-        select t_iid, t_username, t_password, t_mobilephone, t_idcard, t_password_salt
-        from t_platformuser
-        where t_username like #{username}
+        select iid, username, password, mobilephone, idcard, password_salt
+        from platformuser
+        where username like #{username}
     </select>
     <select id="findCountByUsername" parameterType="java.lang.String" resultType="int">
-        select count(*)
-        from t_platformuser
-        where t_username like #{username}
+        SELECT count(*)
+        FROM platformuser
+        <where>
+            <if test="_parameter != null">
+                username like #{username}
+            </if>
+        </where>
     </select>
     <select id="findByIdCard" parameterType="java.lang.String" resultMap="seeShare">
-        select t_iid, t_username, t_password, t_mobilephone, t_idcard, t_password_salt
-        from t_platformuser
-        where t_idcard = #{idCard}
+        select iid, username, password, mobilephone, idcard, password_salt
+        from platformuser
+        <where>
+            <if test="_parameter != null">
+                idcard = #{idCard}
+            </if>
+        </where>
     </select>
 </mapper>

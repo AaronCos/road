@@ -3,5 +3,5 @@ package com.sswh.front.dao;
 /**
  * Created by wangchengcheng on 2019/6/26
  */
-public class IUserCenterDao {
+public interface IUserCenterDao {
 }

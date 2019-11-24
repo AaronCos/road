@@ -51,7 +51,7 @@ public class LoginOutController {
             mv.addObject("platformUser", platformUser);
         } else {
             try {
-                respose.sendRedirect(request.getContextPath()+"/support/managerpage.do");
+                respose.sendRedirect(request.getContextPath() + "/support/managerpage.do");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -74,10 +74,7 @@ public class LoginOutController {
         } catch (AuthenticationException e) {
 
         }
-
-
         mv.addObject("username", token.getUsername());
-
         return mv;
     }
 
@@ -105,24 +102,23 @@ public class LoginOutController {
         String password_salt = StringUtil.uuid();
         user.setPassword_salt(password_salt);
         user.setPassword(new Md5Hash(user.getPassword(), password_salt).toString());
-
+        user.setUserUuid(StringUtil.uuid());
         //2. 加密入库
         Integer registSuccessful = platformUserDao.registUser(user);
         if (registSuccessful < 1) {
             message = "注册失败";
             return message;
         }
-
         message = "注册成功，欢迎：" + user.getUsername();
         return message;
     }
 
     @RequestMapping(value = "logout")
-    public void logout(){
+    public void logout() {
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
         if (!username.isEmpty()) {
-           subject.logout();
+            subject.logout();
         }
     }
 
@@ -138,7 +134,7 @@ public class LoginOutController {
         return "front/" + taburl;
     }
 
-    @RequestMapping(value = "wang",produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "wang", produces = "application/json;charset=utf-8")
     @ResponseBody
     public String testWang() {
         UsernamePasswordToken token = new UsernamePasswordToken("wang", "123456");
@@ -148,5 +144,4 @@ public class LoginOutController {
         System.out.println(authenticated);
         return "登陆成功";
     }
-
 }

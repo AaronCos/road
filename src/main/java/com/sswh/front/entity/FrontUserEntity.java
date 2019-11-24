@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class FrontUserEntity {
 	private int iid;
+	private String frontUserUuid;
 	private String username;
 	private String password;
 	private String password_salt;
@@ -21,6 +22,7 @@ public class FrontUserEntity {
 	private String year;
 	private String month;
 	private String day;
+	private int isStudent = 0;// 0、非学生 1、学生
 	public FrontUserEntity() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -32,6 +34,14 @@ public class FrontUserEntity {
 
 	public void setIid(int iid) {
 		this.iid = iid;
+	}
+
+	public String getFrontUserUuid() {
+		return frontUserUuid;
+	}
+
+	public void setFrontUserUuid(String frontUserUuid) {
+		this.frontUserUuid = frontUserUuid;
 	}
 
 	public String getUsername() {
@@ -144,5 +154,13 @@ public class FrontUserEntity {
 
 	public void setDay(String day) {
 		this.day = day;
+	}
+
+	public int getIsStudent() {
+		return isStudent;
+	}
+
+	public void setIsStudent(int isStudent) {
+		this.isStudent = isStudent;
 	}
 }
