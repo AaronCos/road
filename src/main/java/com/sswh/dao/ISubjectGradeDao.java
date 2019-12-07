@@ -1,6 +1,7 @@
 package com.sswh.dao;
 
 import com.sswh.entity.SubjectGrade;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @Date Created in 16:21 2019/11/24
  * @Modeified by:
  */
-public interface ISubjectGrade {
+public interface ISubjectGradeDao {
     /**
      * 根据登录名查询成绩列表
      * @param loginname 登录名
@@ -23,7 +24,7 @@ public interface ISubjectGrade {
      * @param username 登录名
      * @return 各科成绩实体列表
      */
-    List<SubjectGrade> findByFrontUsername(String username);
+    List<SubjectGrade> findByFrontUsername(@Param("username") String username);
 
     /**
      * 查询所有各科成绩列表
@@ -67,4 +68,5 @@ public interface ISubjectGrade {
     int updateByFrontUserUuid(SubjectGrade subjectGrade);
 
 
+    void updateSubjectGrade(@Param("iid") String iid,@Param("subject") String subject,@Param("grade") String grade);
 }

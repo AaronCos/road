@@ -16,7 +16,7 @@ public class SubjectGrade {
     /**
      * 学生姓名
      */
-    private String name;
+    private String username;
 
     /**
      * 语文成绩保留一位小数
@@ -30,6 +30,8 @@ public class SubjectGrade {
     private String geography;
     private String biology;
     private String polity;
+    private String month;
+    private String times;
     /**
      * 创建时间更新时间
      */
@@ -42,6 +44,9 @@ public class SubjectGrade {
      * 排序id 从1开始，若未排序置为0
      */
     private int orderId = 0;
+
+    public SubjectGrade() {
+    }
 
     public int getIid() {
         return iid;
@@ -68,13 +73,7 @@ public class SubjectGrade {
     }
 
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getChinese() {
         return chinese;
@@ -171,5 +170,29 @@ public class SubjectGrade {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getTimes() {
+        return times;
+    }
+
+    public void setTimes(String times) {
+        this.times = times;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -27,9 +27,9 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <!--<property name="driverClass" value="com.mysql.jdbc.Driver"/>-->
         <property name="driverClass" value="net.sf.log4jdbc.DriverSpy"/>
-        <property name="jdbcUrl" value="jdbc:log4jdbc:mysql://localhost:3306/easybuy"/>
+        <property name="jdbcUrl" value="jdbc:log4jdbc:mysql://localhost:3306/sswh?useUnicode=true&amp;characterEncoding=UTF-8"/>
         <property name="user" value="root"/>
-        <property name="password" value="aaron"/>
+        <property name="password" value="653415"/>
     </bean>
 
 

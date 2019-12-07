@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sswh.dao.ISubjectGradeDao">
+    <insert id="insertByFrontUserUuid"></insert>
+    <insert id="insertListByFrontUserUuid"></insert>
+    <update id="updateByFrontUserUuid"></update>
+    <update id="updateSubjectGrade"> update subjectgrade set ${subject} = #{grade} where iid = #{iid}</update>
+    <delete id="deleteByGradeUuid"></delete>
+    <delete id="deleteByGradeUuids"></delete>
+    <select id="findByFrontLoginname" resultType="com.sswh.entity.SubjectGrade">
+      select a.username,a.chinese,a.math,a.english,a.physics,a.chemistry,a.history,a.geography,a.biology,a.polity from subjectgrade a where 1=1
+      <if test="loginname!='' ">
+       and  a.loginname = #{loginname}
+      </if>
+
+    </select>
+    <select id="findAllSubjectGrade" resultType="com.sswh.entity.SubjectGrade"></select>
+    <select id="findByFrontUsername" resultType="com.sswh.entity.SubjectGrade">
+        select a.iid,a.username,a.chinese,a.math,a.english,a.physics,a.chemistry,a.history,a.geography,a.biology,a.polity,a.month,a.times from subjectgrade a where 1=1
+        <if test="username!='' and username!=null  ">
+         and   a.username = #{username}
+        </if>
+
+    </select>
+</mapper>
