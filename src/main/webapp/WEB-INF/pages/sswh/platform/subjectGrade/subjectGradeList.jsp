@@ -24,16 +24,16 @@
 <body>
 
 <blockquote class="layui-elem-quote news_search">
-    <div class="layui-row">
+    <div class="layui-row" id="search">
         <form class="layui-form layui-col-md12 x-so" id="grade_search">
             姓名:
             <div class="layui-input-inline">
-                <input type="text" name="username"  autocomplete="off"   class="layui-input"  v-model='username'>
+                <input type="text" name="username"  autocomplete="off"   class="layui-input" v-model="username"  ref="username">
             </div>
 
             月份:
             <div class="layui-input-inline">
-                <input type="text" name="month" id="month" lay-verify="date"  autocomplete="off" class="layui-input" ref='month'>
+                <input type="text" name="month" id="month" lay-verify="date"  autocomplete="off" class="layui-input" v-model="month" ref='month'>
             </div>
 
             <button id="search" class="layui-btn" lay-submit
@@ -50,13 +50,15 @@
 </table>
 
 <script>
-    new Vue({
-        el: "#grade_search",
 
-        data: {
-            username: null,
-            month: null
+  var search =  new Vue({
+        el: "#search",
+        data(){
+            return {
+                username: "王碧渊",
+                month : '201911'
 
+            }
         }
     })
 
@@ -65,14 +67,16 @@
             layer = layui.layer,
             form = layui.form,
             laypage = layui.laypage;
-        //var username = this.$ref.username.value;
-       // layer.msg(username);
-        var username = this.$refs.username.value;
+
+        var username = search.$refs.username.value;
+        var month = search.$refs.month.value;
+
+         //username = "王碧渊";
         table.render({
             elem: '#studentScore'
             ,url:'findByFrontUsername.do'
             ,method:'POST'
-            ,where : { username : username , month : '201910' }
+            ,where : { username : username , month : month }
             ,page: true
             ,limit:10
             //,contentType: 'application/json'
