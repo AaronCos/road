@@ -33,15 +33,27 @@ public class SubjectGradeController {
         return modelAndView;
     }
 
+    @RequestMapping(value="/addStudentGrade")
+    public ModelAndView addStudentGrade() {
+        System.out.println("hello world");
+        ModelAndView modelAndView = new ModelAndView("sswh/platform/subjectGrade/addStudentGrade");
+        // String loginname = "";
+        //List<SubjectGrade> gradeList = gradeService.findByFrontLoginname(loginname);
+        // modelAndView.addObject("gradeList",gradeList);
+        return modelAndView;
+    }
+
     @RequestMapping(value="/findByFrontUsername",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     @ResponseBody
     public JSONObject findByFrontUsername(String username,String month) {
 
-        List<SubjectGrade> gradeList = gradeService.findByFrontUsername(username);
+        List<SubjectGrade> gradeList = gradeService.findByFrontUsername(username,month);
         System.out.println("size:"+gradeList.size());
+        System.out.println("111111111112");
         JSONObject json = new JSONObject();
         json.put("code","0");
         json.put("msg","");
+        json.put("count",gradeList.size());
         json.put("data", gradeList);
 
         return json;
@@ -50,8 +62,28 @@ public class SubjectGradeController {
     @RequestMapping(value="/updateSubjectGrade")
     @ResponseBody
     public void updateSubjectGrade(String iid,String subject,String grade) {
-        System.out.println("iid:"+iid);
+
         gradeService.updateSubjectGrade(iid,subject,grade);
 
+    }
+
+    @RequestMapping(value="/addSubjectGrade")
+    @ResponseBody
+    public JSONObject addSubjectGrade(String name,String month,String chinese,String math,String english,String biology,String physics,String chemistry,String history,String geography,String polity,String times) {
+
+       boolean success =  gradeService.addSubjectGrade(name,month,chinese,math,english,biology,physics,chemistry,history,geography,polity,times);
+       JSONObject json = new JSONObject();
+        json.put("success",success);
+        return json;
+    }
+
+    @RequestMapping(value="/deleteSubjectGrade")
+    @ResponseBody
+    public JSONObject deleteSubjectGrade(String ids) {
+
+        boolean success =  gradeService.deleteSubjectGrade(ids);
+        JSONObject json = new JSONObject();
+        json.put("success",success);
+        return json;
     }
 }

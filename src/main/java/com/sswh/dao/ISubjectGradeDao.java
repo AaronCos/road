@@ -24,7 +24,7 @@ public interface ISubjectGradeDao {
      * @param username 登录名
      * @return 各科成绩实体列表
      */
-    List<SubjectGrade> findByFrontUsername(@Param("username") String username);
+    List<SubjectGrade> findByFrontUsername(@Param("username") String username,@Param("month") String month);
 
     /**
      * 查询所有各科成绩列表
@@ -69,4 +69,10 @@ public interface ISubjectGradeDao {
 
 
     void updateSubjectGrade(@Param("iid") String iid,@Param("subject") String subject,@Param("grade") String grade);
+
+    boolean addSubjectGrade(@Param("name") String name, @Param("month") String month, @Param("chinese") String chinese, @Param("math") String math,
+                            @Param("english") String english, @Param("biology") String biology, @Param("physics") String physics, @Param("chemistry") String chemistry,
+                            @Param("history") String history, @Param("geography") String geography, @Param("polity") String polity, @Param("times")String times);
+
+    boolean deleteSubjectGrade( @Param("ids")String ids);
 }

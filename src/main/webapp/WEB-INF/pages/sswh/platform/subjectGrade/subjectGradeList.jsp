@@ -15,10 +15,16 @@
     <script src="${path}/resources/js/vue.js" charset="utf-8"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
-
+<style>
+    .layui-table-cell .layui-form-checkbox[lay-skin="primary"]{
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>
 <script type="text/html" id="toolbarDemo">
-
-    <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon"></i>添加</button>
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
+        <button class="layui-btn layui-btn-sm" lay-event="del">删除</button>
     </div>
 </script>
 <body>
@@ -33,16 +39,16 @@
 
             月份:
             <div class="layui-input-inline">
-                <input type="text" name="month" id="month" lay-verify="date"  autocomplete="off" class="layui-input" v-model="month" ref='month'>
+                <input type="text" name="month" id="month"   autocomplete="off" class="layui-input" v-model="month" ref='month'>
             </div>
 
-            <button id="search" class="layui-btn" lay-submit
+            <button class="layui-btn" lay-submit
                     lay-filter="gradeSearch">
                 <i class="layui-icon">&#xe615;</i>
             </button>
         </form>
     </div>
-    <%--<table class="layui-hide" id="complainTable" lay-filter="complainList"></table>--%>
+    <table class="layui-hide" id="complainTable" lay-filter="complainList"></table>
 </blockquote>
 
 <table class="layui-table"  id="studentScore" lay-filter="studentScore">
@@ -50,23 +56,30 @@
 </table>
 
 <script>
-
+  //vue初始化
   var search =  new Vue({
         el: "#search",
         data(){
             return {
-                username: "王碧渊",
-                month : '201911'
+                username: "",
+                month : ""
 
             }
         }
     })
-
-    layui.use(['table','layer','form','laypage'], function(){
+    //初始化表格
+    layui.use(['table','layer','laypage','laydate','form'], function(){
         var table = layui.table,
             layer = layui.layer,
             form = layui.form,
-            laypage = layui.laypage;
+            laypage = layui.laypage,
+            laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#month',
+            type : 'month',
+            format: 'yyyyMM'
+        });
 
         var username = search.$refs.username.value;
         var month = search.$refs.month.value;
@@ -80,7 +93,7 @@
             ,page: true
             ,limit:10
             //,contentType: 'application/json'
-            //,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             ,cols: [[
                 {field:'iid',type:'checkbox', width:80, title: 'ID', sort: true}
@@ -98,6 +111,78 @@
             ]]
             ,limits: [5,10,20,50]
         });
+
+        //监听头部工具栏事件
+        table.on('toolbar(studentScore)', function(obj){
+
+            var checkStatus = table.checkStatus(obj.config.id);
+
+            switch(obj.event){
+                case 'add':
+                  var newWin =  layer.open({
+                        type: 2,
+                        title: "添加学生成绩",
+                        area: ['35%', '70%'],
+                        fix: false,
+                        maxmin: true,
+                        shadeClose: true,
+                        shade: 0.4,
+                        skin: 'layui-layer-rim',
+                        content:["addStudentGrade.do", "no"],
+                        success: function(layer, newWin) { //弹窗成功后回调
+                            $('.quxiao').on('click', function () { //注意 这句话要在你弹窗完成后
+                                layer.close(newWin); //关闭index
+                            });
+                        }
+                    });
+                  break;
+                case  'del' :
+                    console.log(checkStatus.data);
+                    if(checkStatus.data.length==0){
+                        layer.alert("请先勾选学生");
+                    }else{
+                        var ids = "";
+                        for (var i = 0; i < checkStatus.data.length; i++) {
+                            if(i!=checkStatus.data.length-1){
+                                ids = ids  + checkStatus.data[i].iid + ",";
+                            }else{
+                                ids = ids  + checkStatus.data[i].iid ;
+                            }
+                            let param = new URLSearchParams();
+                            param.append("ids",ids);
+
+                            axios.post('/complat/subjectGrade/deleteSubjectGrade.do', param)
+                                .then(function (response) {
+                                    if(response.data.success){
+                                        layer.alert("删除成功！") ;
+                                        var $ = layui.$;
+                                        table.reload('studentScore', {
+                                            page: {
+                                                curr: $(".layui-laypage-em").next().html()
+                                            },
+                                            where: {
+                                                username:$("#username").val(),
+                                                month:$("#month").val()
+                                            },
+                                            method: 'post',
+                                            //contentType: "application/json;charset=utf-8",
+                                            url: 'findByFrontUsername.do',
+                                        });
+                                    }else{
+                                        layer.alert("删除失败，请稍后再试！") ;
+                                    }
+
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                });
+                        }
+                    }
+                    break;
+
+            };
+        });
+
         //监听表格编辑事件
         table.on('edit(studentScore)', function(obj){
             var value = obj.value //得到修改后的值
@@ -119,13 +204,13 @@
 
 
         });
-
+        //检索事件
         form.render();
         form.on('submit(gradeSearch)', function(data) {
             var formData = data.field;
             console.debug(formData);
             var username = formData.username;
-
+            var month = formData.month;
 
             table.reload('studentScore', {
                 page: {
@@ -133,7 +218,7 @@
                 },
                 where: {
                     username:username,
-                    month:'201910'
+                    month:month
                 },
                 method: 'post',
                 //contentType: "application/json;charset=utf-8",
@@ -143,16 +228,8 @@
         });
 
 
-        //监听头部工具栏事件
-        table.on('toolbar(test)', function(obj){
 
-            switch(obj.event){
-                case 'query':
-                    layer.alert('发送查询请求');
-                    break;
 
-            };
-        });
     });
 
 

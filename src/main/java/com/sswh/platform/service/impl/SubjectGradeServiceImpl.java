@@ -18,9 +18,9 @@ public class SubjectGradeServiceImpl implements SubjectGradeService {
     }
 
     @Override
-    public List<SubjectGrade> findByFrontUsername(String username) {
+    public List<SubjectGrade> findByFrontUsername(String username,String month) {
 
-        List<SubjectGrade> gradeList = gradeDao.findByFrontUsername(username);
+        List<SubjectGrade> gradeList = gradeDao.findByFrontUsername(username,month);
         return gradeList;
     }
 
@@ -28,5 +28,17 @@ public class SubjectGradeServiceImpl implements SubjectGradeService {
     public void updateSubjectGrade(String iid, String subject, String grade) {
 
         gradeDao.updateSubjectGrade(iid,subject,grade);
+    }
+
+    @Override
+    public boolean addSubjectGrade(String name, String month, String chinese, String math, String english, String biology, String physics, String chemistry, String history, String geography, String polity, String times) {
+        boolean success = gradeDao.addSubjectGrade(name,month,chinese,math,english,biology,physics,chemistry,history,geography,polity,times);
+        return success;
+    }
+
+    @Override
+    public boolean deleteSubjectGrade(String ids) {
+        boolean success = gradeDao.deleteSubjectGrade(ids);
+        return success;
     }
 }
