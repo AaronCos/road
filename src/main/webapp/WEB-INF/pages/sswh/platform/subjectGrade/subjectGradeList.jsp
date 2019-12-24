@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${path}/resources/layui/css/layui.css"  media="all">
     <script src="${path}/resources/layui/layui.js" charset="utf-8"></script>
     <script src="${path}/resources/js/vue.js" charset="utf-8"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="${path}/resources/js/axios.min.js"></script>
 </head>
 <style>
     .layui-table-cell .layui-form-checkbox[lay-skin="primary"]{

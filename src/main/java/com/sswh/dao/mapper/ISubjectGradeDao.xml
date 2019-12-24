@@ -30,7 +30,7 @@
     <select id="findByFrontUsername" resultType="com.sswh.entity.SubjectGrade">
         select a.iid,a.username,a.chinese,a.math,a.english,a.physics,a.chemistry,a.history,a.geography,a.biology,a.polity,a.month,a.times from subjectgrade a where 1=1
         <if test="username!='' and username!=null  ">
-         and   a.username = #{username}
+         and   a.username like  "%"#{username}"%"
         </if>
 
         <if test="month!='' and month!=null  ">

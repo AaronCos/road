@@ -32,6 +32,7 @@ public class SubjectGrade {
     private String polity;
     private String month;
     private String times;
+    private String grade;
     /**
      * 创建时间更新时间
      */
@@ -194,5 +195,13 @@ public class SubjectGrade {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 }
