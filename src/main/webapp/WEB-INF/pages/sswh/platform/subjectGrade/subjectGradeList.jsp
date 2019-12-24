@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${path}/resources/layui/css/layui.css"  media="all">
     <script src="${path}/resources/layui/layui.js" charset="utf-8"></script>
     <script src="${path}/resources/js/vue.js" charset="utf-8"></script>
-    <script src="${path}/resources/js/axios.min.js"></script>
+
 </head>
 <style>
     .layui-table-cell .layui-form-checkbox[lay-skin="primary"]{
@@ -189,18 +189,28 @@
                 ,data = obj.data //得到所在行所有键值
                 ,field = obj.field; //得到字段
             //layer.msg('[ID: '+ data.iid +'] ' + field + ' 字段更改为：'+ value );
-            let param = new URLSearchParams();
-            param.append("iid",data.iid);
-            param.append("subject",field);
-            param.append("grade",value);
 
-            axios.post('/complat/subjectGrade/updateSubjectGrade.do', param)
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
+
+            $.ajax({
+                url :  "/complat/subjectGrade/updateSubjectGrade.do",
+                type : "POST",
+                datatype : "json",
+                async : true,
+                data : {
+                    iid : obj.data.iid,
+                    subject : obj.field,
+                    grade : obj.value
+                },
+                success:function(data) {
+
+
+                },
+                error:function(){
+                    layer.alert("保存失败，请稍后再试！") ;
+                }
             });
+
+
 
 
         });

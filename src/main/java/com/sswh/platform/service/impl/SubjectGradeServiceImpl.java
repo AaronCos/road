@@ -31,8 +31,8 @@ public class SubjectGradeServiceImpl implements SubjectGradeService {
     }
 
     @Override
-    public boolean addSubjectGrade(String name, String month, String chinese, String math, String english, String biology, String physics, String chemistry, String history, String geography, String polity, String times) {
-        boolean success = gradeDao.addSubjectGrade(name,month,chinese,math,english,biology,physics,chemistry,history,geography,polity,times);
+    public boolean addSubjectGrade(String name, String month, String chinese, String math, String english, String biology, String physics, String chemistry, String history, String geography, String polity, String times, String grade) {
+        boolean success = gradeDao.addSubjectGrade(name,month,chinese,math,english,biology,physics,chemistry,history,geography,polity,times,grade);
         return success;
     }
 

@@ -7,8 +7,8 @@
     <insert id="insertByFrontUserUuid"></insert>
     <insert id="insertListByFrontUserUuid"></insert>
     <insert id="addSubjectGrade">
-       insert into subjectgrade (username,chinese,math,english,physics,chemistry,history,geography,biology,polity,createtime,month,times)
-       values (#{name},#{chinese},#{math},#{english},#{physics},#{chemistry},#{history},#{geography},#{biology},#{polity},now(),#{month},#{times})
+       insert into subjectgrade (username,chinese,math,english,physics,chemistry,history,geography,biology,polity,createtime,month,times,grade)
+       values (#{name},#{chinese},#{math},#{english},#{physics},#{chemistry},#{history},#{geography},#{biology},#{polity},now(),#{month},#{times},#{grade})
     </insert>
     <update id="updateByFrontUserUuid"></update>
     <update id="updateSubjectGrade"> update subjectgrade set ${subject} = #{grade} , updatetime = SYSDATE() where iid = #{iid}</update>

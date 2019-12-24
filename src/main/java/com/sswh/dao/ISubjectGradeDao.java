@@ -72,7 +72,7 @@ public interface ISubjectGradeDao {
 
     boolean addSubjectGrade(@Param("name") String name, @Param("month") String month, @Param("chinese") String chinese, @Param("math") String math,
                             @Param("english") String english, @Param("biology") String biology, @Param("physics") String physics, @Param("chemistry") String chemistry,
-                            @Param("history") String history, @Param("geography") String geography, @Param("polity") String polity, @Param("times")String times);
+                            @Param("history") String history, @Param("geography") String geography, @Param("polity") String polity, @Param("times") String times, @Param("grade")String grade);
 
     boolean deleteSubjectGrade( @Param("ids")String ids);
 }

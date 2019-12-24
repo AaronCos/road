@@ -10,7 +10,7 @@ public interface SubjectGradeService {
 
     void updateSubjectGrade(String iid, String subject, String grade);
 
-    boolean addSubjectGrade(String name, String month, String chinese, String math, String english, String biology, String physics, String chemistry, String history, String geography, String polity, String times);
+    boolean addSubjectGrade(String name, String month, String chinese, String math, String english, String biology, String physics, String chemistry, String history, String geography, String polity, String times, String grade);
 
     boolean deleteSubjectGrade(String ids);
 }

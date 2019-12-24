@@ -53,7 +53,7 @@ public class SubjectGradeController {
         JSONObject json = new JSONObject();
         json.put("code","0");
         json.put("msg","");
-        json.put("count",gradeList.size());
+        json.put("count",pageCount);
         json.put("data", gradeList);
 
         return json;
@@ -69,9 +69,9 @@ public class SubjectGradeController {
 
     @RequestMapping(value="/addSubjectGrade")
     @ResponseBody
-    public JSONObject addSubjectGrade(String name,String month,String chinese,String math,String english,String biology,String physics,String chemistry,String history,String geography,String polity,String times) {
+    public JSONObject addSubjectGrade(String name,String month,String chinese,String math,String english,String biology,String physics,String chemistry,String history,String geography,String polity,String times,String grade) {
 
-       boolean success =  gradeService.addSubjectGrade(name,month,chinese,math,english,biology,physics,chemistry,history,geography,polity,times);
+       boolean success =  gradeService.addSubjectGrade(name,month,chinese,math,english,biology,physics,chemistry,history,geography,polity,times,grade);
        JSONObject json = new JSONObject();
         json.put("success",success);
         return json;
