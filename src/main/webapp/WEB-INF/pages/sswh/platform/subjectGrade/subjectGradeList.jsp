@@ -202,7 +202,7 @@
                     grade : obj.value
                 },
                 success:function(data) {
-
+                    layui.table.reload('studentScore');
 
                 },
                 error:function(){

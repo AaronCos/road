@@ -13,6 +13,7 @@ public class SubjectGrade {
     private int iid;
     private String gradeUuid;
     private String frontUserUuid;
+    private String loginname;
     /**
      * 学生姓名
      */
@@ -203,5 +204,13 @@ public class SubjectGrade {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public String getLoginname() {
+        return loginname;
+    }
+
+    public void setLoginname(String loginname) {
+        this.loginname = loginname;
     }
 }
