@@ -28,7 +28,8 @@
     </select>
     <select id="findAllSubjectGrade" resultType="com.sswh.entity.SubjectGrade"></select>
     <select id="findByFrontUsername" resultType="com.sswh.entity.SubjectGrade">
-        select a.iid,a.username,a.chinese,a.math,a.english,a.physics,a.chemistry,a.history,a.geography,a.biology,a.polity,a.month,a.times from subjectgrade a where 1=1
+
+        select a.iid,a.username,${subjects},a.month,a.times,a.grade,chinese+math+english+physics+chemistry+history+geography+biology+polity loginname from subjectgrade a where 1=1
         <if test="username!='' and username!=null  ">
          and   a.username like  "%"#{username}"%"
         </if>
@@ -37,5 +38,26 @@
             and   a.month = #{month}
         </if>
 
+        <if test="grade!='' and grade!=null  ">
+            and   a.grade = #{grade}
+        </if>
+        order by loginname desc
+       limit ${page},${limit}
+    </select>
+    <select id="getGradeList" resultType="com.sswh.entity.GradeConfig">select grade,subject from  grade_config </select>
+    <select id="getSubjectGrade" resultType="com.sswh.entity.GradeConfig">select  * from grade_config where grade = #{grade}</select>
+    <select id="getStudentScoreCount" resultType="java.lang.Integer">
+        select count(*) from subjectgrade a where 1=1
+        <if test="username!='' and username!=null  ">
+            and   a.username like  "%"#{username}"%"
+        </if>
+
+        <if test="month!='' and month!=null  ">
+            and   a.month = #{month}
+        </if>
+
+        <if test="grade!='' and grade!=null  ">
+            and   a.grade = #{grade}
+        </if>
     </select>
 </mapper>

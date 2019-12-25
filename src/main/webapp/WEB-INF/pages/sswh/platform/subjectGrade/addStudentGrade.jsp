@@ -97,6 +97,11 @@
             return false;
         });
 
+        $('.quxiao').on('click', function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        });
+
 
     });
 </script>
@@ -200,8 +205,8 @@
     </div>
       <div class="layui-form-item">
            <div class="layui-input-block">
-             <button lay-submit="" lay-filter="submit" class="layui-btn layui-btn-normal tijiao">提交</button>
-             <button type="button" class="layui-btn layui-btn-primary quxiao">取消</button>
+             <button lay-submit="" lay-filter="submit" class="layui-btn layui-btn-normal tijiao" style="margin-left: 116px">提交</button>
+             <button type="button" class="layui-btn layui-btn-primary quxiao" >取消</button>
            </div>
 
      </div> 

@@ -25,6 +25,7 @@
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
         <button class="layui-btn layui-btn-sm" lay-event="del">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="upload">多图片上传</button>
     </div>
 </script>
 <body>
@@ -34,12 +35,17 @@
         <form class="layui-form layui-col-md12 x-so" id="grade_search">
             姓名:
             <div class="layui-input-inline">
-                <input type="text" name="username"  autocomplete="off"   class="layui-input" v-model="username"  ref="username">
+                <input type="text" name="username"  autocomplete="off"   class="layui-input" <%--v-model="username"  ref="username"--%>>
+            </div>
+
+            年级:
+            <div class="layui-input-inline">
+                <select  name="grade" id="grade"   autocomplete="off"  <%--v-model="grade" ref='grade'--%>></select>
             </div>
 
             月份:
             <div class="layui-input-inline">
-                <input type="text" name="month" id="month"   autocomplete="off" class="layui-input" v-model="month" ref='month'>
+                <input type="text" name="month" id="month"   autocomplete="off" class="layui-input" <%--v-model="month" ref='month'--%>>
             </div>
 
             <button class="layui-btn" lay-submit
@@ -57,7 +63,7 @@
 
 <script>
   //vue初始化
-  var search =  new Vue({
+ /* var search =  new Vue({
         el: "#search",
         data(){
             return {
@@ -66,12 +72,13 @@
 
             }
         }
-    })
+    })*/
     //初始化表格
     layui.use(['table','layer','laypage','laydate','form'], function(){
         var table = layui.table,
             layer = layui.layer,
             form = layui.form,
+            $ = layui.$,
             laypage = layui.laypage,
             laydate = layui.laydate;
 
@@ -80,34 +87,112 @@
             type : 'month',
             format: 'yyyyMM'
         });
+        var username = $('#username').val();
+        var month = $('#month').val();
+        var grade = $('#grade').val();
 
-        var username = search.$refs.username.value;
-        var month = search.$refs.month.value;
 
-         //username = "王碧渊";
+
+        $.get('getGradeList.do', {}, function (data) {
+            var $html = "<option value=''>请选择年级</option>";
+            if(data.data != null){
+                $.each(data.data, function (index, item) {
+                  $html += "<option value='" + item.grade + "'>" + item.grade + "</option>";
+                });
+                $("select[name='grade']").append($html);
+                //反选
+               // $("select[name='???']").val($("#???").val());
+                //append后必须从新渲染
+                form.render('select');
+            }
+        })
+
+
+
+       /* var username = search.$refs.username.value;
+        var month = search.$refs.month.value;*/
+
         table.render({
             elem: '#studentScore'
             ,url:'findByFrontUsername.do'
             ,method:'POST'
-            ,where : { username : username , month : month }
+            ,where : { username : username , month : month , grade : grade }
             ,page: true
             ,limit:10
             //,contentType: 'application/json'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,done : function (res,curr,count){
+
+                $("tbody tr").each(function(){
+                    var tdArray = $(this).children();
+
+                    for(var i=0;i<tdArray.length;i++){
+                        if(tdArray.eq(i).find("div").html()=="--"){
+
+                            tdArray.eq(i).find('div').parent().data('edit',null).attr('lay-editabled',true);
+                        }
+                    }
+                });
+            }
             ,cols: [[
                 {field:'iid',type:'checkbox', width:80, title: 'ID', sort: true}
-                ,{field:'username', width:80, title: '用户名'}
-                ,{field:'month', width:80, title: '月份'}
-                ,{field:'chinese', width:80, title: '语文', edit: 'text'}
-                ,{field:'math', title: '数学', width: '80', edit: 'text'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                ,{field:'english', title: '英语',  width:80, edit: 'text'}
-                ,{field:'physics', title: '物理', width:80, edit: 'text'}
-                ,{field:'chemistry', title: '化学',  width:80, edit: 'text'}
-                ,{field:'history', title: '历史',  width:80, edit: 'text'}
-                ,{field:'geography', title: '地理',  width:80, edit: 'text'}
-                ,{field:'biology', title: '生物',  width:80, edit: 'text'}
-                ,{field:'polity', title: '政治',  width:80, edit: 'text'}
+                ,{field:'username',  title: '姓名'}
+                ,{field:'grade',  title: '年级'}
+                ,{field:'month',  title: '月份'}
+                ,{field:'times', title: '次数'}
+                ,{field:'chinese', title: '语文', edit: 'text'}
+                ,{field:'math', title: '数学',  edit: 'text'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                ,{field:'english', title: '英语',  edit: 'text'}
+                ,{field:'physics', title: '物理',  edit: 'text', templet : function(d){
+                    if(d.physics!=undefined&&d.physics!=''){
+                           return d.physics;
+                     }else{
+                         return "--";
+                     }
+
+                  }}
+                ,{field:'chemistry', title: '化学',   edit: 'text', templet : function(d){
+                        if(d.chemistry!=undefined&&d.chemistry!=''){
+                            return d.chemistry;
+                        }else{
+                            return "--";
+                        }
+
+                    }}
+                ,{field:'history', title: '历史',   edit: 'text', templet : function(d){
+                        if(d.history!=undefined&&d.history!=''){
+                            return d.history;
+                        }else{
+                            return "--";
+                        }
+
+                    }}
+                ,{field:'geography', title: '地理',   edit: 'text', templet : function(d){
+                        if(d.geography!=undefined&&d.geography!=''){
+                            return d.geography;
+                        }else{
+                            return "--";
+                        }
+
+                    }}
+                ,{field:'biology', title: '生物',   edit: 'text', templet : function(d){
+                        if(d.biology!=undefined&&d.biology!=''){
+                            return d.biology;
+                        }else{
+                            return "--";
+                        }
+
+                    }}
+                ,{field:'polity', title: '政治',   edit: 'text', templet : function(d){
+                        if(d.polity!=undefined&&d.polity!=''){
+                            return d.polity;
+                        }else{
+                            return "--";
+                        }
+
+                    }}
+                    ,{field:'loginname', title: '总分'}
             ]]
             ,limits: [5,10,20,50]
         });
@@ -119,7 +204,7 @@
 
             switch(obj.event){
                 case 'add':
-                  var newWin =  layer.open({
+                    layer.open({
                         type: 2,
                         title: "添加学生成绩",
                         area: ['35%', '70%'],
@@ -128,16 +213,32 @@
                         shadeClose: true,
                         shade: 0.4,
                         skin: 'layui-layer-rim',
+                       // btn:['确定','取消'],
                         content:["addStudentGrade.do", "no"],
                         success: function(layer, newWin) { //弹窗成功后回调
-                            $('.quxiao').on('click', function () { //注意 这句话要在你弹窗完成后
-                                layer.close(newWin); //关闭index
-                            });
+
                         }
                     });
                   break;
+                case 'upload':
+                    layer.open({
+                        type: 2,
+                        title: "图片上传",
+                        area: ['35%', '70%'],
+                        fix: false,
+                        maxmin: true,
+                        shadeClose: true,
+                        shade: 0.4,
+                        skin: 'layui-layer-rim',
+                        // btn:['确定','取消'],
+                        content:["uploadPics.do", "no"],
+                        success: function(layer, newWin) { //弹窗成功后回调
+
+                        }
+                    });
+                    break;
                 case  'del' :
-                    console.log(checkStatus.data);
+                    //console.log(checkStatus.data);
                     if(checkStatus.data.length==0){
                         layer.alert("请先勾选学生");
                     }else{
@@ -221,14 +322,15 @@
             console.debug(formData);
             var username = formData.username;
             var month = formData.month;
-
+            var grade = formData.grade;
             table.reload('studentScore', {
                 page: {
                     curr: 1
                 },
                 where: {
                     username:username,
-                    month:month
+                    month:month,
+                    grade : grade
                 },
                 method: 'post',
                 //contentType: "application/json;charset=utf-8",

@@ -1,5 +1,6 @@
 package com.sswh.dao;
 
+import com.sswh.entity.GradeConfig;
 import com.sswh.entity.SubjectGrade;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,9 +23,13 @@ public interface ISubjectGradeDao {
     /**
      * 根据用户名查询成绩列表
      * @param username 登录名
+     * @param grade
+     * @param subjects
+     * @param page
+     * @param limit
      * @return 各科成绩实体列表
      */
-    List<SubjectGrade> findByFrontUsername(@Param("username") String username,@Param("month") String month);
+    List<SubjectGrade> findByFrontUsername(@Param("username") String username, @Param("month") String month, @Param("grade") String grade, @Param("subjects") String subjects, @Param("page")int page, @Param("limit")int limit);
 
     /**
      * 查询所有各科成绩列表
@@ -75,4 +80,10 @@ public interface ISubjectGradeDao {
                             @Param("history") String history, @Param("geography") String geography, @Param("polity") String polity, @Param("times") String times, @Param("grade")String grade);
 
     boolean deleteSubjectGrade( @Param("ids")String ids);
+
+    List<GradeConfig> getGradeList();
+
+    GradeConfig getSubjectGrade(@Param("grade")String grade);
+
+    int getStudentScoreCount(@Param("username") String username, @Param("month") String month, @Param("grade") String grade);
 }
