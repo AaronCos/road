@@ -5,6 +5,7 @@ import com.sswh.dao.IPlatformUserDao;
 import com.sswh.entity.PlatformUser;
 import com.sswh.front.dao.IStudentGradeDao;
 import com.sswh.front.studentgrade.service.IStudentGradeService;
+import com.sswh.platform.service.MemberService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -36,6 +37,8 @@ public class SpringTest {
     IStudentGradeDao studentGradeDao;
     @Autowired
     IStudentGradeService gradeService;
+    @Autowired
+    MemberService memberService;
 
 
     @Resource(name = "securityManager")
@@ -47,6 +50,12 @@ public class SpringTest {
      */
     @Autowired
     private ShardedJedisPool shardedJedisPool;
+
+   @Test
+    public void testjson(){
+       String s = memberService.organizeMemberJson();
+       System.out.println(s);
+   }
 
     @Test
     public void testSet() {//

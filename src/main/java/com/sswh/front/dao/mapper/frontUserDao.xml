@@ -9,8 +9,8 @@
         <!--<selectKey resultType="java.lang.Integer" keyProperty="iid" keyColumn="t_iid">
             select t_iid from
         </selectKey>-->
-        INSERT INTO FRONTUSER(loginname,password,password_salt)
-        VALUES(#{loginname},#{password},#{password_salt});
+        INSERT INTO frontuser(loginname,username,password,password_salt,email,mobile)
+        VALUES(#{loginname},#{username},#{password},#{password_salt},#{email},#{mobile});
     </insert>
     <update id="updateByLoginname">
         update frontuser
@@ -21,6 +21,17 @@
         </trim>
         loginname = #{loginname}
 
+    </update>
+    <update id="updateByUserIid">
+          update frontuser
+        <trim prefix="set" suffixOverrides=",">
+            <if test="username!=null">username=#{username},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="password_salt!=null">password_salt=#{password_salt},</if>
+        </trim>
+        <where>
+            iid = #{iid}
+        </where>
     </update>
 
     <delete id="deleteByUserId" parameterType="int">
@@ -56,5 +67,9 @@
         <where>
             loginname like #{%loginname%}
         </where>
+    </select>
+    <select id="findAllFrontUser" resultType="com.sswh.front.entity.FrontUserEntity">
+#         SELECT iid,username,email,sex,city,sign,experience,ip,logins,jointime FROM frontuser
+         SELECT `iid`, `loginname`, `username`, `password`, `password_salt`, `sex`, `birthday`, `identity`, `email`, `mobile`, `address`, `status`, `code`, `year`, `month`, `day`, `city`, `sign`, `experience`, `ip`, `logins`, `jointime`, `isstudent` FROM frontuser
     </select>
 </mapper>

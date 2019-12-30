@@ -3,6 +3,8 @@ package com.sswh.front.dao;
 import com.sswh.front.entity.FrontUserEntity;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by wangchengcheng on 2019/6/26
  */
@@ -15,6 +17,12 @@ public interface IFrontUserDao {
      * @return 前台用户实体
      */
     FrontUserEntity findByLoginName(String loginname);
+
+    /**
+     * 查询所有的前台用户
+     * @return 前台用户实体列表
+     */
+    List<FrontUserEntity> findAllFrontUser();
 
     /**
      * 通过登录名，获取密码
@@ -43,6 +51,13 @@ public interface IFrontUserDao {
      * @return
      */
     int deleteByUserId(int iid);
+
+    /**
+     * 通过iid 修改前台用户信息
+     * @param user
+     * @return
+     */
+    int updateByUserIid(FrontUserEntity user);
 
     /**
      * 查询相同姓名的人数

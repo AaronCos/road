@@ -17,6 +17,15 @@ public class pageController {
         return "sswh/platform/" + name;
     }*/
 
+   @RequestMapping("hello")
+    public String test(){
+       return "sswh/platform/center/index";
+    }
+
+    @RequestMapping("hello1")
+    public String testmember(){
+        return "sswh/platform/center/member-list1";
+    }
     @RequestMapping("hello/{requrl}")
     public ModelAndView tesRe(@PathVariable("requrl") String name) {
         System.out.println("hello world");

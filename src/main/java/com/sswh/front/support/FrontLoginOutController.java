@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by wangchengcheng on 2019/6/26
+ * Created by Aaron on 2019/6/26
  */
 @Controller
 @RequestMapping("front")
@@ -107,9 +107,7 @@ public class FrontLoginOutController {
         Integer registSuccessful = frontUserDao.registUser(user);
         if (registSuccessful < 1) {
             message = "注册失败";
-            //region Description
             return message;
-            //endregion
         }
 
         message = "注册成功，欢迎：" + user.getLoginname();
