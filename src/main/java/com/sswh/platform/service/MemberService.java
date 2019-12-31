@@ -90,4 +90,19 @@ public class MemberService {
         return newString;
     }
 
+    public void updateStatusOrIsStudent(String iid, String name, String state) {
+        frontUserDao.updateStatusOrIsStudent(iid,name,state);
+    }
+
+    public List<FrontUserEntity> findFrontUsers(String username, String start, String end, int page, int limit) {
+
+      List<FrontUserEntity> userList =   frontUserDao.findFrontUsers(username,start,end,page,limit);
+      return userList;
+    }
+
+    public int findFrontUsersCount(String username, String start, String end) {
+
+        int count =   frontUserDao.findFrontUsersCount(username,start,end);
+        return count;
+    }
 }

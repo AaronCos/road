@@ -1,6 +1,7 @@
 package com.sswh.front.dao;
 
 import com.sswh.front.entity.FrontUserEntity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -74,5 +75,9 @@ public interface IFrontUserDao {
     int updateByLoginname(FrontUserEntity user);
 
 
+    void updateStatusOrIsStudent(@Param("iid") String iid, @Param("name")String name, @Param("state")String state);
 
+    List<FrontUserEntity> findFrontUsers(@Param("username")String username,@Param("start") String start,@Param("end") String end,@Param("page") int page,@Param("limit") int limit);
+
+    int findFrontUsersCount(@Param("username")String username,@Param("start") String start,@Param("end") String end);
 }

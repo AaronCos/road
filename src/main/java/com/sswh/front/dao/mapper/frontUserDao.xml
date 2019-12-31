@@ -33,6 +33,9 @@
             iid = #{iid}
         </where>
     </update>
+    <update id="updateStatusOrIsStudent">
+        update frontuser set ${name} = #{state} where iid = #{iid}
+    </update>
 
     <delete id="deleteByUserId" parameterType="int">
         DELETE FROM FRONTUSER
@@ -71,5 +74,39 @@
     <select id="findAllFrontUser" resultType="com.sswh.front.entity.FrontUserEntity">
 #         SELECT iid,username,email,sex,city,sign,experience,ip,logins,jointime FROM frontuser
          SELECT `iid`, `loginname`, `username`, `password`, `password_salt`, `sex`, `birthday`, `identity`, `email`, `mobile`, `address`, `status`, `code`, `year`, `month`, `day`, `city`, `sign`, `experience`, `ip`, `logins`, `jointime`, `isstudent` FROM frontuser
+    </select>
+    <select id="findFrontUsers" resultType="com.sswh.front.entity.FrontUserEntity">
+        SELECT `iid`, `loginname`, `username`, `password`, `password_salt`, `sex`, `birthday`, `identity`, `email`, `mobile`, `address`, `status`, `code`, `year`, `month`, `day`, `city`, `sign`, `experience`, `ip`, `logins`, `jointime`, `isstudent` FROM frontuser
+        where 1=1
+        <if test="start != '' and start !=null ">
+          and  jointime &gt;= #{start}
+        </if>
+
+        <if test="end != '' and end != null ">
+          and  jointime &lt;= #{end}
+        </if>
+
+        <if test="username != '' and username != null ">
+            and   username like  "%"#{username}"%"
+        </if>
+
+        limit ${page},${limit}
+
+    </select>
+    <select id="findFrontUsersCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM frontuser
+        where 1=1
+        <if test="start != '' and start !=null ">
+            and  jointime &gt;= #{start}
+        </if>
+
+        <if test="end != '' and end != null ">
+            and  jointime &lt;= #{end}
+        </if>
+
+        <if test="username != '' and username != null ">
+            and   username like  "%"#{username}"%"
+        </if>
+
     </select>
 </mapper>

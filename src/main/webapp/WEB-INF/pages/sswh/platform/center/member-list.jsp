@@ -44,7 +44,7 @@
                                     <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
-                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                    <button class="layui-btn"  lay-submit lay-filter="student_sreach"><i class="layui-icon">&#xe615;</i></button>
                                 </div>
                             </form>
                         </div>
@@ -53,7 +53,7 @@
                             <button class="layui-btn" onclick="xadmin.open('添加用户','memberadd.do',600,400)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body layui-table-body layui-table-main">
-                            <table id="student-table" class="layui-table layui-form">
+                            <table id="student-table" class="layui-table layui-form" lay-filter="student-table">
 
                             </table>
                         </div>
@@ -62,45 +62,95 @@
             </div>
         </div> 
     </body>
-    godoodofodasofffffffffffffffffffff
+
+    <script type="text/html" id="switchTpl">
+        <!-- 这里的checked的状态只是演示 -->
+        <input type="checkbox" name="status" value="{{d.iid}}"  lay-skin="switch" lay-text="生效|失效" lay-filter="status" {{ d.status == 1 ? 'checked': ''}} >
+    </script>
+
+    <script type="text/html" id="isStudent">
+        <!-- 这里的checked的状态只是演示 -->
+        <input type="checkbox" name="isstudent" value="{{d.iid}}" lay-skin="switch" lay-text="是|否" lay-filter="status" {{ d.isStudent == 1 ? 'checked': ''}} >
+    </script>
+
     <script>
       layui.use(['laydate','form','table'], function(){
-          console.log("-----------");
+
         var laydate = layui.laydate;
         var  form = layui.form;
         var table = layui.table;
         //加载table数据
           table.render({
-              elem:'student-table',
-              height:400,
-              url:'../data/members.do',
+              elem:'#student-table',
+              //height:400,
+              url:'../data/findFrontUsers.do',
               method:'post',
               page:true,
               cols:[[
-                  {field:'iid',title:'ID',width:80,sort:true,fixed:'left'},
-                  {field:'username',title:'用户名',width:80,sort:true,fixed:'left'},
-                  {field:'sex',title:'性别',width:80,sort:true,fixed:'left'},
-                  {field:'mobile',title:'手机号码',width:80,sort:true,fixed:'left'},
-                  {field:'email',title:'邮箱',width:80,sort:true,fixed:'left'},
-                  {field:'address',title:'地址',width:80},
-                  {field:'state',title:'账号状态',width:80},
+                  {field:'iid',type:'checkbox',title:'ID',fixed:'left'},
+                  {field:'username',title:'用户名',fixed:'left'},
+                  {field:'sex',title:'性别',fixed:'left'},
+                  {field:'mobile',title:'手机号码',fixed:'left'},
+                  {field:'email',title:'邮箱',fixed:'left'},
+                  {field:'address',title:'地址'},
+                  {field:'state',title:'账号状态',templet: '#switchTpl',align :'center'},
                   // {field:'school',title:'学校',width:80},
-                  {field:'grade',title:'年级',width:80},
-                  {field:'isstudent',title:'是否学生'}
-              ]]
+                  {field:'grade',title:'年级'},
+                  {field:'isstudent',title:'是否学生',templet: '#isStudent',align :'center'}
+              ]],
+              limits : [10,20,30]
+          });
+
+          form.render();
+          form.on('submit(student_sreach)', function(data) {
+              var formData = data.field;
+              console.debug(formData);
+              var username = formData.username;
+              var start = formData.start;
+              var end = formData.end;
+              table.reload('student-table', {
+                  page: {
+                      curr: 1
+                  },
+                  where: {
+                      username:username,
+                      start:start,
+                      end : end
+                  },
+                  method: 'post',
+                  //contentType: "application/json;charset=utf-8",
+                  url: '../data/findFrontUsers.do',
+              });
+              return false;
+          });
+
+          form.on('switch(status)', function(obj){
+
+              var state ;
+              if(obj.elem.checked){
+                  state = 1;
+              }else{
+                  state = 0;
+              }
+              $.ajax({
+                  url :  "../data/updateStatusOrIsStudent.do",
+                  type : "POST",
+                  datatype : "json",
+                  async : true,
+                  data : {
+                      iid : this.value ,
+                      name : this.name,
+                      state : state
+                  },
+                  success:function(data) {
+                  },
+                  error:function(){
+                      layer.alert("更新失败，请稍后再试！") ;
+                  }
+              });
           });
 
 
-        // 监听全选
-        form.on('checkbox(checkall)', function(data){
-
-          if(data.elem.checked){
-            $('tbody input').prop('checked',true);
-          }else{
-            $('tbody input').prop('checked',false);
-          }
-          form.render('checkbox');
-        }); 
         
         //执行一个laydate实例
         laydate.render({
@@ -115,29 +165,7 @@
 
       });
 
-       /*用户-停用*/
-      function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
 
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
-      }
 
       /*用户-删除*/
       function member_del(obj,id){

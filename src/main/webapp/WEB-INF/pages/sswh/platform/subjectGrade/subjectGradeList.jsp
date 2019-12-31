@@ -137,13 +137,13 @@
             }
             ,cols: [[
                 {field:'iid',type:'checkbox', width:80, title: 'ID', sort: true}
-                ,{field:'username',  title: '姓名'}
+                ,{field:'username',  title: '姓名',hide:false}
                 ,{field:'grade',  title: '年级'}
                 ,{field:'month',  title: '月份'}
                 ,{field:'times', title: '次数'}
-                ,{field:'chinese', title: '语文', edit: 'text'}
-                ,{field:'math', title: '数学',  edit: 'text'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                ,{field:'english', title: '英语',  edit: 'text'}
+                ,{field:'chinese', title: '语文', edit: 'text',sort:true}
+                ,{field:'math', title: '数学',  edit: 'text',sort:true} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                ,{field:'english', title: '英语',  edit: 'text',sort:true}
                 ,{field:'physics', title: '物理',  edit: 'text', templet : function(d){
                     if(d.physics!=undefined&&d.physics!=''){
                            return d.physics;
