@@ -59,4 +59,25 @@ public class OprMemberController {
         json.put("success",success);
         return json;
     }
+
+    @PostMapping("useredit")
+    public Map<String, Object> editUser(FrontUserEntity frontUser) {
+        HashMap<String, Object> map = new HashMap<>();
+        String area[] = frontUser.getCity_picker().split("/");
+        frontUser.setProvince(area[0]);
+        frontUser.setCity(area[1]);
+        frontUser.setDistrict(area[2]);
+
+         Boolean   flag = memberService.editUser(frontUser);
+
+        if (!flag) {
+            map.put("success", 0);
+            map.put("code","001");
+            map.put("message", "修改失败");
+        }
+        map.put("success", 1);
+        map.put("code","111");
+        map.put("message", "修改成功");
+        return map;
+    }
 }

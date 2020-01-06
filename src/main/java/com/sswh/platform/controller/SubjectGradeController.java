@@ -62,11 +62,8 @@ public class SubjectGradeController extends HttpServlet {
 
     @RequestMapping(value="/subjectGradeList")
     public ModelAndView gotoGradeList() {
-        System.out.println("hello world");
+
         ModelAndView modelAndView = new ModelAndView("sswh/platform/subjectGrade/subjectGradeList");
-       // String loginname = "";
-        //List<SubjectGrade> gradeList = gradeService.findByFrontLoginname(loginname);
-       // modelAndView.addObject("gradeList",gradeList);
         return modelAndView;
     }
 
@@ -184,8 +181,7 @@ public class SubjectGradeController extends HttpServlet {
     @RequestMapping(value="/findByFrontUsername",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     @ResponseBody
     public JSONObject findByFrontUsername(String username,String month,String grade,int limit,int page) {
-        System.out.println("limit:"+limit);
-        System.out.println("page:"+page);
+
         String subjects = "chinese,math,english,physics,chemistry,history,geography,biology,polity";
         if(!"".equals(grade)){
             GradeConfig gradeConfig = gradeService.getGradeConfig(grade);

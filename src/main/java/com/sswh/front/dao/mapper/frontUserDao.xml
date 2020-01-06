@@ -36,6 +36,9 @@
     <update id="updateStatusOrIsStudent">
         update frontuser set ${name} = #{state} where iid = #{iid}
     </update>
+    <update id="editUser" parameterType="com.sswh.front.entity.FrontUserEntity">
+        update frontuser set username = #{username},email = #{email},mobile = #{mobile},sex = #{sex},birthday=#{birthday},identity = #{identity},province = #{province},city = #{city},district = #{district},school = #{school},grade = #{grade} where iid = #{iid}
+    </update>
 
     <delete id="deleteByUserId" parameterType="int">
         DELETE FROM FRONTUSER
@@ -77,10 +80,10 @@
     </select>
     <select id="findAllFrontUser" resultType="com.sswh.front.entity.FrontUserEntity">
 #         SELECT iid,username,email,sex,city,sign,experience,ip,logins,jointime FROM frontuser
-         SELECT `iid`, `loginname`, `username`, `password`, `password_salt`, `sex`, `birthday`, `identity`, `email`, `mobile`, `address`, `status`, `code`, `year`, `month`, `day`, `city`, `sign`, `experience`, `ip`, `logins`, `jointime`, `isstudent` FROM frontuser
+         SELECT `iid`, `loginname`, `username`, `password`, `password_salt`, `sex`, `birthday`, `identity`, `email`, `mobile`, `status`, `code`, `year`, `month`, `day`, `city`, `sign`, `experience`, `ip`, `logins`, `jointime`, `isstudent`,grade, concat(province,city,district) address FROM frontuser
     </select>
     <select id="findFrontUsers" resultType="com.sswh.front.entity.FrontUserEntity">
-        SELECT `iid`, `loginname`, `username`, `password`, `password_salt`, `sex`, `birthday`, `identity`, `email`, `mobile`, `address`, `status`, `code`, `year`, `month`, `day`, `city`, `sign`, `experience`, `ip`, `logins`, `jointime`, `isstudent` FROM frontuser
+        SELECT iid, loginname, username, password, password_salt, sex, birthday, identity, email, mobile,  status, code, year, month, day, city, sign, experience, ip, logins, jointime, isstudent,grade, concat(province,city,district) address FROM frontuser
         where 1=1
         <if test="start != '' and start !=null ">
           and  jointime &gt;= #{start}
@@ -112,5 +115,8 @@
             and   username like  "%"#{username}"%"
         </if>
 
+    </select>
+    <select id="findFrontUserByIid" resultType="com.sswh.front.entity.FrontUserEntity">
+        select  * from frontuser where iid = #{iid}
     </select>
 </mapper>

@@ -33,7 +33,6 @@ public class ListMemberController {
     @ResponseBody
     public JSONObject findmember(String page,String limit) {
         String users = memberService.organizeMemberJson();
-        System.out.println("11111111111111111"+users);
         JSONObject jsonObject = JSON.parseObject(users);
         return jsonObject;
     }

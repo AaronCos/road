@@ -1,7 +1,11 @@
 package com.sswh.platform.controller;
 
+import com.sswh.front.entity.FrontUserEntity;
+import com.sswh.platform.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @Author: Aaron
@@ -12,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("manager/center")
 public class CenterController {
+
+    @Autowired
+    MemberService memberService;
+
     @RequestMapping("index")
     public String centershow() {
         return "sswh/platform/center/index";
@@ -52,13 +60,22 @@ public class CenterController {
         return "sswh/platform/center/member-add";
     }
 
-    @RequestMapping("memberedit")
+   /* @RequestMapping("memberedit")
     public String editshow() {
         return "sswh/platform/center/member-edit";
-    }
+    }*/
 
     @RequestMapping("memberpassword")
     public String passwordshow() {
         return "sswh/platform/center/member-password";
+    }
+
+    @RequestMapping(value="/memberedit")
+    public ModelAndView editshow(String iid) {
+
+        ModelAndView modelAndView = new ModelAndView("sswh/platform/center/member-add");
+        FrontUserEntity frontuser = memberService.findFrontUserByIid(iid);
+        modelAndView.addObject("frontuser",frontuser);
+        return modelAndView;
     }
 }

@@ -82,4 +82,8 @@ public interface IFrontUserDao {
     int findFrontUsersCount(@Param("username")String username,@Param("start") String start,@Param("end") String end);
 
     boolean deleteFrontUser(@Param("ids")String ids);
+
+    FrontUserEntity findFrontUserByIid(@Param("iid")String iid);
+
+    boolean editUser(FrontUserEntity frontUser);
 }

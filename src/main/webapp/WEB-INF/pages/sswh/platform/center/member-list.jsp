@@ -73,6 +73,12 @@
         <input type="checkbox" name="isstudent" value="{{d.iid}}" lay-skin="switch" lay-text="是|否" lay-filter="status" {{ d.isStudent == 1 ? 'checked': ''}} >
     </script>
 
+    <script type="text/html" id="barDemo">
+
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+
+    </script>
+
     <script>
         var table;
       layui.use(['laydate','form','table'], function(){
@@ -88,16 +94,24 @@
               method:'post',
               page:true,
               cols:[[
-                  {field:'iid',type:'checkbox',title:'ID',fixed:'left'},
-                  {field:'username',title:'用户名',fixed:'left'},
-                  {field:'sex',title:'性别',fixed:'left'},
-                  {field:'mobile',title:'手机号码',fixed:'left'},
-                  {field:'email',title:'邮箱',fixed:'left'},
+                  {field:'iid',type:'checkbox', width:80},
+                  {field:'username',title:'用户名'},
+                  {field:'sex',title:'性别', templet : function(d){
+                          if(d.sex!=0){
+                              return '男';
+                          }else{
+                              return "女";
+                          }
+
+                      }},
+                  {field:'mobile',title:'手机号码'},
+                  {field:'email',title:'邮箱'},
                   {field:'address',title:'地址'},
                   {field:'state',title:'账号状态',templet: '#switchTpl',align :'center'},
                   // {field:'school',title:'学校',width:80},
                   {field:'grade',title:'年级'},
-                  {field:'isstudent',title:'是否学生',templet: '#isStudent',align :'center'}
+                  {field:'isstudent',title:'是否学生',templet: '#isStudent',align :'center'},
+                  {field:'edit',toolbar: '#barDemo',align :'center'},
               ]],
               limits : [10,20,30]
           });
@@ -105,7 +119,6 @@
           form.render();
           form.on('submit(student_sreach)', function(data) {
               var formData = data.field;
-              console.debug(formData);
               var username = formData.username;
               var start = formData.start;
               var end = formData.end;
@@ -151,7 +164,26 @@
               });
           });
 
+          table.on('tool(student-table)', function(obj){
+              var data = obj.data;
+               if(obj.event === 'edit'){
+                   layer.open({
+                       type: 2,
+                       title: "编辑学生信息",
+                       area: ['35%', '95%'],
+                       fix: false,
+                       maxmin: true,
+                       shadeClose: true,
+                       shade: 0.4,
+                       skin: 'layui-layer-rim',
+                       // btn:['确定','取消'],
+                       content:["memberedit.do?iid="+data.iid, "no"],
+                       success: function(layer, newWin) { //弹窗成功后回调
 
+                       }
+                   });
+              }
+          });
 
         
         //执行一个laydate实例
@@ -171,25 +203,17 @@
 
 
       function delUser () {
-          var ids = [];
-          var selectList='';
-          //怎么获取选中的行id
-          $(".table tbody input[type=checkbox]:checked").map(function () {
 
-              var id = $.trim($(this).closest("tr").find("td:eq(0)").text());
-              selectList+=id+',';
+          var checkStatus = table.checkStatus('student-table');
 
-          })
 
-          selectList=selectList.substring(0,selectList.length-1);
-        console.log(selectList);
        // var checkStatus = table.checkStatus(obj.config.id);
-          if(ids.length==0){
+          if(checkStatus.data.length==0){
               layer.alert("请先勾选学生");
           }else{
               var ids = "";
               for (var i = 0; i < checkStatus.data.length; i++) {
-                  if(i!=ids.length-1){
+                  if(i!=checkStatus.data.length-1){
                       ids = ids  + checkStatus.data[i].iid + ",";
                   }else{
                       ids = ids  + checkStatus.data[i].iid ;
@@ -203,17 +227,18 @@
                       success:function(data) {
                           layer.alert("删除成功！") ;
                           var $ = layui.$;
-                          table.reload('studentScore', {
+                          table.reload('student-table', {
                               page: {
                                   curr: $(".layui-laypage-em").next().html()
                               },
                               where: {
-                                  username:$("#username").val(),
-                                  month:$("#month").val()
+                                  username : $("#username").val(),
+                                  start : $("#start").val(),
+                                  end : $("#end").val()
                               },
                               method: 'post',
                               //contentType: "application/json;charset=utf-8",
-                              url: 'findByFrontUsername.do',
+                              url: '../data/findFrontUsers.do',
                           });
 
                       },

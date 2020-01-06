@@ -34,7 +34,8 @@
                     登录名
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_loginname" name="loginname" required="" lay-verify="nikename"
+                    <input type="hidden" name = "iid" value="${frontuser.iid}">
+                    <input type="text" id="loginname" name="loginname" required="" lay-verify="nikename" value="${frontuser.loginname}"
                            autocomplete="off" class="layui-input"></div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red">*</span>将会成为您唯一的登入名
@@ -45,7 +46,7 @@
                 <label for="L_pass" class="layui-form-label">
                     <span class="x-red">*</span>密码</label>
                 <div class="layui-input-inline">
-                    <input type="password" id="L_pass" name="password" required="" lay-verify="pass" autocomplete="off"
+                    <input type="password" id="L_pass" name="password" required="" lay-verify="pass" autocomplete="off" value="${frontuser.password}"
                            class="layui-input"></div>
                 <div class="layui-form-mid layui-word-aux">6到16个字符</div>
             </div>
@@ -53,21 +54,21 @@
                 <label for="L_repass" class="layui-form-label">
                     <span class="x-red">*</span>确认密码</label>
                 <div class="layui-input-inline">
-                    <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
+                    <input type="password" id="L_repass" name="repass" required="" lay-verify="repass" value="${frontuser.password}"
                            autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">
                     <span class="x-red">*</span>用户名</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_username" name="username" required="" lay-verify="nikename"
+                    <input type="text" id="L_username" name="username" required="" lay-verify="nikename" value="${frontuser.username}"
                            autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">
                     <span class="x-red">*</span>性别</label>
                 <div class="layui-input-inline">
-                    <select name="sex" lay-verify="required">
+                    <select id="sex" name="sex" lay-verify="required">
                         <option value="1">男</option>
                         <option value="0">女</option>
                     </select>
@@ -84,7 +85,7 @@
                 <label for="L_username" class="layui-form-label">
                     <span class="x-red">*</span>身份证号</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="identity" name="identity" required="" lay-verify="identity"
+                    <input type="text" id="identity" name="identity" required="" lay-verify="identity" value="${frontuser.identity}"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -100,7 +101,7 @@
                 <label for="L_username" class="layui-form-label">
                     <span class="x-red">*</span>学校</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="school" name="school" required="" lay-verify="required"
+                    <input type="text" id="school" name="school" required="" lay-verify="required" value="${frontuser.school}"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -115,14 +116,14 @@
                 <label for="L_email" class="layui-form-label">
                     <span class="x-red">*</span>手机</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_mobile" name="mobile" required="" lay-verify="phone" autocomplete="off"
+                    <input type="text" id="L_mobile" name="mobile" required="" lay-verify="phone" autocomplete="off" value="${frontuser.mobile}"
                            class="layui-input"></div>
             </div>
             <div class="layui-form-item">
                 <label for="L_email" class="layui-form-label">
                     <span class="x-red">*</span>邮箱</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_email" name="email" required="" lay-verify="email" autocomplete="off"
+                    <input type="text" id="L_email" name="email" required="" lay-verify="email" autocomplete="off" value="${frontuser.email}"
                            class="layui-input"></div>
             </div>
             <div class="layui-form-item">
@@ -150,7 +151,8 @@
                 districtname: "districtId",
                 level: 'districtId',// 级别
             });
-            currentPicker.setValue("江苏省/南京市/玄武区");
+
+
             //自定义验证规则
             form.verify({
                 nikename: function (value) {
@@ -177,39 +179,68 @@
                     //反选
                     // $("select[name='???']").val($("#???").val());
                     //append后必须从新渲染
+                    if(${frontuser !=null}){
+                        $("#grade option[value='"+grade+"']").prop("selected",true);
+                    }
                     form.render('select');
                 }
             })
 
-            laydate.render({
-                elem: '#birthday' //指定元素
-            });
 
-            form.on('select(area)', function(data){
-                var val=data.value;
-                console.info(data);
+            if(${frontuser !=null}){
+                var str = '/';
+                var grade = "${frontuser.grade}";
+                currentPicker.setValue('${frontuser.province}'+str+'${frontuser.city}'+str+'${frontuser.district}');
+                $("#sex option[value=${frontuser.sex}]").prop("selected",true);
+                $("#loginname").attr("readonly","true");
 
+                laydate.render({
+                    elem: '#birthday', //指定元素
+                    format: 'yyyy-MM-dd',
+                    value : '${frontuser.birthday}'
+                });
+            }else{
+                currentPicker.setValue("江苏省/南京市/玄武区");
+                laydate.render({
+                    elem: '#birthday', //指定元素
+                    format: 'yyyy-MM-dd'
+                });
+            }
 
-
-            });
 
             //监听提交
             form.on('submit(add)', function (data) {
 
+                if(${frontuser==null}){
+                    $.post('${path}/manager/opr/useradd.do', data.field, function (result) {
+                        if (result.success === 1) {
+                            layer.alert(result.message, {
+                                icon: 6
+                            }, function () {
+                                xadmin.close();
+                                xadmin.father_reload();
+                            });
+                        } else {
+                            layer.alert(result.message);
+                            return;
+                        }
+                    })
+                }else{
+                    $.post('${path}/manager/opr/useredit.do', data.field, function (result) {
+                        if (result.success === 1) {
+                            layer.alert(result.message, {
+                                icon: 6
+                            }, function () {
+                                xadmin.close();
+                                xadmin.father_reload();
+                            });
+                        } else {
+                            layer.alert(result.message);
+                            return;
+                        }
+                    })
+                }
 
-                $.post('${path}/manager/opr/useradd.do', data.field, function (result) {
-                    if (result.success === 1) {
-                        layer.alert(result.message, {
-                            icon: 6
-                        }, function () {
-                            xadmin.close();
-                            xadmin.father_reload();
-                        });
-                    } else {
-                        layer.alert(result.message);
-                        return;
-                    }
-                })
                 return false;
             });
 

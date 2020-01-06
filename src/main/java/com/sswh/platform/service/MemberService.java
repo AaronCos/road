@@ -107,7 +107,20 @@ public class MemberService {
     }
 
     public boolean deleteFrontUser(String ids) {
+
         boolean flag = frontUserDao.deleteFrontUser(ids);
+        return flag;
+    }
+
+    public FrontUserEntity findFrontUserByIid(String iid) {
+
+        FrontUserEntity user =   frontUserDao.findFrontUserByIid(iid);
+        return user;
+    }
+
+    public Boolean editUser(FrontUserEntity frontUser) {
+
+        boolean flag = frontUserDao.editUser(frontUser);
         return flag;
     }
 }
