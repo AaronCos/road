@@ -12,8 +12,12 @@
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="stylesheet" href="${path}/resources/center/css/font.css">
     <link rel="stylesheet" href="${path}/resources/center/css/xadmin.css">
+    <link rel="stylesheet" href="${path}/resources/js/city-picker/citypicker.css"  />
     <script src="${path}/resources/center/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${path}/resources/center/js/xadmin.js"></script>
+
+    <script src="${path}/resources/js/city-picker/city-picker.data.js"></script>
+
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -36,13 +40,7 @@
                     <span class="x-red">*</span>将会成为您唯一的登入名
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label for="L_username" class="layui-form-label">
-                    <span class="x-red">*</span>用户名</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="L_username" name="username" required="" lay-verify="nikename"
-                           autocomplete="off" class="layui-input"></div>
-            </div>
+
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label">
                     <span class="x-red">*</span>密码</label>
@@ -57,6 +55,61 @@
                 <div class="layui-input-inline">
                     <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
                            autocomplete="off" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                    <span class="x-red">*</span>用户名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="L_username" name="username" required="" lay-verify="nikename"
+                           autocomplete="off" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                    <span class="x-red">*</span>性别</label>
+                <div class="layui-input-inline">
+                    <select name="sex" lay-verify="required">
+                        <option value="1">男</option>
+                        <option value="0">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                    <span class="x-red">*</span>出生年月</label>
+                <div class="layui-input-inline">
+                    <input class="layui-input"  autocomplete="off"  name="birthday" id="birthday" lay-verify="date">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                    <span class="x-red">*</span>身份证号</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="identity" name="identity" required="" lay-verify="identity"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label width_auto text-r" style="margin-top:2px">省市县：</label>
+                    <div class="layui-input-inline" style="width:400px">
+                        <input type="text" lay-verify="required" autocomplete="on" class="layui-input" id="city-picker" name="city_picker" readonly="readonly" data-toggle="city-picker" placeholder="请选择">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                    <span class="x-red">*</span>学校</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="school" name="school" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_username" class="layui-form-label">
+                    <span class="x-red">*</span>年级</label>
+                <div class="layui-input-inline">
+                    <select  name="grade" id="grade"  lay-verify="required"  autocomplete="off"  lay-filter="grade" ></select>
+                </div>
             </div>
             <div class="layui-form-item">
                 <label for="L_email" class="layui-form-label">
@@ -74,18 +127,30 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label"></label>
-                <button class="layui-btn" lay-filter="add" lay-submit="">增加</button>
+                <button class="layui-btn" lay-filter="add" lay-submit="" style="margin-left: 126px;">保存</button>
             </div>
         </form>
     </div>
 </div>
 <script>
-    layui.use(['form', 'layer', 'jquery'],
+
+    layui.config({
+        base: '${path}/resources/js/city-picker/' //静态资源所在路径
+    }).use(['laydate','form', 'layer', 'jquery', 'citypicker'],
         function () {
             $ = layui.jquery;
             var form = layui.form,
-                layer = layui.layer;
+                layer = layui.layer,
+                laydate = layui.laydate ,
+                cityPicker = layui.citypicker;
 
+            var currentPicker = new cityPicker("#city-picker", {
+                provincename:"provinceId",
+                cityname:"cityId",
+                districtname: "districtId",
+                level: 'districtId',// 级别
+            });
+            currentPicker.setValue("江苏省/南京市/玄武区");
             //自定义验证规则
             form.verify({
                 nikename: function (value) {
@@ -101,10 +166,37 @@
                 }
             });
 
+            $.get('../../subjectGrade/getGradeList.do', {}, function (data) {
+                var $html = "<option value=''>请选择年级</option>";
+                if(data.data != null){
+                    gradeList = data.data;
+                    $.each(data.data, function (index, item) {
+                        $html += "<option value='" + item.grade + "'>" + item.grade + "</option>";
+                    });
+                    $("select[name='grade']").append($html);
+                    //反选
+                    // $("select[name='???']").val($("#???").val());
+                    //append后必须从新渲染
+                    form.render('select');
+                }
+            })
+
+            laydate.render({
+                elem: '#birthday' //指定元素
+            });
+
+            form.on('select(area)', function(data){
+                var val=data.value;
+                console.info(data);
+
+
+
+            });
+
             //监听提交
             form.on('submit(add)', function (data) {
-                console.log(data.field);
-                console.log(data.field.email);
+
+
                 $.post('${path}/manager/opr/useradd.do', data.field, function (result) {
                     if (result.success === 1) {
                         layer.alert(result.message, {

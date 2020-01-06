@@ -249,34 +249,37 @@
                             }else{
                                 ids = ids  + checkStatus.data[i].iid ;
                             }
-                            let param = new URLSearchParams();
-                            param.append("ids",ids);
 
-                            axios.post('/complat/subjectGrade/deleteSubjectGrade.do', param)
-                                .then(function (response) {
-                                    if(response.data.success){
-                                        layer.alert("删除成功！") ;
-                                        var $ = layui.$;
-                                        table.reload('studentScore', {
-                                            page: {
-                                                curr: $(".layui-laypage-em").next().html()
-                                            },
-                                            where: {
-                                                username:$("#username").val(),
-                                                month:$("#month").val()
-                                            },
-                                            method: 'post',
-                                            //contentType: "application/json;charset=utf-8",
-                                            url: 'findByFrontUsername.do',
-                                        });
-                                    }else{
-                                        layer.alert("删除失败，请稍后再试！") ;
-                                    }
 
-                                })
-                                .catch(function (error) {
-                                    console.log(error);
-                                });
+                            $.ajax({
+                                url :  "/complat/subjectGrade/deleteSubjectGrade.do",
+                                type : "POST",
+                                datatype : "json",
+                                async : true,
+                                data : {ids : ids},
+                                success:function(data) {
+                                    layer.alert("删除成功！") ;
+                                    var $ = layui.$;
+                                    table.reload('studentScore', {
+                                        page: {
+                                            curr: $(".layui-laypage-em").next().html()
+                                        },
+                                        where: {
+                                            username:$("#username").val(),
+                                            month:$("#month").val()
+                                        },
+                                        method: 'post',
+                                        //contentType: "application/json;charset=utf-8",
+                                        url: 'findByFrontUsername.do',
+                                    });
+
+                                },
+                                error:function(){
+                                    layer.alert("删除失败，请稍后再试！") ;
+                                }
+                            });
+
+
                         }
                     }
                     break;

@@ -80,4 +80,6 @@ public interface IFrontUserDao {
     List<FrontUserEntity> findFrontUsers(@Param("username")String username,@Param("start") String start,@Param("end") String end,@Param("page") int page,@Param("limit") int limit);
 
     int findFrontUsersCount(@Param("username")String username,@Param("start") String start,@Param("end") String end);
+
+    boolean deleteFrontUser(@Param("ids")String ids);
 }

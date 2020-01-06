@@ -17,7 +17,7 @@ public class FrontUserEntity  implements Serializable {
 	private String password;     //密码
 	private String password_salt;//盐值
 	private String sex;     //0:女 1：男
-	private Date birthday;   //出生年月日
+	private String birthday;   //出生年月日
 	private String identity; //身份证
 	private String email;    //邮箱
 	private String mobile;   //手机号码
@@ -33,6 +33,14 @@ public class FrontUserEntity  implements Serializable {
 	private String experience;//积分 即红旗个数
 	private String ip;//ip
 	private String logins;    //登录次数
+	private String province;
+	private String district;
+	private String school;
+	private String grade;
+
+
+
+	private String city_picker;
 
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date joinTime;//加入时间
@@ -86,13 +94,6 @@ public class FrontUserEntity  implements Serializable {
 		this.sex = sex;
 	}
 
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
 
 	public String getIdentity() {
 		return identity;
@@ -236,5 +237,53 @@ public class FrontUserEntity  implements Serializable {
 
 	public void setDw_xinzhi(SchoolEntity dw_xinzhi) {
 		this.dw_xinzhi = dw_xinzhi;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public String getCity_picker() {
+		return city_picker;
+	}
+
+	public void setCity_picker(String city_picker) {
+		this.city_picker = city_picker;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 }

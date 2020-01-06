@@ -42,7 +42,7 @@ public class UserController {
         //将页面的年月日，传到birthday里面
         user.setCode(UUIDUtils.getCode());
         //设置生日
-        user.setBirthday(String2Date.getDate(user.getYear(), user.getMonth(), user.getDay()));
+      //  user.setBirthday(String2Date.getDate(user.getYear(), user.getMonth(), user.getDay()));
         //设置状态
         user.setStatus(0);
         //设置激活
@@ -54,7 +54,7 @@ public class UserController {
         String passWord1 = user.getPassword();
         String hello2222 = user.getPassword();
         String helo = user.getAddress();
-        Date birthday = user.getBirthday();
+      //  Date birthday = user.getBirthday();
 
         user.setCode(UUIDUtils.getCode());
         //设置密码  MD5加密密码

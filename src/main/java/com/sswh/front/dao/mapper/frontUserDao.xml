@@ -9,8 +9,8 @@
         <!--<selectKey resultType="java.lang.Integer" keyProperty="iid" keyColumn="t_iid">
             select t_iid from
         </selectKey>-->
-        INSERT INTO frontuser(loginname,username,password,password_salt,email,mobile)
-        VALUES(#{loginname},#{username},#{password},#{password_salt},#{email},#{mobile});
+        INSERT INTO frontuser(loginname,username,password,password_salt,email,mobile,sex,birthday,identity,province,city,district,school,grade)
+        VALUES(#{loginname},#{username},#{password},#{password_salt},#{email},#{mobile},#{sex},#{birthday},#{identity},#{province},#{city},#{district},#{school},#{grade});
     </insert>
     <update id="updateByLoginname">
         update frontuser
@@ -43,6 +43,10 @@
             iid=#{iid}
         </where>
     </delete>
+    <delete id="deleteFrontUser">delete from frontuser where iid  in
+        <foreach item="item" collection="ids.split(',')" separator="," open="(" close=")" index="">
+            ${item}
+        </foreach>   </delete>
 
     <select id="getPasswordByLoginame"  resultType="string">
         SELECT password FROM FRONTUSER

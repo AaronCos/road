@@ -49,8 +49,8 @@
                             </form>
                         </div>
                         <div class="layui-card-header">
-                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','memberadd.do',600,400)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn layui-btn-danger" onclick="delUser()"><i class="layui-icon"></i>删除</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加用户','memberadd.do',600,800)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body layui-table-body layui-table-main">
                             <table id="student-table" class="layui-table layui-form" lay-filter="student-table">
@@ -74,11 +74,12 @@
     </script>
 
     <script>
+        var table;
       layui.use(['laydate','form','table'], function(){
 
         var laydate = layui.laydate;
         var  form = layui.form;
-        var table = layui.table;
+        table = layui.table;
         //加载table数据
           table.render({
               elem:'#student-table',
@@ -151,6 +152,7 @@
           });
 
 
+
         
         //执行一个laydate实例
         laydate.render({
@@ -167,32 +169,60 @@
 
 
 
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
-          });
-      }
 
+      function delUser () {
+          var ids = [];
+          var selectList='';
+          //怎么获取选中的行id
+          $(".table tbody input[type=checkbox]:checked").map(function () {
 
+              var id = $.trim($(this).closest("tr").find("td:eq(0)").text());
+              selectList+=id+',';
 
-      function delAll (argument) {
-        var ids = [];
+          })
 
-        // 获取选中的id 
-        $('tbody input').each(function(index, el) {
-            if($(this).prop('checked')){
-               ids.push($(this).val())
-            }
-        });
-  
-        layer.confirm('确认要删除吗？'+ids.toString(),function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
+          selectList=selectList.substring(0,selectList.length-1);
+        console.log(selectList);
+       // var checkStatus = table.checkStatus(obj.config.id);
+          if(ids.length==0){
+              layer.alert("请先勾选学生");
+          }else{
+              var ids = "";
+              for (var i = 0; i < checkStatus.data.length; i++) {
+                  if(i!=ids.length-1){
+                      ids = ids  + checkStatus.data[i].iid + ",";
+                  }else{
+                      ids = ids  + checkStatus.data[i].iid ;
+                  }
+                  $.ajax({
+                      url :  "${path}/manager/opr/userdel.do",
+                      type : "POST",
+                      datatype : "json",
+                      async : true,
+                      data : {ids : ids},
+                      success:function(data) {
+                          layer.alert("删除成功！") ;
+                          var $ = layui.$;
+                          table.reload('studentScore', {
+                              page: {
+                                  curr: $(".layui-laypage-em").next().html()
+                              },
+                              where: {
+                                  username:$("#username").val(),
+                                  month:$("#month").val()
+                              },
+                              method: 'post',
+                              //contentType: "application/json;charset=utf-8",
+                              url: 'findByFrontUsername.do',
+                          });
+
+                      },
+                      error:function(){
+                          layer.alert("删除失败，请稍后再试！") ;
+                      }
+                  });
+              }
+          }
       }
     </script>
 </html>

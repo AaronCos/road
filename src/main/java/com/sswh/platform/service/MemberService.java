@@ -105,4 +105,9 @@ public class MemberService {
         int count =   frontUserDao.findFrontUsersCount(username,start,end);
         return count;
     }
+
+    public boolean deleteFrontUser(String ids) {
+        boolean flag = frontUserDao.deleteFrontUser(ids);
+        return flag;
+    }
 }
