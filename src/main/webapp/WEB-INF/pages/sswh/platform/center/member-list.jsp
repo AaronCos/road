@@ -95,8 +95,8 @@
               page:true,
               cols:[[
                   {field:'iid',type:'checkbox', width:80},
-                  {field:'username',title:'用户名'},
-                  {field:'sex',title:'性别', templet : function(d){
+                  {field:'username',title:'用户名',align:'center'},
+                  {field:'sex',title:'性别',align:'center', templet : function(d){
                           if(d.sex!=0){
                               return '男';
                           }else{
@@ -104,12 +104,12 @@
                           }
 
                       }},
-                  {field:'mobile',title:'手机号码'},
-                  {field:'email',title:'邮箱'},
-                  {field:'address',title:'地址'},
+                  {field:'mobile',title:'手机号码',align :'center'},
+                  {field:'email',title:'邮箱',align:'center'},
+                  {field:'address',title:'地址',align :'center'},
                   {field:'state',title:'账号状态',templet: '#switchTpl',align :'center'},
-                  // {field:'school',title:'学校',width:80},
-                  {field:'grade',title:'年级'},
+                  {field:'school',title:'学校',align :'center'},
+                  {field:'grade',title:'年级',align:'center'},
                   {field:'isstudent',title:'是否学生',templet: '#isStudent',align :'center'},
                   {field:'edit',toolbar: '#barDemo',align :'center'},
               ]],

@@ -83,7 +83,7 @@
          SELECT `iid`, `loginname`, `username`, `password`, `password_salt`, `sex`, `birthday`, `identity`, `email`, `mobile`, `status`, `code`, `year`, `month`, `day`, `city`, `sign`, `experience`, `ip`, `logins`, `jointime`, `isstudent`,grade, concat(province,city,district) address FROM frontuser
     </select>
     <select id="findFrontUsers" resultType="com.sswh.front.entity.FrontUserEntity">
-        SELECT iid, loginname, username, password, password_salt, sex, birthday, identity, email, mobile,  status, code, year, month, day, city, sign, experience, ip, logins, jointime, isstudent,grade, concat(province,city,district) address FROM frontuser
+        SELECT iid, loginname, username, password, password_salt, sex, birthday, identity, email, mobile,  status, code, year, month, day, city, sign, experience, ip, logins, jointime, isstudent,grade, concat(province,city,district) address,school FROM frontuser
         where 1=1
         <if test="start != '' and start !=null ">
           and  jointime &gt;= #{start}

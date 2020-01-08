@@ -34,7 +34,7 @@
                     登录名
                 </label>
                 <div class="layui-input-inline">
-                    <input type="hidden" name = "iid" value="${frontuser.iid}">
+                    <input type="hidden" id="iid" name = "iid" value="${frontuser.iid}">
                     <input type="text" id="loginname" name="loginname" required="" lay-verify="nikename" value="${frontuser.loginname}"
                            autocomplete="off" class="layui-input"></div>
                 <div class="layui-form-mid layui-word-aux">
@@ -193,7 +193,8 @@
                 currentPicker.setValue('${frontuser.province}'+str+'${frontuser.city}'+str+'${frontuser.district}');
                 $("#sex option[value=${frontuser.sex}]").prop("selected",true);
                 $("#loginname").attr("readonly","true");
-
+                $("#L_pass").attr("readonly","true");
+                $("#L_repass").attr("readonly","true");
                 laydate.render({
                     elem: '#birthday', //指定元素
                     format: 'yyyy-MM-dd',
@@ -201,6 +202,7 @@
                 });
             }else{
                 currentPicker.setValue("江苏省/南京市/玄武区");
+                $("#iid").val('0');
                 laydate.render({
                     elem: '#birthday', //指定元素
                     format: 'yyyy-MM-dd'
