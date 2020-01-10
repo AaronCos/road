@@ -41,6 +41,19 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
     <!-- 配置基于注解的事务 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED"></tx:method>
+            <tx:method name="del*" propagation="REQUIRED"></tx:method>
+            <tx:method name="update*" propagation="REQUIRED"></tx:method>
+            <tx:method name="*" read-only="true"></tx:method>
+        </tx:attributes>
+    </tx:advice>
+    <!--<aop:config>
+        <aop:pointcut id="frontMethod" expression="execution(* com.sswh.front.support.*(..)) || execution(* com.sswh.platform.controller.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="frontMethod"></aop:advisor>
+    </aop:config>-->
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           id="internalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>

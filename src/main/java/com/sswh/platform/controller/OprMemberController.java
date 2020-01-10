@@ -27,26 +27,35 @@ public class OprMemberController {
     @PostMapping("useradd")
     public Map<String, Object> addUser(FrontUserEntity frontUser) {
         HashMap<String, Object> map = new HashMap<>();
-        String area[] = frontUser.getCity_picker().split("/");
-        frontUser.setProvince(area[0]);
-        frontUser.setCity(area[1]);
-        frontUser.setDistrict(area[2]);
-        Integer count = null;
-        try {
-            count = memberService.addMember(frontUser);
-        } catch (Exception e) {
+        String username = frontUser.getUsername();
+        int usernum = memberService.findFrontUsersByName(username);
+        if(usernum>0){
             map.put("success", 0);
             map.put("code","000");
-            map.put("message", "添加失败");
+            map.put("message", "登录名已存在！");
+        }else{
+            String area[] = frontUser.getCity_picker().split("/");
+            frontUser.setProvince(area[0]);
+            frontUser.setCity(area[1]);
+            frontUser.setDistrict(area[2]);
+            Integer count = null;
+            try {
+                count = memberService.addMember(frontUser);
+            } catch (Exception e) {
+                map.put("success", 0);
+                map.put("code","000");
+                map.put("message", "添加失败");
+            }
+            if (count < 1) {
+                map.put("success", 0);
+                map.put("code","001");
+                map.put("message", "添加失败");
+            }
+            map.put("success", 1);
+            map.put("code","111");
+            map.put("message", "添加成功");
         }
-        if (count < 1) {
-            map.put("success", 0);
-            map.put("code","001");
-            map.put("message", "添加失败");
-        }
-        map.put("success", 1);
-        map.put("code","111");
-        map.put("message", "添加成功");
+
         return map;
     }
 

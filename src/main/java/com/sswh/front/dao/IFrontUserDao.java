@@ -86,4 +86,6 @@ public interface IFrontUserDao {
     FrontUserEntity findFrontUserByIid(@Param("iid")String iid);
 
     boolean editUser(FrontUserEntity frontUser);
+
+    int findFrontUsersByName(@Param("username") String username);
 }

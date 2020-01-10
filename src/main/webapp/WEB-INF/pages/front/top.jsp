@@ -21,7 +21,7 @@
                         <a href="#" style="color: #ffffff;font-size: 35px;">欢迎您:${sessionScope.currentFrontUser.username}</a>&nbsp;<span><a href="${path}/front/logout.do" style="color: #ffffff;font-size: 25px;">退出</a></span>
                 </c:if>
                 <c:if test="${empty sessionScope.currentFrontUser.username}">
-                    <a src="#" style="color: #ffffff;">登陆</a> <a src="#" style="color: #ffffff;">注册</a>
+                    <a src="#" style="color: #ffffff;">登陆</a> <a src="#" style="color: #ffffff;" href="${path}/support/regist.do">注册</a>
                 </c:if>
 
             </a></h1>

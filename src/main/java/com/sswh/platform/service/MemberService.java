@@ -123,4 +123,10 @@ public class MemberService {
         boolean flag = frontUserDao.editUser(frontUser);
         return flag;
     }
+
+    public int findFrontUsersByName(String username) {
+
+        int flag = frontUserDao.findFrontUsersByName(username);
+        return flag;
+    }
 }

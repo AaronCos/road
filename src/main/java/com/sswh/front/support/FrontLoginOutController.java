@@ -33,6 +33,7 @@ public class FrontLoginOutController {
 
     @RequestMapping("login")
     public ModelAndView login() {
+        System.out.println("33333333333");
         ModelAndView mv = new ModelAndView("front/login");
         mv.addObject("url", "jumpToIndex.do");
         return mv;
@@ -40,6 +41,7 @@ public class FrontLoginOutController {
 
     @RequestMapping(value = "/dologin", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     private void validateFrontUser(FrontUserEntity user, HttpSession session, HttpServletResponse response) {
+        System.out.println("44444444444");
         CurrentFrontUserEntity currentFrontUserEntity = new CurrentFrontUserEntity();
         Map<String,String> map = new HashMap<>();
         PrintWriter  writer  = null;

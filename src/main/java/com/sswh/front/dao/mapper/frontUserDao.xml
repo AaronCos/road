@@ -119,4 +119,7 @@
     <select id="findFrontUserByIid" resultType="com.sswh.front.entity.FrontUserEntity">
         select  * from frontuser where iid = #{iid}
     </select>
+    <select id="findFrontUsersByName" resultType="java.lang.Integer">
+        select count(*) from frontuser where username = #{username}
+    </select>
 </mapper>
