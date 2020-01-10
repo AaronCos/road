@@ -53,7 +53,10 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
         <aop:pointcut id="frontMethod" expression="execution(* com.sswh.front.support.*(..)) || execution(* com.sswh.platform.controller.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="frontMethod"></aop:advisor>
     </aop:config>-->
+    <aop:aspectj-autoproxy/>
+    <bean class="com.sswh.aop.SessionValidateFilter">
 
+    </bean>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           id="internalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
