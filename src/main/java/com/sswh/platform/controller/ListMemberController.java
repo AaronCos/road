@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @Author: WangChengCheng
+ * @Author: AaronCos
  * @Description: 会员管理
  * @Date Created in 23:30 2019/12/16
  * @Modeified by:
@@ -26,8 +26,8 @@ public class ListMemberController {
 
 
     /**
-     * 获取用户数据
-     * @return
+     * 获取所有会员
+     * @return 会员列表json对象
      */
     @GetMapping("members")
     @ResponseBody

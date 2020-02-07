@@ -20,8 +20,6 @@ import java.util.List;
 /**
  * @Author: Aaron
  * @Description:
- * @Date Created in 12:56 2019/12/17
- * @Modeified by:
  */
 @Service
 public class MemberService {
@@ -43,7 +41,7 @@ public class MemberService {
     }
 
     public String organizeMemberJson() {
-        List<FrontUserEntity> members = frontUserDao.findAllFrontUser();
+        List<FrontUserEntity> members = frontUserDao.findAllMembers();
         JSONObject jo = new JSONObject();
         SchoolEntity school = new SchoolEntity();
         school.setId(111);

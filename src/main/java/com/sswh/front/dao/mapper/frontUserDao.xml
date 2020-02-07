@@ -9,11 +9,12 @@
         <!--<selectKey resultType="java.lang.Integer" keyProperty="iid" keyColumn="t_iid">
             select t_iid from
         </selectKey>-->
-        INSERT INTO frontuser(loginname,username,password,password_salt,email,mobile,sex,birthday,identity,province,city,district,school,grade)
+        INSERT INTO
+        sswh.frontuser(loginname,username,password,password_salt,email,mobile,sex,birthday,identity,province,city,district,school,grade)
         VALUES(#{loginname},#{username},#{password},#{password_salt},#{email},#{mobile},#{sex},#{birthday},#{identity},#{province},#{city},#{district},#{school},#{grade});
     </insert>
     <update id="updateByLoginname">
-        update frontuser
+        update sswh.frontuser
         <trim prefix="set" suffixOverrides=",">
             <if test="username!=null">username=#{username},</if>
             <if test="password!=null">password=#{password},</if>
@@ -23,7 +24,7 @@
 
     </update>
     <update id="updateByUserIid">
-          update frontuser
+        update sswh.frontuser
         <trim prefix="set" suffixOverrides=",">
             <if test="username!=null">username=#{username},</if>
             <if test="password!=null">password=#{password},</if>
@@ -34,92 +35,144 @@
         </where>
     </update>
     <update id="updateStatusOrIsStudent">
-        update frontuser set ${name} = #{state} where iid = #{iid}
+        update sswh.frontuser
+        set ${name} = #{state}
+        where iid = #{iid}
     </update>
     <update id="editUser" parameterType="com.sswh.front.entity.FrontUserEntity">
-        update frontuser set username = #{username},email = #{email},mobile = #{mobile},sex = #{sex},birthday=#{birthday},identity = #{identity},province = #{province},city = #{city},district = #{district},school = #{school},grade = #{grade} where iid = #{iid}
+        update sswh.frontuser
+        set username = #{username},
+            email    = #{email},
+            mobile   = #{mobile},
+            sex      = #{sex},
+            birthday=#{birthday},
+            identity = #{identity},
+            province = #{province},
+            city     = #{city},
+            district = #{district},
+            school   = #{school},
+            grade    = #{grade}
+        where iid = #{iid}
     </update>
 
     <delete id="deleteByUserId" parameterType="int">
-        DELETE FROM FRONTUSER
+        DELETE FROM sswh.frontuser
         <where>
             iid=#{iid}
         </where>
     </delete>
-    <delete id="deleteFrontUser">delete from frontuser where iid  in
+    <delete id="deleteFrontUser">delete from sswh.frontuser where iid in
         <foreach item="item" collection="ids.split(',')" separator="," open="(" close=")" index="">
             ${item}
-        </foreach>   </delete>
+        </foreach>
+    </delete>
 
-    <select id="getPasswordByLoginame"  resultType="string">
-        SELECT password FROM FRONTUSER
+    <select id="getPasswordByLoginame" resultType="string">
+        SELECT password FROM sswh.frontuser
         <where>
             loginname = #{loginname}
         </where>
     </select>
 
-    <select id="getPasswordSaltByLoginname"  resultType="string">
-        SELECT password_salt FROM FRONTUSER
+    <select id="getPasswordSaltByLoginname" resultType="string">
+        SELECT password_salt FROM sswh.frontuser
         <where>
             loginname = #{loginname}
         </where>
     </select>
 
-    <select id="findCountByLoginname"  resultType="int">
-        SELECT COUNT(*) FROM frontuser
+    <select id="findCountByLoginname" resultType="int">
+        SELECT COUNT(*) FROM sswh.frontuser
         <where>
             loginname = #{loginname}
         </where>
     </select>
 
     <select id="findByLoginName" resultType="com.sswh.front.entity.FrontUserEntity">
-        SELECT iid,loginname,username,password,password_salt FROM frontuser
+        SELECT iid,loginname,username,password,password_salt FROM sswh.frontuser
         <where>
             loginname like #{%loginname%}
         </where>
     </select>
     <select id="findAllFrontUser" resultType="com.sswh.front.entity.FrontUserEntity">
-#         SELECT iid,username,email,sex,city,sign,experience,ip,logins,jointime FROM frontuser
-         SELECT `iid`, `loginname`, `username`, `password`, `password_salt`, `sex`, `birthday`, `identity`, `email`, `mobile`, `status`, `code`, `year`, `month`, `day`, `city`, `sign`, `experience`, `ip`, `logins`, `jointime`, `isstudent`,grade, concat(province,city,district) address FROM frontuser
+        SELECT `iid`,
+               `loginname`,
+               `username`,
+               `password`,
+               `password_salt`,
+               `sex`,
+               `birthday`,
+               `identity`,
+               `email`,
+               `mobile`,
+               `status`,
+               `code`,
+               `year`,
+               `month`,
+               `day`,
+               `city`,
+               `sign`,
+               `experience`,
+               `ip`,
+               `logins`,
+               `jointime`,
+               `isstudent`                      as beStudent,
+               grade,
+               concat(province, city, district) as address
+        FROM sswh.frontuser
+    </select>
+    <select id="findAllMembers" resultType="com.sswh.front.entity.FrontUserEntity">
+        SELECT `iid`, `loginname`, `username`, `password`, `password_salt`, `sex`, `birthday`, `identity`, `email`,
+        `mobile`, `status`, `code`, `year`, `month`, `day`, `city`, `sign`, `experience`, `ip`, `logins`, `jointime`,
+        `isstudent` as beStudent,grade, concat(province,city,district) as address FROM sswh.frontuser
+        <where>
+            isstudent = 1
+        </where>
     </select>
     <select id="findFrontUsers" resultType="com.sswh.front.entity.FrontUserEntity">
-        SELECT iid, loginname, username, password, password_salt, sex, birthday, identity, email, mobile,  status, code, year, month, day, city, sign, experience, ip, logins, jointime, isstudent,grade, concat(province,city,district) address,school FROM frontuser
+        SELECT iid, loginname, username, password, password_salt, sex, birthday, identity, email, mobile, status, code,
+        year, month, day, city, sign, experience, ip, logins, jointime, isstudent as beStudent,grade,
+        concat(province,city,district) address,school FROM sswh.frontuser
         where 1=1
         <if test="start != '' and start !=null ">
-          and  jointime &gt;= #{start}
+            and jointime &gt;= #{start}
         </if>
 
         <if test="end != '' and end != null ">
-          and  jointime &lt;= #{end}
+            and jointime &lt;= #{end}
         </if>
 
         <if test="username != '' and username != null ">
-            and   username like  "%"#{username}"%"
+            and username like "%"#{username}"%"
         </if>
 
         limit ${page},${limit}
 
     </select>
     <select id="findFrontUsersCount" resultType="java.lang.Integer">
-        SELECT count(*) FROM frontuser
+        SELECT count(*) FROM sswh.frontuser
         where 1=1
         <if test="start != '' and start !=null ">
-            and  jointime &gt;= #{start}
+            and jointime &gt;= #{start}
         </if>
 
         <if test="end != '' and end != null ">
-            and  jointime &lt;= #{end}
+            and jointime &lt;= #{end}
         </if>
 
         <if test="username != '' and username != null ">
-            and   username like  "%"#{username}"%"
+            and username like "%"#{username}"%"
         </if>
 
     </select>
     <select id="findFrontUserByIid" resultType="com.sswh.front.entity.FrontUserEntity">
-        select  * from frontuser where iid = #{iid}
+        SELECT *
+        FROM sswh.frontuser
+        where iid = #{iid}
     </select>
     <select id="findFrontUsersByName" resultType="java.lang.Integer">
-        select count(*) from frontuser where username = #{username}
+        SELECT count(*)
+        FROM sswh.frontuser
+        WHERE username = #{username}
     </select>
 </mapper>

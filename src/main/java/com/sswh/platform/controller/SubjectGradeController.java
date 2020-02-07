@@ -53,6 +53,7 @@ public class SubjectGradeController extends HttpServlet {
     /**
      * Destruction of the servlet. <br>
      */
+    @Override
     public void destroy() {
         super.destroy(); // Just puts "destroy" string in log
         // Put your code here
@@ -90,11 +91,10 @@ public class SubjectGradeController extends HttpServlet {
         String saveName=null;
         //上传的文件名
         String filename=null;
-        //String id = request.getParameter("ID");
-       // System.out.println("id============="+id);
         try {
             System.out.println("==========以下为上传代码============");
-            request.setCharacterEncoding("utf-8"); // 设置编码
+            // 设置编码
+            request.setCharacterEncoding("utf-8");
             response.setCharacterEncoding("utf-8");
             response.setContentType("text/html;charset=UTF-8");
             // 获得磁盘文件条目工厂
@@ -143,7 +143,7 @@ public class SubjectGradeController extends HttpServlet {
                 }
 
                 // 保存后的文件名
-                saveName = new Date().getTime()
+                saveName = System.currentTimeMillis()
                         + filename.substring(filename.lastIndexOf("."));
                 // 保存后图片的浏览器访问路径
                // String picUrl = App.UPLOAD_SAVE_IMG_URL+saveName;
@@ -155,8 +155,8 @@ public class SubjectGradeController extends HttpServlet {
                 /*System.out.println("浏览器访问路径:============================="
                         + picUrl);*/
 
-                // 真正写到磁盘上
-                item.write(new File(PATH_FOLDER, saveName)); // 第三方提供的
+                // 真正写到磁盘上,第三方提供的
+                item.write(new File(PATH_FOLDER, saveName));
 
             }
             System.out.println("==========以上为上传代码=============");
@@ -260,6 +260,7 @@ public class SubjectGradeController extends HttpServlet {
      *
      * @throws ServletException if an error occurs
      */
+    @Override
     public void init(ServletConfig config) throws ServletException {
         ServletContext servletCtx = config.getServletContext();
         // 初始化路径

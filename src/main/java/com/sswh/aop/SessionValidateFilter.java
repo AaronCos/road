@@ -12,7 +12,6 @@ import java.util.Arrays;
 public class SessionValidateFilter {
 
 
-
     @Pointcut("execution(* com.sswh.front.support.FrontLoginOutController.login())")
     private void frontMethod() {
     }

@@ -54,7 +54,7 @@ public class DateToolBag {
     }
 
     /**
-     * List<Date>--->List<String> date(yyyy-mm-dd)日期列表转为字符串列表
+     * @Description List<Date>--->List<String> date(yyyy-mm-dd)日期列表转为字符串列表
      * @param dateList
      * @return
      */

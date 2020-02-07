@@ -92,10 +92,10 @@
                             <li>
                                 <a onclick="xadmin.add_tab('会员列表(静态表格)','memberlist.do')">
                                     <i class="iconfont">&#xe6a7;</i>
-                                    <cite>会员列表(静态表格)</cite></a>
+                                    <cite>前台用户</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('会员列表(动态表格)','memberlist1.do',true)">
+                                <a onclick="xadmin.add_tab('会员列表','memberlist1.do',true)">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>会员列表(动态表格)</cite></a>
                             </li>

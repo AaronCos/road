@@ -7,25 +7,25 @@
     <insert id="insertByFrontUserUuid"></insert>
     <insert id="insertListByFrontUserUuid"></insert>
     <insert id="addSubjectGrade">
-       insert into subjectgrade (username,chinese,math,english,physics,chemistry,history,geography,biology,polity,createtime,month,times,grade)
-       values (#{name},#{chinese},#{math},#{english},#{physics},#{chemistry},#{history},#{geography},#{biology},#{polity},now(),#{month},#{times},#{grade})
+       INSERT INTO subjectgrade (username,chinese,math,english,physics,chemistry,history,geography,biology,polity,createtime,month,times,grade)
+       VALUES (#{name},#{chinese},#{math},#{english},#{physics},#{chemistry},#{history},#{geography},#{biology},#{polity},now(),#{month},#{times},#{grade})
     </insert>
     <update id="updateByFrontUserUuid"></update>
-    <update id="updateSubjectGrade"> update subjectgrade set ${subject} = #{grade} , updatetime = SYSDATE() where iid = #{iid}</update>
+    <update id="updateSubjectGrade"> UPDATE subjectgrade SET ${subject} = #{grade} , updatetime = SYSDATE() WHERE iid = #{iid}</update>
     <delete id="deleteByGradeUuid"></delete>
     <delete id="deleteByGradeUuids"></delete>
-    <delete id="deleteSubjectGrade">delete from subjectgrade where iid  in
+    <delete id="deleteSubjectGrade">DELETE FROM subjectgrade WHERE iid  IN
               <foreach item="item" collection="ids.split(',')" separator="," open="(" close=")" index="">
                  ${item}
               </foreach>
     </delete>
     <select id="findByFrontLoginname" resultType="com.sswh.entity.SubjectGrade">
-      select a.username,a.chinese,a.math,a.english,a.physics,a.chemistry,a.history,a.geography,a.biology,a.polity from subjectgrade a where 1=1
+      SELECT a.username,a.chinese,a.math,a.english,a.physics,a.chemistry,a.history,a.geography,a.biology,a.polity FROM subjectgrade a WHERE 1=1
       <if test="loginname!='' ">
-       and  a.loginname = #{loginname}
+       AND  a.loginname = #{loginname}
       </if>
-
     </select>
+
     <select id="findAllSubjectGrade" resultType="com.sswh.entity.SubjectGrade"></select>
     <select id="findByFrontUsername" resultType="com.sswh.entity.SubjectGrade">
 

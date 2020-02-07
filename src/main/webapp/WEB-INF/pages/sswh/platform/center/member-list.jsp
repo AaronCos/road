@@ -60,23 +60,18 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </body>
 
     <script type="text/html" id="switchTpl">
-        <!-- 这里的checked的状态只是演示 -->
         <input type="checkbox" name="status" value="{{d.iid}}"  lay-skin="switch" lay-text="生效|失效" lay-filter="status" {{ d.status == 1 ? 'checked': ''}} >
     </script>
-
-    <script type="text/html" id="isStudent">
-        <!-- 这里的checked的状态只是演示 -->
-        <input type="checkbox" name="isstudent" value="{{d.iid}}" lay-skin="switch" lay-text="是|否" lay-filter="status" {{ d.isStudent == 1 ? 'checked': ''}} >
+    <script type="text/html" id="is-student">
+        <input type="checkbox" name="isstudent" value="{{d.iid}}" lay-skin="switch" lay-text="是|否" lay-filter="status" {{ d.beStudent == 1 ? 'checked': ''}} >
     </script>
 
     <script type="text/html" id="barDemo">
-
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-
     </script>
 
     <script>
@@ -84,7 +79,7 @@
       layui.use(['laydate','form','table'], function(){
 
         var laydate = layui.laydate;
-        var  form = layui.form;
+        var form = layui.form;
         table = layui.table;
         //加载table数据
           table.render({
@@ -94,7 +89,9 @@
               method:'post',
               page:true,
               cols:[[
+                  //gei
                   {field:'iid',type:'checkbox', width:80},
+                  {field:'loginname',title:'登录名',align:'center'},
                   {field:'username',title:'用户名',align:'center'},
                   {field:'sex',title:'性别',align:'center', templet : function(d){
                           if(d.sex!=0){
@@ -110,8 +107,8 @@
                   {field:'state',title:'账号状态',templet: '#switchTpl',align :'center'},
                   {field:'school',title:'学校',align :'center'},
                   {field:'grade',title:'年级',align:'center'},
-                  {field:'isstudent',title:'是否学生',templet: '#isStudent',align :'center'},
-                  {field:'edit',toolbar: '#barDemo',align :'center'},
+                  {field:'isstudent',title:'是否学生',templet: '#is-student',align :'center'},
+                  {field:'edit',title:'操作',toolbar: '#barDemo',align :'center'},
               ]],
               limits : [10,20,30]
           });
@@ -185,7 +182,7 @@
               }
           });
 
-        
+
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
@@ -203,11 +200,7 @@
 
 
       function delUser () {
-
           var checkStatus = table.checkStatus('student-table');
-
-
-       // var checkStatus = table.checkStatus(obj.config.id);
           if(checkStatus.data.length==0){
               layer.alert("请先勾选学生");
           }else{

@@ -41,12 +41,14 @@ public class FrontUserEntity  implements Serializable {
 
 
 	private String city_picker;
-
+	//加入时间
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
-	private Date joinTime;//加入时间
-	private SchoolEntity dw_xinzhi; //单位性质
+	private Date joinTime;
+	//单位性质
+	private SchoolEntity dw_xinzhi;
 
-	private int isStudent = 0;// 0、非学生 1、学生
+	// 0、非学生 1、学生
+	private int beStudent = 0;
 	public FrontUserEntity() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -167,12 +169,12 @@ public class FrontUserEntity  implements Serializable {
 		this.day = day;
 	}
 
-	public int getIsStudent() {
-		return isStudent;
+	public int getBeStudent() {
+		return beStudent;
 	}
 
-	public void setIsStudent(int isStudent) {
-		this.isStudent = isStudent;
+	public void setBeStudent(int beStudent) {
+		this.beStudent = beStudent;
 	}
 
 	public String getLoginname() {
