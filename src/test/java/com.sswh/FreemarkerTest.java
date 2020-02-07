@@ -3,10 +3,7 @@ package com.sswh;
 import org.junit.Test;
 
 /**
- * @Author: WangChengCheng
- * @Description: 测试FreeMarker
- * @Date Created in 22:39 2019/10/23
- * @Modeified by:
+ *
  */
 public class FreemarkerTest {
 
