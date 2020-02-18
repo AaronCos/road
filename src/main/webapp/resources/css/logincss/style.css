@@ -137,16 +137,16 @@ img { max-width: 100%; }
 	padding: 25px 25px 30px 25px;
 	background: #eee;
 	-moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
-	text-align: left;
+	/*text-align: left;*/
 }
 
 .form-bottom form textarea {
 	height: 100px;
 }
 
-.form-bottom form button.btn {
+/*.form-bottom form button.btn {
 	width: 100%;
-}
+}*/
 
 .form-bottom form .input-error {
 	border-color: #4aaf51;
