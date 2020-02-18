@@ -16,6 +16,7 @@
 
 	function hideURLbar() {
 		window.scrollTo(0, 1);
+
 	}
 	function showLogin(){
 	    parent.location.href="${path}/front/login.do";

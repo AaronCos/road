@@ -29,6 +29,35 @@
     <link rel="apple-touch-icon-precomposed"
           href="${path}/resources/images/loginimages/apple-touch-icon-57-precomposed.png">
     <link rel="stylesheet" href="${path}/resources/layui/css/modules/layer/default/layer.css">
+    <style>
+        label{
+            display: inline;
+        }
+        .form-group{
+            margin-top:10px;
+        }
+        button.btn{
+            height: 38px;
+            line-height: 38px;
+            width:150px;
+
+        }
+        input#form-password,input#form-loginname,input#form-checkcode{
+            width:333px;
+        }
+        input#form-checkcode{
+            width:210px;
+        }
+        #btnlogin{
+            margin-top: 25px;
+            padding-left:40px;
+        }
+
+        .btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled, .btn[disabled]{
+         /*background-color:transparent;*/
+        }
+
+    </style>
 </head>
 <body>
 <!-- Top content -->
@@ -50,11 +79,11 @@
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>登陆系统</h3>
+                            <h3>登录系统</h3>
                             <p>输入用户名和密码进行登陆:</p>
                         </div>
                         <div class="form-top-right">
-                            <i class="fa fa-key"></i>
+<%--                            <i class="fa fa-key"></i>--%>
                         </div>
                     </div>
                     <div class="form-bottom">
@@ -63,17 +92,25 @@
                             <div class="form-group">
                                 <label class="sr-only" for="form-loginname">用户名</label>
                                 <input type="text" name="loginname" placeholder="用户名称..."
-                                       class="form-username form-control" id="form-loginname" value="">
+                                       class="form-username form-control" id="form-loginname" value="" autocomplete="false">
                             </div>
                             <div class="form-group">
-                                <label class="sr-only" for="form-password">密码</label>
+                                <label class="sr-only" for="form-password">密码&nbsp;&nbsp;&nbsp;</label>
                                 <input type="password" name="password" placeholder="密码..."
                                        class="form-password form-control" id="form-password">
                             </div>
-                            <div style="min-height: 20px"></div>
-                            <button type="submit" class="btn btn-large">登录!</button>
-                            <div style="min-height: 10px"></div>
-                            <button type="button" class="btn btn-primary">返回!</button>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-checkcode">验证码</label>
+                                <input type="text" name="checkcode" placeholder="验证码..."
+                                       class="form-username form-control" id="form-checkcode">
+                                <img id='putImg' src="${path}/checkCode.do" onclick="this.src='${path}/checkCode.do?t='+Math.random();"  alt="">
+                            </div>
+                            <div id="btnlogin">
+                                <button type="submit" class="btn btn-default">登录!</button>
+                                <button type="button" class="btn btn-primary" onclick="backurl();">返回!</button>
+
+                            </div>
+
                         </form>
                     </div>
                 </div>
@@ -83,39 +120,80 @@
     </div>
 
 </div>
-<div class="copyrights">Collect from <a href="http://www.cssmoban.com/" title="网站模板">网站模板</a></div>
+<div class="copyrights">Collect from <a href="http://www.cssmoban.com/" title="网站模板">莘深文化</a></div>
 <script>
+    var backurl = function () {
+        location.href="${path}/support/tab/index.do";
+    }
+    var putImg = function(imgsrc){
+        console.log("hello world")
+        imgsrc.src = "${path}/checkCode.do?t='javascript:Math.random()'";
+
+    }
     function check() {
         var result = true;
         let loginname = $('#form-loginname').val();
         let password = $('#form-password').val();
-        if (loginname == '' || password == '') {
-            layer.alert("用户名和密码不能为空",{offset:'180px'});
+        let checkcode = $('#form-checkcode').val();
+        if (loginname == '' && password == '' && checkcode=='' ) {
+            layer.alert("参数不能为空",{offset:'180px'});
+            // document.getElementById("putImg").click();
+            return false;
+        }
+        if (loginname == '' && password == '' ) {
+            layer.alert("用户名和密码验证码不能为空",{offset:'180px'});
+           // document.getElementById("putImg").click();
+            return false;
+        }
+        if (loginname == '' && checkcode == '' ) {
+            layer.alert("用户名和验证码不能为空",{offset:'180px'});
+            // document.getElementById("putImg").click();
+            return false;
+        }
+        if (password == '' && checkcode == '') {
+            layer.alert("密码和验证码不能为空",{offset:'180px'});
+            document.getElementById("putImg").click();
+            return false;
+        }
+        if (loginname == '' ) {
+            layer.alert("用户名不能为空",{offset:'180px'});
+            // document.getElementById("putImg").click();
+            return false;
+        }
+        if (password == '') {
+            layer.alert("密码不能为空",{offset:'180px'});
+            //document.getElementById("putImg").click();
+            return false;
+        }
+        if (checkcode == '') {
+            layer.alert("验证码不能为空",{offset:'180px'});
+            document.getElementById("putImg").click();
             return false;
         }
         $.ajax({
             async: false,
             url: "dologin.do",
-            type: "post",
-            cache:"false",
+            type: "GET",
+            cache:false,
             data: {
                 "loginname":loginname,
-                "password":password
+                "password":password,
+                "checkCode":checkcode
             },
             success: function (data) {
-                if(data.msg!='登陆成功'){
+                if(data.code != '01'){
+                    layer.alert(data.msg);
+                    document.getElementById("putImg").click();
                     result = false;
                 }
             },
             error: function (data){
+                layer.alert("登录失败",{offset:'180px'});
+                document.getElementById("putImg").click();
                 result = false;
             }
         });
-        if (!result){
-            layer.alert("登录失败",{offset:'180px'});
-            return false;
-        }
-        return true;
+        return result;
     }
 </script>
 

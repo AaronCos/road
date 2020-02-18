@@ -34,6 +34,7 @@
                     <li><a href="about.do">关于我们</a></li>
                     <%--<li><a href="selectpeople.do">教育中心</a></li>--%>
                     <li><a href="selectpeople.do">诚聘英才</a></li>
+                    <li><a href="selectpeople.do">个人中心</a></li>
                     <%--<li><a href="mail.html">Mail Us</a></li>--%>
                 </ul>
             </nav>
