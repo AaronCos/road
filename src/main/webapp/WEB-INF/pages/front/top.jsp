@@ -14,9 +14,9 @@
 </script>
 <div class="agile_wthree_nav">
     <nav class="navbar navbar-default">
-        <div class="navbar-header navbar-left">
+        <div class="navbar-header navbar-left" style="padding-left: 200px;">
 
-            <h1><a class="navbar-brand" href="${path}/index.html">
+          <%--  <h1><a class="navbar-brand" href="${path}/index.html">
                 <c:if test="${!empty sessionScope.currentFrontUser.username}">
                         <a href="#" style="color: #ffffff;font-size: 35px;">欢迎您:${sessionScope.currentFrontUser.username}</a>&nbsp;<span><a href="${path}/front/logout.do" style="color: #ffffff;font-size: 25px;">退出</a></span>
                 </c:if>
@@ -24,7 +24,8 @@
                     <a src="#" style="color: #ffffff;">登陆</a> <a src="#" style="color: #ffffff;" href="${path}/support/regist.do">注册</a>
                 </c:if>
 
-            </a></h1>
+            </a></h1>--%>
+             <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">

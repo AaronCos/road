@@ -1,9 +1,12 @@
 package com.sswh;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.druid.support.json.JSONUtils;
 import com.sswh.dao.IPlatformUserDao;
 import com.sswh.entity.PlatformUser;
+import com.sswh.front.dao.IFrontUserDao;
 import com.sswh.front.dao.IStudentGradeDao;
+import com.sswh.front.entity.FrontUserEntity;
 import com.sswh.front.studentgrade.service.IStudentGradeService;
 import com.sswh.platform.service.MemberService;
 import org.apache.shiro.SecurityUtils;
@@ -41,6 +44,9 @@ public class SpringTest {
     MemberService memberService;
 
 
+    @Autowired
+    IFrontUserDao frontUserDao;
+
     @Resource(name = "securityManager")
     SecurityManager securityManager;
 
@@ -51,10 +57,27 @@ public class SpringTest {
     @Autowired
     private ShardedJedisPool shardedJedisPool;
 
+    /**
+     * 测试hutool工具类
+     */
+    @Test
+    public void testStrUtil() {
+        System.out.println( StrUtil.equals("123", null));//false
+        System.out.println(StrUtil.equals(null, null)); //true
+
+        System.out.println(StrUtil.isEmpty(null)); //true
+        System.out.println(StrUtil.isEmpty(""));   //true
+    }
+
    @Test
     public void testjson(){
        String s = memberService.organizeMemberJson();
        System.out.println(s);
+   }
+   @Test
+   public void testFrontUser(){
+       FrontUserEntity wby12 = frontUserDao.findByLoginName("wby12");
+       System.out.println("------------");
    }
 
     @Test

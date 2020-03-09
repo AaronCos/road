@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}" scope="session"></c:set>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -80,7 +78,7 @@
                     <div class="form-top">
                         <div class="form-top-left">
                             <h3>登录系统</h3>
-                            <p>输入用户名和密码进行登陆:</p>
+                            <p style="color: #1000ff;"><a href="${path}/front/regist.do">还没有账号 前往注册 》</a></p>
                         </div>
                         <div class="form-top-right">
 <%--                            <i class="fa fa-key"></i>--%>

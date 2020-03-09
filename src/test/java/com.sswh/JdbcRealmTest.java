@@ -17,9 +17,9 @@ public class JdbcRealmTest {
     DruidDataSource dataSource = new DruidDataSource();
 
     {
-        dataSource.setUrl("jdbc:mysql://localhost:3306/easybuy");
+        dataSource.setUrl("jdbc:mysql://106.13.169.253:3306/sswh");
         dataSource.setUsername("root");
-        dataSource.setPassword("aaron");
+        dataSource.setPassword("Qwer@1234");
     }
 
     @Test

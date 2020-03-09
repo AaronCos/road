@@ -75,6 +75,7 @@ public class FrontLoginOutController {
 
     @RequestMapping("jumpToIndex")
     private String jumpToIndex(HttpServletRequest request) {
+        System.gc();
         return "redirect:/support/tab/index.do";
     }
 
@@ -87,17 +88,31 @@ public class FrontLoginOutController {
 
     @RequestMapping(value = "doregist", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String registUser(FrontUserEntity user) {
-        String message = "注册失败";
+    public Map registUser(FrontUserEntity user,String checkCode,HttpSession session) {
+        Map<String, String> map = new HashMap<>();
+        if (StrUtil.isEmpty(checkCode)) {
+            map.put("code", "0003");
+            map.put("msg", "请输入验证码");
+        }else{
+            String verycode =(String) session.getAttribute("verycode");
+            if (!StrUtil.equals(checkCode,verycode)) {
+                map.put("code", "0004");
+                map.put("msg", "验证码输入错误");
+                return map;
+            }
+        }
+
         if (user == null) {
-            message = "请填写用户信息";
-            return message;
+            map.put("code","0003");
+            map.put("msg","请填写用户信息");
+            return map;
         }
         //1. 判断此登录名称是否已经存在
         Integer count = frontLoginOutService.findCountByLoginname(user.getLoginname());
         if (count > 0) {
-            message = "当前登录名已存在，请重新输入";
-            return message;
+            map.put("code","0005");
+            map.put("msg","当前登录名已存在，请重新输入");
+            return map;
         }
         String password_salt = StringUtil.uuid();
         user.setPassword_salt(password_salt);
@@ -106,12 +121,13 @@ public class FrontLoginOutController {
         //2. 加密入库
         Integer registSuccessful = frontLoginOutService.registUser(user);
         if (registSuccessful < 1) {
-            message = "注册失败";
-            return message;
+            map.put("code","0002");
+            map.put("msg","注册失败");
+            return map;
         }
-
-        message = "注册成功，欢迎：" + user.getLoginname();
-        return message;
+        map.put("code","0001");
+        map.put("msg","注册成功，欢迎：" + user.getLoginname());
+        return map;
     }
 
     private FrontUserEntity findByUserName(String username) {
