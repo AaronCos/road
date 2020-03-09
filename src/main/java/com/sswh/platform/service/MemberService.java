@@ -8,7 +8,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.sswh.front.dao.IFrontUserDao;
 import com.sswh.front.entity.FrontUserEntity;
 import com.sswh.front.entity.SchoolEntity;
-import com.sswh.utils.StringUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class MemberService {
 
         if (frontUserEntity != null) {
             if (StrUtil.isNotEmpty(frontUserEntity.getPassword())) {
-                String password_salt = StringUtil.uuid();
+                String password_salt = StrUtil.uuid();
                 frontUserEntity.setPassword_salt(password_salt);
                 frontUserEntity.setPassword(new Md5Hash(frontUserEntity.getPassword(), password_salt).toString());
             }

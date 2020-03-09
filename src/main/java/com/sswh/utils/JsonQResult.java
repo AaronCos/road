@@ -47,11 +47,11 @@ public class JsonQResult {
     }
 
     public void setJsonQMap(String key,Object value) {
-        if(StringUtil.isEmpty(this.code)){
+        if(StrUtil.isEmpty(this.code)){
             this.code = "01";
         }
         this.jsonQMap.put("code",this.code);
-        if(StringUtil.isEmpty(this.message)){
+        if(StrUtil.isEmpty(this.message)){
             this.message = "未设置提示信息";
         }
         this.jsonQMap.put("message",this.message);
@@ -62,11 +62,11 @@ public class JsonQResult {
         this.jsonQResult = JSONUtils.toJSONString(this.jsonQMap);
     }
     public void setJsonQMap() {
-        if(StringUtil.isEmpty(this.code)){
+        if(StrUtil.isEmpty(this.code)){
             this.code = "01";
         }
         this.jsonQMap.put("code",this.code);
-        if(StringUtil.isEmpty(this.message)){
+        if(StrUtil.isEmpty(this.message)){
             this.message = "未设置提示信息";
         }
         this.jsonQMap.put("message",this.message);

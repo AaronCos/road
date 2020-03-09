@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.sswh.front.entity.CurrentFrontUserEntity;
 import com.sswh.front.entity.FrontUserEntity;
 import com.sswh.front.support.service.FrontLoginOutService;
-import com.sswh.utils.StringUtil;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -114,7 +113,7 @@ public class FrontLoginOutController {
             map.put("msg","当前登录名已存在，请重新输入");
             return map;
         }
-        String password_salt = StringUtil.uuid();
+        String password_salt = StrUtil.uuid();
         user.setPassword_salt(password_salt);
         user.setPassword(new Md5Hash(user.getPassword(), password_salt).toString());
 

@@ -1,9 +1,9 @@
 package com.sswh.support;
 
+import cn.hutool.core.util.StrUtil;
 import com.sswh.dao.IPlatformUserDao;
 import com.sswh.entity.PlatformUser;
 import com.sswh.platform.service.LoginOutService;
-import com.sswh.utils.StringUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -47,7 +47,7 @@ public class LoginOutController {
         mv.addObject("url", "dologin.do");
         PlatformUser platformUser = new PlatformUser();
         String username = (String) SecurityUtils.getSubject().getPrincipal();
-        if (StringUtil.isEmpty(username)) {
+        if (StrUtil.isEmpty(username)) {
             mv.addObject("platformUser", platformUser);
         } else {
             try {
@@ -99,10 +99,10 @@ public class LoginOutController {
             message = "当前用户名已存在，请重新输入";
             return message;
         }
-        String password_salt = StringUtil.uuid();
+        String password_salt = StrUtil.uuid();
         user.setPassword_salt(password_salt);
         user.setPassword(new Md5Hash(user.getPassword(), password_salt).toString());
-        user.setUserUuid(StringUtil.uuid());
+        user.setUserUuid(StrUtil.uuid());
         //2. 加密入库
         Integer registSuccessful = platformUserDao.registUser(user);
         if (registSuccessful < 1) {
