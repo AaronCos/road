@@ -28,7 +28,7 @@ public class FrontLoginOutController {
     @Autowired
     FrontLoginOutService frontLoginOutService;
 
-
+    public static final String CURRENTUSER = "currentFrontUser";
     @RequestMapping("login")
     public ModelAndView login() {
         ModelAndView mv = new ModelAndView("front/login");
@@ -85,16 +85,18 @@ public class FrontLoginOutController {
         return mv;
     }
 
-    @RequestMapping(value = "doregist", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+
+    @RequestMapping(value = "checkuser", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public Map registUser(FrontUserEntity user,String checkCode,HttpSession session) {
+    public Map<String, String> checkUser(FrontUserEntity user, String checkCode, HttpSession session){
+        Boolean result = false;
         Map<String, String> map = new HashMap<>();
         if (StrUtil.isEmpty(checkCode)) {
             map.put("code", "0003");
             map.put("msg", "请输入验证码");
         }else{
             String verycode =(String) session.getAttribute("verycode");
-            if (!StrUtil.equals(checkCode,verycode)) {
+            if (!StrUtil.equalsIgnoreCase(checkCode, verycode)) {
                 map.put("code", "0004");
                 map.put("msg", "验证码输入错误");
                 return map;
@@ -113,20 +115,32 @@ public class FrontLoginOutController {
             map.put("msg","当前登录名已存在，请重新输入");
             return map;
         }
+        map.put("code","0001");
+        return map;
+    }
+
+    /**
+     * hello
+     * @param user
+     * @param checkCode
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "doregist", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public String  registUser(FrontUserEntity user,String checkCode,HttpSession session) {
+        Map<String, String> map = new HashMap<>();
         String password_salt = StrUtil.uuid();
         user.setPassword_salt(password_salt);
         user.setPassword(new Md5Hash(user.getPassword(), password_salt).toString());
-
         //2. 加密入库
         Integer registSuccessful = frontLoginOutService.registUser(user);
         if (registSuccessful < 1) {
             map.put("code","0002");
             map.put("msg","注册失败");
-            return map;
         }
         map.put("code","0001");
         map.put("msg","注册成功，欢迎：" + user.getLoginname());
-        return map;
+        return "redirect:/support/tab/index.do";
     }
 
     private FrontUserEntity findByUserName(String username) {
@@ -136,8 +150,8 @@ public class FrontLoginOutController {
 
     @RequestMapping("logout")
     private String logout(HttpSession session) {
-        if (null != session.getAttribute("currentFrontUser")) {
-            session.removeAttribute("currentFrontUser");
+        if (null != session.getAttribute(CURRENTUSER)) {
+            session.removeAttribute(CURRENTUSER);
         }
         return "redirect:/support/tab/index.do";
     }

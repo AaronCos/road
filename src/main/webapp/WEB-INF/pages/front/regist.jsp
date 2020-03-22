@@ -88,8 +88,7 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form action="${url}" method="post" class="login-form" enctype="multipart/form-data"
-                              onsubmit="return check();">
+                        <form action="${url}" method="post" class="login-form" >
                             <div class="form-group">
                                 <label class="sr-only" for="form-loginname">&nbsp;&nbsp;&nbsp;用户名</label>
                                 <input type="text" name="loginname" placeholder="用户名称..."
@@ -104,7 +103,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">确认密码</label>
-                                <input type="password" name="password" placeholder="确认密码..."
+                                <input type="password" placeholder="确认密码..."
                                        class="form-password form-control" id="form-repassword">
                             </div>
                             <div class="form-group">
@@ -115,7 +114,7 @@
                                      onclick="this.src='${path}/checkCode.do?t='+Math.random();" alt="">
                             </div>
                             <div id="btnlogin">
-                                <button type="submit" class="btn btn-default">注册!</button>
+                                <button type="button" class="btn btn-default" onclick="check()">注册!</button>
                                 <button type="button" class="btn btn-primary" onclick="backurl();">返回!</button>
 
                             </div>
@@ -139,6 +138,37 @@
         imgsrc.src = "${path}/checkCode.do?t='javascript:Math.random()'";
 
     }
+    function checkname(loginname,password,checkcode){
+        var tempresult = false;
+        $.ajax({
+            async: false,
+            url: "checkuser.do",
+            type: "post",
+            cache: false,
+            data: {
+                "loginname": loginname,
+                "password": password,
+                "checkCode": checkcode
+            },
+            success: function (data) {
+                if (data.code != '0001' || data.code=='undefined' || data.code==null) {
+                    layer.alert(data.msg, {offset: '180px'});
+                    document.getElementById("putImg").click();
+                    tempresult = false;
+                }
+                if (data.code == '0001') {
+                    tempresult  = true;
+                }
+            },
+            error: function (data) {
+                layer.alert("登录失败", {offset: '180px'});
+                document.getElementById("putImg").click();
+                tempresult = false;
+            }
+        })
+        return tempresult;
+    }
+
 
     function check() {
         var result = true;
@@ -166,39 +196,16 @@
             }
 
             layer.alert(remindStr, {offset: '180px'});
-            // document.getElementById("putImg").click();
-            return false;
         }
         if (password != repassword) {
             remindStr = "两次密码输入不一致";
             layer.alert(remindStr, {offset: '180px'});
-            return false;
         }
+        var preresult = checkname(loginname,password,checkcode);
 
-        $.ajax({
-            async: false,
-            url: "doregist.do",
-            type: "post",
-            cache: false,
-            data: {
-                "loginname": loginname,
-                "password": password,
-                "checkCode": checkcode
-            },
-            success: function (data) {
-                if (data.code != '0001') {
-                    layer.alert(data.msg, {offset: '180px'});
-                    document.getElementById("putImg").click();
-                    result = false;
-                }
-            },
-            error: function (data) {
-                layer.alert("登录失败", {offset: '180px'});
-                document.getElementById("putImg").click();
-                result = false;
-            }
-        });
-        return result;
+        if (preresult) {
+            $("form").submit();
+        }
     }
 </script>
 

@@ -3,10 +3,16 @@ package com.sswh.utils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by wangchengcheng on 2019/9/15
+ * @author nuanfeng
  */
 public class IpUtil {
-
+    /**
+     *@description
+     *@params [request]
+     *@return java.lang.String
+     *@author mirac
+     *@date 2020/3/22 11:40
+     */
     public static String getIpAddress(HttpServletRequest request) {
             String ip = request.getHeader("x-forwarded-for");
             if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {

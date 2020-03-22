@@ -18,7 +18,6 @@ public class BaseInterceptor implements HandlerInterceptor {
         Subject subject = SecurityUtils.getSubject();
         String username = (String) subject.getPrincipal();
         if (StrUtil.isEmpty(username)) {
-            //response.sendRedirect(request.getContextPath()+"/support/login.do");
             return false;
         }
         return true;

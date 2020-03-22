@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by wangchengcheng on 2019/2/23N
+ * @author nuanfeng
  */
 @Repository(value = "iPlatformUserDao")
  public interface IPlatformUserDao {

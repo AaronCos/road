@@ -59,7 +59,6 @@ public class LoginOutController {
             mv.addObject("platformUser", platformUser);
         }
 
-        // mv.addObject("platformUser",currentUser);
         return mv;
     }
 

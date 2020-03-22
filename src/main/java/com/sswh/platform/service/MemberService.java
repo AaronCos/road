@@ -73,12 +73,6 @@ public class MemberService {
         if (data!=null) {
             for (int i = 0; i < data.size(); i++) {
                 JSONObject jsonObject = data.getJSONObject(i);
-                //int iid = (int) jsonObject.get("iid");
-                // jsonObject.put("id",iid+"");
-                // jsonObject.remove("iid");
-                //jsonObject.remove("isStudent");
-                //String a = (String)jsonObject.get("joinTime");
-                //jsonObject.put("joinTime",a.substring(0,10));
                 array.add(jsonObject);
             }
         }

@@ -52,14 +52,12 @@ public class UserController {
         String passWord1 = user.getPassword();
         String hello2222 = user.getPassword();
         String helo = user.getAddress();
-      //  Date birthday = user.getBirthday();
 
         user.setCode(StrUtil.uuid());
         //设置密码  MD5加密密码
         user.setPassword(SecureUtil.md5(user.getPassword()));
         System.out.println("veryCode1 = " + veryCode1);
         System.out.println("user = " + user);
-//        userService.regist(user);
         return "login";
     }
 

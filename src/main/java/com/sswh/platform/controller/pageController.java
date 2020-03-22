@@ -12,10 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("layui")
 public class pageController {
-    /*@RequestMapping("{requrl}")
-    public String layui_test(@PathVariable("requrl") String name) {
-        return "sswh/platform/" + name;
-    }*/
 
    @RequestMapping("hello")
     public String test(){

@@ -74,9 +74,10 @@ public interface IFrontUserDao {
     int updateByUserIid(FrontUserEntity user);
 
     /**
+     * cha
      * @Description 查询相同姓名的人数
      *
-     * @param loginname
+     * @param loginname  登录名
      * @return 相同姓名的人数
      */
     Integer findCountByLoginname(String loginname);

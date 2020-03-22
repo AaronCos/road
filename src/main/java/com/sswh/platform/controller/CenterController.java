@@ -60,10 +60,7 @@ public class CenterController {
         return "sswh/platform/center/member-add";
     }
 
-   /* @RequestMapping("memberedit")
-    public String editshow() {
-        return "sswh/platform/center/member-edit";
-    }*/
+
 
     @RequestMapping("memberpassword")
     public String passwordshow() {

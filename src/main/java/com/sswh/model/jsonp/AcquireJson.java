@@ -12,6 +12,7 @@ import java.util.Map;
 
 /**
  * Created by wangchengcheng on 2019/7/12
+ * @author mirac
  */
 @Controller
 @RequestMapping("hellojson")
@@ -19,7 +20,7 @@ public class AcquireJson {
 
     @RequestMapping("json")
     @ResponseBody
-    public List<Map> AcquireJson(){
+    public List<Map> acquireJson(){
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> map1 = new HashMap<>();
         List<Map> list = new ArrayList<>();

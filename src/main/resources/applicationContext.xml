@@ -25,11 +25,15 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
     <!-- <context:property-placeholder location="classpath:db.properties"/> -->
     <!-- 创建数据源 c3p0 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <!--<property name="driverClass" value="com.mysql.jdbc.Driver"/>-->
-        <property name="driverClass" value="net.sf.log4jdbc.DriverSpy"/>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/sswh?useUnicode=true&amp;characterEncoding=UTF-8"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/>
+
+    <!--    <property name="driverClass" value="net.sf.log4jdbc.DriverSpy"/>
         <property name="jdbcUrl" value="jdbc:log4jdbc:mysql://106.13.169.253:3306/sswh?useUnicode=true&amp;characterEncoding=UTF-8"/>
         <property name="user" value="root"/>
-        <property name="password" value="Qwer@1234"/>
+        <property name="password" value="Qwer@1234"/>-->
     </bean>
 
 
