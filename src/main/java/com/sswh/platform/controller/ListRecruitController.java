@@ -28,9 +28,6 @@ public class ListRecruitController {
     @Autowired
     private RecruitService recruitService;
 
-
-
-
     @GetMapping("recruit-data")
     public JsonQResult combineData(String title,int page,int limit){
         JsonQResult jsonQResult = new JsonQResult();
