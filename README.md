@@ -3,5 +3,5 @@
 1. 构建最基本的ssm框架
 2. 提供常用的工具类
 
-## 后台用户认证使用shiro
+ title,content,humanResource,phone,email,image,createTime,endTime,salaryLow,salaryHigh,show,orderid
 
