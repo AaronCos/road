@@ -125,7 +125,7 @@
 			</div>
 		</li>
 		<li class="layui-timeline-item">
-			<i class="layui-icon layui-timeline-axis"></i>
+			<i class="layui-icon layui-timeline-axis"></i>
 			<div class="layui-timeline-content layui-text">
 				<div class="layui-timeline-title">莘深承载着使命向着时代走来</div>
 			</div>

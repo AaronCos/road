@@ -11,7 +11,7 @@ public class IpUtil {
      *@params [request]
      *@return java.lang.String
      *@author mirac
-     *@date 2020/3/22 11:40
+     *@date 2020/3/22 15:18
      */
     public static String getIpAddress(HttpServletRequest request) {
             String ip = request.getHeader("x-forwarded-for");

@@ -1,99 +1,45 @@
 package com.sswh.utils;
 
-import cn.hutool.core.util.StrUtil;
-import com.alibaba.druid.support.json.JSONUtils;
-import com.alibaba.fastjson.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Created by wangchengcheng on 2019/9/28
+ * 针对layui的json返回格式封装的map工具类
+ * @author nuanfeng
  */
 public class JsonQResult {
 
-    private String code;
-    private String message;
-    private String data;
-    private String jsonQResult;
-    private Map<String,Object> jsonQMap = new HashMap<>();
-    private Map<String,Object> dataJson = new HashMap<>();
-    public String getCode() {
+    private int code;
+    private String msg;
+    private int count;
+    private Object data;
+
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public String getJsonQResult() {
-        return jsonQResult;
+    public int getCount() {
+        return count;
     }
 
-    public void setJsonQResult(String jsonQResult) {
-        this.jsonQResult = jsonQResult;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public Map<String, Object> getjsonQMap() {
-        return jsonQMap;
+    public Object getData() {
+        return data;
     }
 
-    public void setJsonQMap(String key,Object value) {
-        if(StrUtil.isEmpty(this.code)){
-            this.code = "01";
-        }
-        this.jsonQMap.put("code",this.code);
-        if(StrUtil.isEmpty(this.message)){
-            this.message = "未设置提示信息";
-        }
-        this.jsonQMap.put("message",this.message);
-        if(!StrUtil.isEmpty(key)){
-            this.dataJson.put(key,value);
-            this.jsonQMap.put("data", JSONObject.toJSON(this.dataJson));
-        }
-        this.jsonQResult = JSONUtils.toJSONString(this.jsonQMap);
-    }
-    public void setJsonQMap() {
-        if(StrUtil.isEmpty(this.code)){
-            this.code = "01";
-        }
-        this.jsonQMap.put("code",this.code);
-        if(StrUtil.isEmpty(this.message)){
-            this.message = "未设置提示信息";
-        }
-        this.jsonQMap.put("message",this.message);
-        this.jsonQResult = JSONUtils.toJSONString(this.jsonQMap);
-    }
-
-
-    @Override
-    public String toString() {
-        return "JsonQResult{" +
-                "code='" + code + '\'' +
-                ", message='" + message + '\'' +
-                ", jsonQResult='" + jsonQResult + '\'' +
-                ", jsonQMap=" + jsonQMap +
-                '}';
-    }
-
-    public static void main(String[] args) {
-        JsonQResult jsonQResult = new JsonQResult();
-        jsonQResult.setJsonQMap("hello","woshi");
-        jsonQResult.setJsonQMap("good","boy");
-        String jsonQResult1 = jsonQResult.getJsonQResult();
-        System.out.println(jsonQResult1);
-        JSONObject o = (JSONObject) JSONObject.parse(jsonQResult1);
-        JSONObject data =(JSONObject) o.get("data");
-        System.out.println(data.toJSONString());
-        Object o1 = JSONObject.toJSON(data);
-        System.out.println(o1.toString());
+    public void setData(Object data) {
+        this.data = data;
     }
 }

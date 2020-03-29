@@ -1,0 +1,48 @@
+package com.sswh.dao;
+
+import com.sswh.entity.RecruitEntity;
+
+import java.util.List;
+
+/**
+ * @author nuanfeng
+ * @date 2020/3/22 22:31
+ */
+public interface RecruitDao {
+
+    /**
+     * 编写招聘信息
+     * @param recruit 招聘实体
+     * @return
+     */
+    int writeRecruit(RecruitEntity recruit);
+
+    List<RecruitEntity> findAllRecruit();
+
+    /**
+     * 通过招聘标题获取招聘实体信息
+     * @param title 标题
+     * @return
+     */
+    RecruitEntity findByTitle(String title);
+
+    /**
+     * 通过科目代号获取招聘信息实体
+     * @param subjectBh 编号
+     * @return
+     */
+    RecruitEntity findBySubjectBh(int subjectBh);
+
+    /**
+     * 修改展示状态
+     * @param pageshow 是否展示
+     * @param iid 招聘信息id
+     * @return
+     */
+    int changePageShow(int pageshow,int iid);
+
+
+    RecruitEntity findByIid(int iid);
+
+    void deleteRecruit(String[] ids);
+}

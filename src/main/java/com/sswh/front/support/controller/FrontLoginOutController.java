@@ -45,7 +45,7 @@ public class FrontLoginOutController {
             map.put("msg", "请输入验证码");
         }else{
             String verycode =(String) session.getAttribute("verycode");
-            if (!StrUtil.equals(checkCode,verycode)) {
+            if (!StrUtil.equalsIgnoreCase(checkCode,verycode)) {
                 map.put("code", "05");
                 map.put("msg", "验证码输入错误");
                 return map;

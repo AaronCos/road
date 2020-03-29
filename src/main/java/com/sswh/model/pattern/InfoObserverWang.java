@@ -16,7 +16,7 @@ public class InfoObserverWang implements Observer {
  * @param arg
      *@return void
      *@author mirac
-     *@date 2020/3/22 11:44
+     *@date 2020/3/22 15:18
      */
     @Override
     public void update(Observable o, Object arg) {

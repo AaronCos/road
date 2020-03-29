@@ -75,4 +75,10 @@ public class CenterController {
         modelAndView.addObject("frontuser",frontuser);
         return modelAndView;
     }
+    @RequestMapping("recruitlist")
+    public ModelAndView showRecruitPage(){
+        ModelAndView mv = new ModelAndView("sswh/platform/center/recruit-list");
+        mv.addObject("cite","招聘信息");
+        return mv;
+    }
 }
