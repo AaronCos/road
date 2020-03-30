@@ -9,8 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="${path}/resources/center/css/font.css">
     <link rel="stylesheet" href="${path}/resources/center/css/xadmin.css">
-    <script src="${path}/resources/center/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="${path}/resources/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${path}/resources/center/js/xadmin.js"></script>
+    <script type="text/javascript" src="${path}/resources/center/js/xsswh.js"></script>
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -35,24 +36,18 @@
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input" autocomplete="off" placeholder="开始日" name="start" id="start">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="username" placeholder="请输入用户名" autocomplete="off"
+                            <input type="text" name="title" placeholder="请输入招聘标题" autocomplete="on"
                                    class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
-                            <button class="layui-btn" lay-submit lay-filter="student_sreach"><i class="layui-icon">&#xe615;</i>
+                            <button class="layui-btn" lay-submit lay-filter="recruit_sreach"><i class="layui-icon">&#xe615;</i>
                             </button>
                         </div>
                     </form>
                 </div>
 
                 <div class="layui-card-body layui-table-body layui-table-main">
-                    <table id="recruit-table"  class="layui-table layui-form" lay-filter="recruit-table">
+                    <table id="recruit-table" class="layui-table layui-form" lay-filter="recruit-table">
 
                     </table>
                 </div>
@@ -62,14 +57,6 @@
 </div>
 </body>
 
-<script type="text/html" id="switchTpl">
-    <input type="checkbox" name="status" value="{{d.iid}}" lay-skin="switch" lay-text="生效|失效" lay-filter="status" {{
-           d.status== 1 ? 'checked': ''}} >
-</script>
-<script type="text/html" id="is-student">
-    <input type="checkbox" name="isstudent" value="{{d.iid}}" lay-skin="switch" lay-text="是|否" lay-filter="status" {{
-           d.beStudent== 1 ? 'checked': ''}} >
-</script>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -81,25 +68,13 @@
             class="layui-icon"></i>添加
     </button>
 </script>
+<script type="text/html" id="is-student">
+    <input type="checkbox" name="pageshow" value="{{d.iid}}" lay-skin="switch" lay-text="是|否" lay-filter="pageshow" {{ d.pageshow == 1 ? 'checked': ''}} >
+</script>
 
 <script>
     let table;
-   var sswh = {};
-    sswh.showSubject = function(data){
-        switch (data) {
-            case 1: return '语文';break;
-            case 2: return '数学';break;
-            case 3: return '外语';break;
-            case 4: return '物理';break;
-            case 5: return '化学';break;
-            case 6: return '历史';break;
-            case 7: return '地理';break;
-            case 8: return '生物';break;
-            case 9: return '政治';
-        }
-    }
     layui.use(['laydate', 'form', 'table'], function () {
-
         var laydate = layui.laydate;
         var form = layui.form;
         table = layui.table;
@@ -123,8 +98,9 @@
                 //gei
                 {field: 'iid', type: 'checkbox', width: 80},
                 {field: 'title', title: '招聘标题', align: 'center'},
-                {field: 'subject', title: '科目', align: 'center', templet: function (d) {
-                       return  sswh.showSubject(d.subject);
+                {
+                    field: 'subject', title: '科目', align: 'center', templet: function (d) {
+                        return sswh.showSubject(d.subject);
                     }
                 },
                 {field: 'content', title: '招聘内容', align: 'center'},
@@ -137,38 +113,20 @@
             ]],
             limits: [10, 20, 30]
         });
-
-
-
-        form.on('switch(status)', function (obj) {
-
-            var state;
-            if (obj.elem.checked) {
-                state = 1;
-            } else {
-                state = 0;
-            }
-            $.ajax({
-                url: "../data/updateStatusOrIsStudent.do",
-                type: "POST",
-                datatype: "json",
-                async: true,
-                data: {
-                    iid: this.value,
-                    name: this.name,
-                    state: state
-                },
-                success: function (data) {
-                },
-                error: function () {
-                    layer.alert("更新失败，请稍后再试！");
+        //支持全局搜索
+        form.on('submit(recruit_sreach)', function (obj) {
+            table.reload('recruit-table', {
+                where: obj.field
+                , page: {
+                    curr: 1 //重新从第 1 页开始
                 }
-            });
-        });
+            }); //只重载数据
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        })
 
         table.on('tool(recruit-table)', function (obj) {
-               var data = obj.data;
-               if (obj.event === 'edit') {
+            var data = obj.data;
+            if (obj.event === 'edit') {
                 layer.open({
                     type: 2,
                     title: "编辑招聘信息",
@@ -197,29 +155,52 @@
         laydate.render({
             elem: '#end' //指定元素
         });
+        //监听switch事件，更新pageshow的状态
+        form.on('switch(pageshow)', function(obj){
+            var state ;
+            if(obj.elem.checked){
+                state = 1;
+            }else{
+                state = 0;
+            }
+            $.ajax({
+                url :  "${path}/recruit/changepageshow.do",
+                type : "POST",
+                datatype : "json",
+                async : true,
+                data : {
+                    iid : this.value ,
+                    pageshow : state
+                },
+                success:function(data) {
+                },
+                error:function(){
+                    layer.alert("更新失败，请稍后再试！") ;
+                }
+            });
+        });
         //头工具栏事件
-        table.on('toolbar(recruit-table)',function (obj) {
+        table.on('toolbar(recruit-table)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
                 case 'delRecruit':
                     var data = checkStatus.data;
-                    if(data.length == 0){
+                    if (data.length == 0) {
                         layer.alert("请先选择数据");
-
                         break;
                     }
-                   var ids = [];
+                    var ids = [];
                     for (let i = 0; i < data.length; i++) {
-                        ids[i]=data[i].iid;
+                        ids[i] = data[i].iid;
                     }
                     let results = ids.join(",");
                     layer.confirm('是否确认删除选中信息？', {
-                        btn: ['确认','取消'] //按钮
-                    }, function(){
+                        btn: ['确认', '取消'] //按钮
+                    }, function () {
                         delRecruit(results);
-                        layer.msg('共删除了'+ids.length+'条信息', {icon: 1});
+                        layer.msg('共删除了' + ids.length + '条信息', {icon: 1});
 
-                    }, function(){
+                    }, function () {
 
                     });
 
@@ -240,35 +221,8 @@
     });
 
 
-    function delRecruit(ids) {
-        $.ajax({
-            url: "${path}/recruit/delete.do",
-            type: "POST",
-            datatype: "json",
-            async: true,
-            data: {ids: ids},
-            success: function (data) {
-                layer.alert("删除成功！");
-                var $ = layui.$;
-                table.reload('recruit-table'/*, {
-                    page: {
-                        curr: $(".layui-laypage-em").next().html()
-                    },
-                    where: {
-                       /!* username: $("#username").val(),
-                        start: $("#start").val(),
-                        end: $("#end").val()*!/
-                    },
-                    method: 'post',
-                    //contentType: "application/json;charset=utf-8",
-                    url: '${path}/recruit/recruit-data.do',
-                }*/);
 
-            },
-            error: function () {
-                layer.alert("删除失败，请稍后再试！");
-            }
-        });
-    }
+
+
 </script>
 </html>

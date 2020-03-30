@@ -1,5 +1,6 @@
 package com.sswh.platform.service.impl;
 
+import cn.hutool.core.util.NumberUtil;
 import com.sswh.dao.RecruitDao;
 import com.sswh.entity.RecruitEntity;
 import com.sswh.platform.service.RecruitService;
@@ -26,7 +27,7 @@ public class RecruitServiceImpl implements RecruitService {
 
     @Override
     public List<RecruitEntity> findByTitle(String title) {
-        return null;
+        return recruitDao.findByTitle(title);
     }
 
     @Override
@@ -54,5 +55,10 @@ public class RecruitServiceImpl implements RecruitService {
     @Override
     public boolean updateRecruit(RecruitEntity recruitEntity) {
         return false;
+    }
+
+    @Override
+    public int changepageshow(String iid, String pageshow) {
+        return recruitDao.changePageShow(NumberUtil.parseInt(pageshow), NumberUtil.parseInt(iid));
     }
 }

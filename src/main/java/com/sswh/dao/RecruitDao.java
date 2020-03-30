@@ -1,6 +1,7 @@
 package com.sswh.dao;
 
 import com.sswh.entity.RecruitEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface RecruitDao {
      * @param title 标题
      * @return
      */
-    RecruitEntity findByTitle(String title);
+    List<RecruitEntity> findByTitle(String title);
 
     /**
      * 通过科目代号获取招聘信息实体
@@ -39,10 +40,11 @@ public interface RecruitDao {
      * @param iid 招聘信息id
      * @return
      */
-    int changePageShow(int pageshow,int iid);
+    int changePageShow(@Param("pageshow") int pageshow,@Param("iid") int iid);
 
 
     RecruitEntity findByIid(int iid);
 
     void deleteRecruit(String[] ids);
+
 }

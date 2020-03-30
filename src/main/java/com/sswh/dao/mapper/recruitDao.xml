@@ -19,7 +19,7 @@
     <select id="findByTitle" resultType="com.sswh.entity.RecruitEntity">
         select  iid,title,subject,content,humanResource,phone,email,image,createTime,endTime,salaryLow,salaryHigh,pageshow,orderid from sswh.recruit
         <where>
-            title=#{title}
+            title like concat('%',#{title},'%')
         </where>
     </select>
     <select id="findByIid" parameterType="int" resultType="com.sswh.entity.RecruitEntity">
@@ -37,7 +37,8 @@
             subject=#{subject}
         </where>
     </select>
-    <update id="changePageShow">
-        update sswh.recruit set pageshow=#{pageshow} where iid=#{iid}
+    <update id="changePageShow" parameterType="int">
+        update recruit set pageshow=#{pageshow} where iid=#{iid}
     </update>
+
 </mapper>
