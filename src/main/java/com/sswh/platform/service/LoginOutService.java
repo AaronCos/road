@@ -9,4 +9,10 @@ import com.sswh.entity.PlatformUser;
 public interface LoginOutService {
 
     PlatformUser findByUserName(String userName);
+
+    /**
+     * Created by wangchengcheng on 2019/9/13
+     */
+    class UserInfoService {
+    }
 }

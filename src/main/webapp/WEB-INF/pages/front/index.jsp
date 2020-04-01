@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="path" value="${pageContext.request.contextPath}" scope="session"></c:set>
+<c:set var="path" value="${pageContext.request.contextPath}" scope="application"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 
@@ -16,6 +16,7 @@
 
 	function hideURLbar() {
 		window.scrollTo(0, 1);
+
 	}
 	function showLogin(){
 	    parent.location.href="${path}/front/login.do";

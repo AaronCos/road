@@ -88,11 +88,8 @@
         </where>
     </select>
 
-    <select id="findByLoginName" resultType="com.sswh.front.entity.FrontUserEntity">
-        SELECT iid,loginname,username,password,password_salt FROM sswh.frontuser
-        <where>
-            loginname like #{%loginname%}
-        </where>
+    <select id="findByLoginName" parameterType="string" resultType="com.sswh.front.entity.FrontUserEntity">
+        SELECT iid,loginname,username,password,password_salt FROM sswh.frontuser where loginname like #{loginname}
     </select>
     <select id="findAllFrontUser" resultType="com.sswh.front.entity.FrontUserEntity">
         SELECT `iid`,

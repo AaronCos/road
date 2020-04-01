@@ -1,8 +1,8 @@
 package com.sswh.support;
 
+import cn.hutool.core.util.StrUtil;
 import com.sswh.dao.IPlatformUserDao;
 import com.sswh.entity.PlatformUser;
-import com.sswh.utils.StringUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -30,7 +30,7 @@ public class CustomRealm extends AuthorizingRealm {
         String userName = (String) token.getPrincipal();
         PlatformUser user = getPasswordByUserName(userName);
         String password_salt = "";
-        if (StringUtil.isEmpty(user.getPassword())) {
+        if (StrUtil.isEmpty(user.getPassword())) {
             return null;
         }
         if (user.getPassword_salt() == null) {

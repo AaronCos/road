@@ -348,7 +348,6 @@
 					}
 
 					if ( requestSettings.async === false ) {
-						// TODO: Blocking delay
 						process();
 					} else {
 						this.responseTimer = setTimeout(process, parseResponseTimeOpt(mockHandler.responseTime));
@@ -358,7 +357,6 @@
 		} else {
 			// type === 'POST' || 'GET' || 'DELETE'
 			if ( requestSettings.async === false ) {
-				// TODO: Blocking delay
 				process();
 			} else {
 				this.responseTimer = setTimeout(process, parseResponseTimeOpt(mockHandler.responseTime));

@@ -71,7 +71,7 @@ public class UserCenterController {
                 if (!item.isFormField()) {
                     String name = item.getName();
                     long size = item.getSize();
-                    if ((name == null || name.equals("")) && size == 0) {
+                    if (name.isEmpty() && size == 0) {
                         continue;
                     }
                     Matcher m = p.matcher(name);
@@ -92,7 +92,6 @@ public class UserCenterController {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FileUploadException e) {
-            //e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

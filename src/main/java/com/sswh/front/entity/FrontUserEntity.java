@@ -51,7 +51,6 @@ public class FrontUserEntity  implements Serializable {
 	private int beStudent = 0;
 	public FrontUserEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getIid() {

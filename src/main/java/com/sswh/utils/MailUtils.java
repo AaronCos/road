@@ -1,17 +1,11 @@
 package com.sswh.utils;
 
-import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
+import java.util.Properties;
 
 /**
  * 邮件工具类
@@ -41,6 +35,7 @@ public class MailUtils {
 
 		// 创建验证器
 		Authenticator auth = new Authenticator() {
+			@Override
 			public PasswordAuthentication getPasswordAuthentication() {
 				//设置发送人的帐号和密码
 				return new PasswordAuthentication("email_test_vip", "123456qwer");

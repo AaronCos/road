@@ -60,10 +60,7 @@ public class CenterController {
         return "sswh/platform/center/member-add";
     }
 
-   /* @RequestMapping("memberedit")
-    public String editshow() {
-        return "sswh/platform/center/member-edit";
-    }*/
+
 
     @RequestMapping("memberpassword")
     public String passwordshow() {
@@ -77,5 +74,11 @@ public class CenterController {
         FrontUserEntity frontuser = memberService.findFrontUserByIid(iid);
         modelAndView.addObject("frontuser",frontuser);
         return modelAndView;
+    }
+    @RequestMapping("recruitlist")
+    public ModelAndView showRecruitPage(){
+        ModelAndView mv = new ModelAndView("sswh/platform/center/recruit-list");
+        mv.addObject("cite","招聘信息");
+        return mv;
     }
 }

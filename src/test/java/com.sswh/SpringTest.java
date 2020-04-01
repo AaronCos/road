@@ -1,9 +1,13 @@
 package com.sswh;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.druid.support.json.JSONUtils;
 import com.sswh.dao.IPlatformUserDao;
+import com.sswh.dao.RecruitDao;
 import com.sswh.entity.PlatformUser;
+import com.sswh.front.dao.IFrontUserDao;
 import com.sswh.front.dao.IStudentGradeDao;
+import com.sswh.front.entity.FrontUserEntity;
 import com.sswh.front.studentgrade.service.IStudentGradeService;
 import com.sswh.platform.service.MemberService;
 import org.apache.shiro.SecurityUtils;
@@ -39,7 +43,10 @@ public class SpringTest {
     IStudentGradeService gradeService;
     @Autowired
     MemberService memberService;
-
+    @Autowired
+    RecruitDao recruitDao;
+    @Autowired
+    IFrontUserDao frontUserDao;
 
     @Resource(name = "securityManager")
     SecurityManager securityManager;
@@ -51,10 +58,41 @@ public class SpringTest {
     @Autowired
     private ShardedJedisPool shardedJedisPool;
 
+    /**
+     * 测试hutool工具类
+     */
+    @Test
+    public void testStrUtil() {
+        System.out.println( StrUtil.equals("123", null));//false
+        System.out.println(StrUtil.equals(null, null)); //true
+
+        System.out.println(StrUtil.isEmpty(null)); //true
+        System.out.println(StrUtil.isEmpty(""));   //true
+    }
+    @Test
+    public void testDao(){
+/*
+        RecruitEntity recruit = recruitDao.findRecruit(com.sswh.Enum.Subject.CHINESE);
+        System.out.println("----");*/
+    }
    @Test
     public void testjson(){
        String s = memberService.organizeMemberJson();
        System.out.println(s);
+   }
+   @Test
+   public void testSax(){
+        String path = "E:\\catbywhere\\project2019\\江苏省_烟草专卖局\\code\\Assistant\\WebContent\\WEB-INF\\config\\jsyc\\line.xml";
+
+
+
+   }
+
+
+   @Test
+   public void testFrontUser(){
+       FrontUserEntity wby12 = frontUserDao.findByLoginName("wby12");
+       System.out.println("------------");
    }
 
     @Test

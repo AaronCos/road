@@ -34,7 +34,7 @@ public class OprMemberController {
             map.put("code","000");
             map.put("message", "登录名已存在！");
         }else{
-            String area[] = frontUser.getCity_picker().split("/");
+            String[] area = frontUser.getCity_picker().split("/");
             frontUser.setProvince(area[0]);
             frontUser.setCity(area[1]);
             frontUser.setDistrict(area[2]);
@@ -72,7 +72,7 @@ public class OprMemberController {
     @PostMapping("useredit")
     public Map<String, Object> editUser(FrontUserEntity frontUser) {
         HashMap<String, Object> map = new HashMap<>();
-        String area[] = frontUser.getCity_picker().split("/");
+        String [] area = frontUser.getCity_picker().split("/");
         frontUser.setProvince(area[0]);
         frontUser.setCity(area[1]);
         frontUser.setDistrict(area[2]);

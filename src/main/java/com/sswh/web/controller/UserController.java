@@ -1,15 +1,13 @@
 package com.sswh.web.controller;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.sswh.front.entity.FrontUserEntity;
-import com.sswh.utils.MD5;
-import com.sswh.utils.String2Date;
-import com.sswh.utils.StringUtil;
-import com.sswh.utils.UUIDUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,7 +38,7 @@ public class UserController {
             return "/sswh/register";
         }
         //将页面的年月日，传到birthday里面
-        user.setCode(UUIDUtils.getCode());
+        user.setCode(StrUtil.uuid());
         //设置生日
       //  user.setBirthday(String2Date.getDate(user.getYear(), user.getMonth(), user.getDay()));
         //设置状态
@@ -54,14 +52,12 @@ public class UserController {
         String passWord1 = user.getPassword();
         String hello2222 = user.getPassword();
         String helo = user.getAddress();
-      //  Date birthday = user.getBirthday();
 
-        user.setCode(UUIDUtils.getCode());
+        user.setCode(StrUtil.uuid());
         //设置密码  MD5加密密码
-        user.setPassword(MD5.md5(user.getPassword()));
+        user.setPassword(SecureUtil.md5(user.getPassword()));
         System.out.println("veryCode1 = " + veryCode1);
         System.out.println("user = " + user);
-//        userService.regist(user);
         return "login";
     }
 
@@ -99,15 +95,12 @@ public class UserController {
 
     @RequestMapping("byiids")
     public String findByIids(String siids) {
-        if(StringUtil.isEmpty(siids)){
+        if(StrUtil.isEmpty(siids)){
             System.out.println("输入的iid为空");
             return "exception/error";
         }
-        List<Integer> iids = StringUtil.strToNumList(siids);
-//        List<FrontUserEntity> byIids = userService.findByIids(iids);
-//        for (int i = 0; i < byIids.size(); i++) {
-//            System.out.println("user" + i + ":" + byIids.get(i));
-//        }
+        String[] split = StrUtil.split(siids, ",");
+        List<String> iids = Arrays.asList(split);
         return "exception/success";
     }
 }
