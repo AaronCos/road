@@ -28,10 +28,14 @@
         <param-name>log4jConfiguration</param-name>
         <param-value>classpath:log4j2.xml</param-value>
     </context-param>
-<!--    <context-param>
-        <param-name>dog</param-name>
-        <param-value>tao</param-value>
-    </context-param>-->
+    <context-param>
+        <param-name/>
+        <param-value/>
+    </context-param>
+    <!--    <context-param>
+            <param-name>dog</param-name>
+            <param-value>tao</param-value>
+        </context-param>-->
 
     <!-- 配置mvc前端控制器 -->
     <servlet>
