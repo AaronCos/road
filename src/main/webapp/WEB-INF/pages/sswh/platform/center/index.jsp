@@ -100,9 +100,9 @@
                                     <cite>会员列表(动态表格)</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('会员删除','member-del.html')">
+                                <a onclick="xadmin.add_tab('评价列表','evaluationlist.do')">
                                     <i class="iconfont">&#xe6a7;</i>
-                                    <cite>会员删除</cite></a>
+                                    <cite>评价列表</cite></a>
                             </li>
                             <li>
                                 <a href="javascript:;">
