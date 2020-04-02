@@ -18,7 +18,9 @@
 
 
 <form class="layui-form" action="" lay-filter="recruitForm">
-    <input type="hidden" name="iid">
+    <c:if test="${url != 'add.do'}">
+        <input type="hidden" name="iid">
+    </c:if>
     <div class="layui-form-item">
         <label class="layui-form-label">招聘标题</label>
         <div class="layui-input-block">
@@ -96,13 +98,13 @@
     <div class="layui-inline">
         <label class="layui-form-label">创建日期</label>
         <div class="layui-input-inline">
-            <input type="text" name="createTime" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+            <input type="text" name="createTime" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="on" class="layui-input">
         </div>
     </div>
     <div class="layui-inline">
         <label class="layui-form-label">截止日期</label>
         <div class="layui-input-inline">
-            <input type="text" name="endTime" id="date1" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+            <input type="text" name="endTime" id="date1" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="on" class="layui-input">
         </div>
     </div>
 
@@ -140,7 +142,7 @@
         });
 
         var abc =${recruit };
-        if (abc != null && abc != undefined && abc != '') {
+        if (abc != 'null' && abc != null && abc != undefined && abc != '') {
             form.val("recruitForm",{
                 "iid":abc.iid,
                 "title":abc.title,

@@ -136,7 +136,6 @@
                     shadeClose: true,
                     shade: 0.4,
                     skin: 'layui-layer-rim',
-                    // btn:['确定','取消'],
                     content: ["${path}/recruit/showedit.do?iid=" + data.iid, "yes"],
                     success: function (layer, newWin) { //弹窗成功后回调
 
@@ -203,9 +202,6 @@
                     }, function () {
 
                     });
-
-                    //console.log(ids)
-                    //layer.alert(ids);
                     break;
                 case 'getCheckLength':
                     var data = checkStatus.data;
@@ -220,7 +216,24 @@
 
     });
 
+    function delRecruit(ids) {
+        $.ajax({
+            url: "${path}/recruit/delete.do",
+            type: "POST",
+            datatype: "json",
+            async: true,
+            data: {ids: ids},
+            success: function (data) {
+                layer.alert("删除成功！");
+                var $ = layui.$;
+                table.reload('recruit-table');
 
+            },
+            error: function () {
+                layer.alert("删除失败，请稍后再试！");
+            }
+        });
+    }
 
 
 

@@ -100,9 +100,9 @@
                                     <cite>会员列表(动态表格)</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('评价列表','../.do')">
+                                <a onclick="xadmin.add_tab('招聘列表','recruitlist.do')">
                                     <i class="iconfont">&#xe6a7;</i>
-                                    <cite>评价列表</cite></a>
+                                    <cite>招聘列表</cite></a>
                             </li>
                             <li>
                                 <a onclick="xadmin.add_tab('评价列表','evaluationlist.do')">

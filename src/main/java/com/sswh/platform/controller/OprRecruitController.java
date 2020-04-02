@@ -1,8 +1,8 @@
 package com.sswh.platform.controller;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.sswh.entity.RecruitEntity;
 import com.sswh.platform.service.RecruitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,7 @@ public class OprRecruitController {
     @RequestMapping("showadd")
     public ModelAndView showAdd() {
         ModelAndView mv = new ModelAndView("sswh/platform/center/recruit-opr");
+        mv.addObject("recruit", "null");
         mv.addObject("url", "add.do");
         mv.addObject("recruiturl","recruit");
         return mv;
@@ -38,8 +39,10 @@ public class OprRecruitController {
     public ModelAndView showEdit(int iid) {
         ModelAndView mv = new ModelAndView("sswh/platform/center/recruit-opr");
         RecruitEntity recruit = recruitService.findByIid(iid);
-        JSON parse = JSONUtil.parse(recruit);
-        mv.addObject("recruit", parse);
+        JSONObject recruitJsonObject = (JSONObject) JSONObject.toJSON(recruit);
+        recruitJsonObject.put("createTime",DateUtil.format(recruitJsonObject.getDate("createTime"),"yyyy-MM-dd"));
+        recruitJsonObject.put("endTime",DateUtil.format(recruitJsonObject.getDate("endTime"),"yyyy-MM-dd"));
+        mv.addObject("recruit", recruitJsonObject);
         mv.addObject("recruiturl","recruit-edit");
         mv.addObject("url", "edit.do");
         return mv;
@@ -60,6 +63,7 @@ public class OprRecruitController {
     }
 
     @RequestMapping("edit")
+    @ResponseBody
     public String editRecruit(RecruitEntity recruitEntity) {
         recruitService.updateRecruit(recruitEntity);
         return "success";
