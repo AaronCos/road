@@ -17,7 +17,8 @@
 <div style="height: 20px;"></div>
 
 
-<form class="layui-form" action="">
+<form class="layui-form" action="" lay-filter="recruitForm">
+    <input type="hidden" name="iid">
     <div class="layui-form-item">
         <label class="layui-form-label">招聘标题</label>
         <div class="layui-input-block">
@@ -114,7 +115,7 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="button" class="layui-btn" lay-submit="" lay-filter="recruit">立即提交</button>
+            <button type="button" class="layui-btn" lay-submit="" lay-filter="${recruiturl}">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -137,6 +138,25 @@
             elem: '#date1'
             ,showBottom: true
         });
+
+        var abc =${recruit };
+        if (abc != null && abc != undefined && abc != '') {
+            form.val("recruitForm",{
+                "iid":abc.iid,
+                "title":abc.title,
+                "subject":abc.subject,
+                "content":abc.content,
+                "salaryLow":abc.salaryLow,
+                "salaryHigh":abc.salaryHigh,
+                "humanResource":abc.humanResource,
+                "phone":abc.phone,
+                "email":abc.email,
+                "createTime":abc.createTime,
+                "endTime":abc.endTime,
+                "pageshow":abc.pageshow
+            });
+        }
+
 
 
 
@@ -180,6 +200,25 @@
             window.parent.location.reload();//todo:这种方式不好，不会给出保存成功的提示需要改进
             return false;//不加这个会触发form自己的action地址进行提交
        });
+        //监听提交
+        form.on('submit(recruit-edit)', function(data){
+            let dataField = data.field;
+            $.ajax({
+                url :  "${path}/recruit/edit.do",
+                type : "POST",
+                datatype : "json",
+                data : dataField,
+                success:function(resp) {
+                    layer.msg('保存成功！');
+                },
+                error:function(){
+                    layer.alert("更新失败，请稍后再试！") ;
+                }
+
+            });
+            window.parent.location.reload();//todo:这种方式不好，不会给出保存成功的提示需要改进
+            return false;//不加这个会触发form自己的action地址进行提交
+        });
 
 
 

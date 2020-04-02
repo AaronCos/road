@@ -54,6 +54,7 @@ public class RecruitServiceImpl implements RecruitService {
 
     @Override
     public boolean updateRecruit(RecruitEntity recruitEntity) {
+        recruitDao.updateRecruit(recruitEntity);
         return false;
     }
 

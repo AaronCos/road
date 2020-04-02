@@ -63,7 +63,7 @@ public class RecruitEntity {
      */
     private float salaryHigh;
 
-    private int pageshow=1;
+    private int pageshow;
 
     private int orderid;
 

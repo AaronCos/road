@@ -45,6 +45,8 @@ public interface RecruitDao {
 
     RecruitEntity findByIid(int iid);
 
+    boolean updateRecruit(RecruitEntity recruitEntity);
+
     void deleteRecruit(String[] ids);
 
 }

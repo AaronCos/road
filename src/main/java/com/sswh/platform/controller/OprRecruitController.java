@@ -1,6 +1,8 @@
 package com.sswh.platform.controller;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.sswh.entity.RecruitEntity;
 import com.sswh.platform.service.RecruitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ public class OprRecruitController {
     public ModelAndView showAdd() {
         ModelAndView mv = new ModelAndView("sswh/platform/center/recruit-opr");
         mv.addObject("url", "add.do");
+        mv.addObject("recruiturl","recruit");
         return mv;
     }
 
@@ -35,7 +38,9 @@ public class OprRecruitController {
     public ModelAndView showEdit(int iid) {
         ModelAndView mv = new ModelAndView("sswh/platform/center/recruit-opr");
         RecruitEntity recruit = recruitService.findByIid(iid);
-        mv.addObject("recruit", recruit);
+        JSON parse = JSONUtil.parse(recruit);
+        mv.addObject("recruit", parse);
+        mv.addObject("recruiturl","recruit-edit");
         mv.addObject("url", "edit.do");
         return mv;
     }
@@ -55,9 +60,9 @@ public class OprRecruitController {
     }
 
     @RequestMapping("edit")
-    public void editRecruit(RecruitEntity recruitEntity) {
-
-
+    public String editRecruit(RecruitEntity recruitEntity) {
+        recruitService.updateRecruit(recruitEntity);
+        return "success";
     }
 
     @RequestMapping("changepageshow")
