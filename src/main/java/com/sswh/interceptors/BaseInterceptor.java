@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by wangchengcheng on 2019/9/21
+ * Created by nuanfeng on 2019/9/21
  */
 public class BaseInterceptor implements HandlerInterceptor {
     @Override

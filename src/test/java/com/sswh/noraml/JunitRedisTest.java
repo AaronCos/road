@@ -1,4 +1,4 @@
-package com.sswh;
+package com.sswh.noraml;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
