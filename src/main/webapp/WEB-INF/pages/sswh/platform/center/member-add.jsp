@@ -91,7 +91,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label width_auto text-r" style="margin-top:2px">省市县：</label>
+                    <label class="layui-form-label width_auto text-r" style="margin-top:2px">省市县</label>
                     <div class="layui-input-inline" style="width:400px">
                         <input type="text" lay-verify="required" autocomplete="on" class="layui-input" id="city-picker" name="city_picker" readonly="readonly" data-toggle="city-picker" placeholder="请选择">
                     </div>
@@ -156,7 +156,7 @@
             //自定义验证规则
             form.verify({
                 nikename: function (value) {
-                    if (value.length < 5) {
+                    if (value.length < 2) {
                         return '昵称至少得5个字符啊';
                     }
                 },

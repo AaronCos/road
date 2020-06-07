@@ -5,10 +5,21 @@ package com.sswh.utils;
  * @author nuanfeng
  */
 public class JsonQResult {
-
+    /**
+     * 解析接口状态
+     */
     private int code;
+    /**
+     * 解析提示文本
+     */
     private String msg;
+    /**
+     * 解析数据长度
+     */
     private int count;
+    /**
+     * 解析数据列表
+     */
     private Object data;
 
     public int getCode() {

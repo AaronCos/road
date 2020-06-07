@@ -75,6 +75,11 @@ public class CenterController {
         modelAndView.addObject("frontuser",frontuser);
         return modelAndView;
     }
+
+    /**
+     * 招聘列表页面
+     * @return
+     */
     @RequestMapping("recruitlist")
     public ModelAndView showRecruitPage(){
         ModelAndView mv = new ModelAndView("sswh/platform/center/recruit-list");

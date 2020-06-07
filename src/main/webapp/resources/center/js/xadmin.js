@@ -88,7 +88,7 @@
 	    };
 	    var index = layer.open({
 	        type: 2,
-            area: ['40%', '95%'],
+            area: ['53%', '95%'],
 	      /*  area: [w+'px', h +'px'],*/
 	        fix: false, //不固定
 	        maxmin: true,

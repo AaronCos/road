@@ -17,17 +17,18 @@
         <![endif]-->
     </head>
     <body>
-        <div class="x-nav">
-          <span class="layui-breadcrumb">
-            <a href="">首页</a>
-            <a href="">演示</a>
-            <a>
-              <cite>导航元素</cite></a>
-          </span>
-          <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
-            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
-        </div>
+
         <div class="layui-fluid">
+            <div class="x-nav">
+                <span class="layui-breadcrumb">
+                <a href="">首页</a>
+             <a href="">会员管理</a>
+                <a>
+                 <cite>前台用户</cite></a>
+          </span>
+                <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+                    <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+            </div>
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
@@ -47,10 +48,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="layui-card-header">
-                            <button class="layui-btn layui-btn-danger" onclick="delUser()"><i class="layui-icon"></i>删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','memberadd.do',600,800)"><i class="layui-icon"></i>添加</button>
-                        </div>
+
                         <div class="layui-card-body layui-table-body layui-table-main">
                             <table id="student-table" class="layui-table layui-form" lay-filter="student-table">
 
@@ -72,16 +70,24 @@
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     </script>
+    <script type="text/html" id="barManual">
+            <button class="layui-btn layui-btn-danger" lay-event="delUser"><i class="layui-icon"></i>删除
+            </button>
+            <button class="layui-btn" onclick="xadmin.open('添加用户','memberadd.do',1000,80000)"><i class="layui-icon"></i>添加</button>
+
+    </script>
 
     <script>
         var table;
-      layui.use(['laydate','form','table'], function(){
+      layui.use(['laydate','form','table','layer'], function(){
 
         var laydate = layui.laydate;
         var form = layui.form;
+        var layer = layui.layer;
         table = layui.table;
         //加载table数据
           table.render({
+              toolbar: '#barManual',
               elem:'#student-table',
               //height:400,
               url:'../data/findFrontUsers.do',
@@ -160,13 +166,46 @@
               });
           });
 
+
+          table.on('toolbar(student-table)', function(obj){
+              var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'add-user':
+                        console.log("hello world");
+                        layer.msg("hello");
+                        break;
+                    case 'delUser':
+                        var data = checkStatus.data;
+                        if (data.length == 0) {
+                            layer.alert("请先选择用户");
+                            break;
+                        }
+                        var ids = [];
+                        for (let i = 0; i < data.length; i++) {
+                            ids[i] = data[i].iid;
+                        }
+                        let results = ids.join(",");
+                        layer.confirm('是否确认删除选中信息？', {
+                            btn: ['确认', '取消'] //按钮
+                        }, function () {
+                            delUser(results);
+                            layer.msg('共删除了' + ids.length + '条信息', {icon: 1});
+
+                        }, function () {
+
+                        });
+                        break;
+
+                };
+
+          });
           table.on('tool(student-table)', function(obj){
               var data = obj.data;
                if(obj.event === 'edit'){
                    layer.open({
                        type: 2,
                        title: "编辑学生信息",
-                       area: ['35%', '95%'],
+                       area: ['53%', '95%'],
                        fix: false,
                        maxmin: true,
                        shadeClose: true,
@@ -196,50 +235,35 @@
       });
 
 
+        function delUser (ids) {
+            $.ajax({
+                url :  "${path}/manager/opr/userdel.do",
+                type : "POST",
+                datatype : "json",
+                async : true,
+                data : {ids : ids},
+                success:function(data) {
+                    layer.alert("删除成功！") ;
+                    var $ = layui.$;
+                    table.reload('student-table', {
+                        page: {
+                            curr: $(".layui-laypage-em").next().html()
+                        },
+                        where: {
+                            username : $("#username").val(),
+                            start : $("#start").val(),
+                            end : $("#end").val()
+                        },
+                        method: 'post',
+                        //contentType: "application/json;charset=utf-8",
+                        url: '../data/findFrontUsers.do',
+                    });
 
-
-      function delUser () {
-          var checkStatus = table.checkStatus('student-table');
-          if(checkStatus.data.length==0){
-              layer.alert("请先勾选学生");
-          }else{
-              var ids = "";
-              for (var i = 0; i < checkStatus.data.length; i++) {
-                  if(i!=checkStatus.data.length-1){
-                      ids = ids  + checkStatus.data[i].iid + ",";
-                  }else{
-                      ids = ids  + checkStatus.data[i].iid ;
-                  }
-                  $.ajax({
-                      url :  "${path}/manager/opr/userdel.do",
-                      type : "POST",
-                      datatype : "json",
-                      async : true,
-                      data : {ids : ids},
-                      success:function(data) {
-                          layer.alert("删除成功！") ;
-                          var $ = layui.$;
-                          table.reload('student-table', {
-                              page: {
-                                  curr: $(".layui-laypage-em").next().html()
-                              },
-                              where: {
-                                  username : $("#username").val(),
-                                  start : $("#start").val(),
-                                  end : $("#end").val()
-                              },
-                              method: 'post',
-                              //contentType: "application/json;charset=utf-8",
-                              url: '../data/findFrontUsers.do',
-                          });
-
-                      },
-                      error:function(){
-                          layer.alert("删除失败，请稍后再试！") ;
-                      }
-                  });
-              }
-          }
-      }
+                },
+                error:function(){
+                    layer.alert("删除失败，请稍后再试！") ;
+                }
+            });
+        }
     </script>
 </html>
