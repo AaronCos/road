@@ -59,5 +59,6 @@ public interface RecruitService {
     boolean updateRecruit(RecruitEntity recruitEntity);
 
     int changepageshow(String iid, String pageshow);
+
 };
 

@@ -86,4 +86,16 @@ public class CenterController {
         mv.addObject("cite","招聘信息");
         return mv;
     }
+
+
+    /**
+     * 管理员管理-角色管理列表
+     * @return
+     */
+    @RequestMapping("rolelist")
+    public ModelAndView showRolePage(){
+        ModelAndView mv = new ModelAndView("sswh/platform/center/role-list");
+        mv.addObject("cite","角色管理");
+        return mv;
+    }
 }

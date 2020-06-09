@@ -62,10 +62,9 @@
                                 <label class="sr-only" for="form-password">密码</label>
                                 <input type="password" name="password" placeholder="密码..." class="form-password form-control" id="form-password">
                             </div>
-                            <div style="min-height: 20px"></div>
+                            <div style="min-height: 20px">
                             <button type="submit" class="btn">登录!</button>
-                            <div style="min-height: 10px"></div>
-                            <button type="button" class="btn btn-primary">返回!</button>
+                            <button type="button" class="btn btn-primary">返回!</button>   </div>
                         </form>
                     </div>
                 </div>

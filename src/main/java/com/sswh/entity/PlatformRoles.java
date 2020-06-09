@@ -15,6 +15,10 @@ public class PlatformRoles {
      * 角色名称
      */
     private String name;
+    /**
+     * 角色唯一编码
+     */
+    private String uuid;
 
     /**
      * 角色备注
@@ -42,5 +46,59 @@ public class PlatformRoles {
      */
     private String pinYin;
 
+    public Integer getIid() {
+        return iid;
+    }
 
+    public void setIid(Integer iid) {
+        this.iid = iid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getSpec() {
+        return spec;
+    }
+
+    public void setSpec(String spec) {
+        this.spec = spec;
+    }
+
+    public Integer getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(Integer isDefault) {
+        this.isDefault = isDefault;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getPinYin() {
+        return pinYin;
+    }
+
+    public void setPinYin(String pinYin) {
+        this.pinYin = pinYin;
+    }
 }
