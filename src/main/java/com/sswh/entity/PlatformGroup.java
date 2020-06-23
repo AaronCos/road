@@ -1,91 +1,103 @@
 package com.sswh.entity;
 
+import java.io.Serializable;
+
 /**
- * Created by nuanfeng on 2019/3/10
+ * (PlatformGroup)实体类
+ *
+ * @author makejava
+ * @since 2020-06-14 13:38:15
  */
-public class PlatformGroup {
-
-
+public class PlatformGroup implements Serializable {
+    private static final long serialVersionUID = 878478297746147864L;
+    /**
+    * 主键
+    */
+    private Integer iid;
     /**
      * 主键
      */
-    private Integer iid;
-
-    /**
-     * 机构名称
-     */
+    private String  uuid;
+    
     private String name;
-
     /**
-     * 机构描述
+     * 说明
      */
     private String spec;
+    /**
+     * 父级id
+     */
+    private String puuid;
+    
+    private String codeid;
+    
+    private Integer orderid;
+    
+    private String pinyin;
 
-    /**
-     * 父id
-     */
-    private Integer pid;
 
-    /**
-     * 父机构名称
-     */
-    private String pname;
+    public Integer getIid() {
+        return iid;
+    }
 
-    /**
-     * 机构编码
-     */
-    private String codeId;
+    public void setIid(Integer iid) {
+        this.iid = iid;
+    }
 
-    /**
-     * 排序号
-     */
-    private Integer orderid = 0;
+    public String getName() {
+        return name;
+    }
 
-    /**
-     * 拼音的首字母
-     */
-    private String pinYin;
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    /**
-     * 附加属性 不计入数据库
-     */
+    public String getSpec() {
+        return spec;
+    }
 
-    /**
-     * 父机构编码
-     */
-    private String parCodeid = "";
+    public void setSpec(String spec) {
+        this.spec = spec;
+    }
 
-    /**
-     * 是否有下属机构
-     */
-    private Boolean isParent = false;
-    /**
-     * 机构级别
-     * @return
-     */
-    private Integer level = 0;
+    public String getUuid() {
+        return uuid;
+    }
 
-    /**
-     * 部门负责人id
-     * @return
-     */
-    private Integer userid = 0;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
-    /**
-     * 部门负责人姓名
-     * @return
-     */
-    private String userName = "";
+    public String getPuuid() {
+        return puuid;
+    }
 
-    /**
-     * 是否显示在通讯录
-     * @return
-     */
-    private Integer contactshow = 1;
+    public void setPuuid(String puuid) {
+        this.puuid = puuid;
+    }
 
-    /**
-     * 是否可删除
-     * @return
-     */
-    private Integer canDelete;
+    public String getCodeid() {
+        return codeid;
+    }
+
+    public void setCodeid(String codeid) {
+        this.codeid = codeid;
+    }
+
+    public Integer getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(Integer orderid) {
+        this.orderid = orderid;
+    }
+
+    public String getPinyin() {
+        return pinyin;
+    }
+
+    public void setPinyin(String pinyin) {
+        this.pinyin = pinyin;
+    }
+
 }

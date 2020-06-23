@@ -98,4 +98,15 @@ public class CenterController {
         mv.addObject("cite","角色管理");
         return mv;
     }
+
+    /**
+     * 管理员管理-机构管理列表
+     * @return
+     */
+    @RequestMapping("grouplist")
+    public ModelAndView showGroupPage(){
+        ModelAndView mv = new ModelAndView("sswh/platform/center/group-list");
+        mv.addObject("cite","机构管理");
+        return mv;
+    }
 }

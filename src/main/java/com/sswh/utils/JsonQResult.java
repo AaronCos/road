@@ -5,6 +5,8 @@ package com.sswh.utils;
  * @author nuanfeng
  */
 public class JsonQResult {
+
+    public static JsonQResult jsonQResult;
     /**
      * 解析接口状态
      */
@@ -21,6 +23,17 @@ public class JsonQResult {
      * 解析数据列表
      */
     private Object data;
+
+    private JsonQResult() {
+    }
+
+    public static synchronized JsonQResult getInstance(){
+        if(jsonQResult != null){
+            return jsonQResult;
+        }
+        jsonQResult = new JsonQResult();
+        return jsonQResult;
+    }
 
     public int getCode() {
         return code;

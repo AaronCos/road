@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sswh.dao.PlatformRolesDao">
+    <select id="findAllRoles"  resultMap="seeShare">
+        SELECT iid, uuid, name, spec, isDefault, type,pinYin
+        FROM sswh.platformrole
+
+    </select>
+    <insert id="writeRole" parameterType="com.sswh.entity.PlatformRoles">
+        INSERT INTO platformrole(uuid,name,spec,isDefault,type,pinYin)
+        VALUES(#{uuid},#{name},#{spec},#{isDefault},#{type},#{pinYin});
+    </insert>
+
+    <resultMap id="seeShare" type="com.sswh.entity.PlatformRoles">
+        <id column="iid" property="iid"/>
+        <result column="name" property="name"/>
+        <result column="uuid" property="uuid"/>
+        <result column="spec" property="spec"/>
+        <result column="type" property="type"/>
+        <result column="idDefault" property="isDefault"/>
+        <result column="pinYin" property="pinYin"/>
+    </resultMap>
+
+</mapper>

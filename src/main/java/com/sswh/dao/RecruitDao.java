@@ -13,10 +13,10 @@ public interface RecruitDao {
 
     /**
      * 编写招聘信息
-     * @param recruit 招聘实体
+     * @param group 招聘实体
      * @return
      */
-    int writeRecruit(RecruitEntity recruit);
+    int writeRecruit(RecruitEntity group);
 
     List<RecruitEntity> findAllRecruit();
 
@@ -45,7 +45,7 @@ public interface RecruitDao {
 
     RecruitEntity findByIid(int iid);
 
-    boolean updateRecruit(RecruitEntity recruitEntity);
+    boolean updateRecruit(RecruitEntity groupEntity);
 
     void deleteRecruit(String[] ids);
 

@@ -1,0 +1,19 @@
+@startuml
+
+abstract class ShardInfo{
+- int weight
++ Jedis createResource()
+}
+
+
+class JedisShardInfo {
+     -  int timeout;
+     -  String host;
+     -  int port;
+     -  String password = null;
+     -  String name = null;
+}
+ShardInfo <|-- JedisShardInfo
+
+
+@enduml

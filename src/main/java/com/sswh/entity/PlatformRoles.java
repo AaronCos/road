@@ -3,6 +3,7 @@ package com.sswh.entity;
 /**
  * 角色实体
  * Created by wangchengcheng on 2019/2/25
+ * @author mirac
  */
 public class PlatformRoles {
 

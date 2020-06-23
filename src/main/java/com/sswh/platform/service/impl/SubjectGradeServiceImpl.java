@@ -4,13 +4,13 @@ import com.sswh.dao.ISubjectGradeDao;
 import com.sswh.entity.GradeConfig;
 import com.sswh.entity.SubjectGrade;
 import com.sswh.platform.service.SubjectGradeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 @Service
 public class SubjectGradeServiceImpl implements SubjectGradeService {
-    @Autowired
+    @Resource
     ISubjectGradeDao gradeDao;
     @Override
     public List<SubjectGrade> findByFrontLoginname(String loginname) {

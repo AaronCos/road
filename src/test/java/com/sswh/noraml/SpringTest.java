@@ -44,7 +44,7 @@ public class SpringTest {
     @Autowired
     MemberService memberService;
     @Autowired
-    RecruitDao recruitDao;
+    RecruitDao groupDao;
     @Autowired
     IFrontUserDao frontUserDao;
 
@@ -71,8 +71,9 @@ public class SpringTest {
     }
     @Test
     public void testDao(){
+
 /*
-        RecruitEntity recruit = recruitDao.findRecruit(com.sswh.Enum.Subject.CHINESE);
+        RecruitEntity group = groupDao.findRecruit(com.sswh.Enum.Subject.CHINESE);
         System.out.println("----");*/
     }
    @Test

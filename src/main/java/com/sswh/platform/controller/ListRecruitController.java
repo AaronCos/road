@@ -30,7 +30,7 @@ public class ListRecruitController {
 
     @GetMapping("recruit-data")
     public JsonQResult combineData(String title,String endTime,String createTime,int page,int limit){
-        JsonQResult jsonQResult = new JsonQResult();
+        JsonQResult jsonQResult = JsonQResult.getInstance();
         List<RecruitEntity> allRecruit;
         if (StrUtil.isEmpty(title)) {
             allRecruit = recruitService.findAllRecruit();

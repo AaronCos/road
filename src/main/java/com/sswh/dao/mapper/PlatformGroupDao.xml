@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sswh.dao.PlatformGroupDao">
+
+    <resultMap type="com.sswh.entity.PlatformGroup" id="PlatformGroupMap">
+        <result property="iid" column="iid" jdbcType="INTEGER"/>
+        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="spec" column="spec" jdbcType="VARCHAR"/>
+        <result property="puuid" column="puuid" jdbcType="INTEGER"/>
+        <result property="codeid" column="codeid" jdbcType="VARCHAR"/>
+        <result property="orderid" column="orderid" jdbcType="INTEGER"/>
+        <result property="pinyin" column="pinyin" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PlatformGroupMap">
+        select
+          iid, uuid, name, spec, puuid, codeid, orderid, pinyin
+        from sswh.platform_group
+        where iid = #{iid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PlatformGroupMap">
+        select
+          a.iid, a.uuid, a.name, a.spec, (select b.name from sswh.platform_group b where a.puuid = b.uuid) as puuid, codeid, orderid, pinyin
+        from sswh.platform_group a
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PlatformGroupMap">
+        select
+          iid,uuid , name, spec, puuid, codeid, orderid, pinyin
+        from sswh.platform_group
+        <where>
+            <if test="iid != null">
+                and iid = #{iid}
+            </if>
+            <if test="uuid != null and uuid != ''">
+                and uuid = #{uuid}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="spec != null and spec != ''">
+                and spec = #{spec}
+            </if>
+            <if test="puuid != null">
+                and puuid = #{puuid}
+            </if>
+            <if test="codeid != null and codeid != ''">
+                and codeid = #{codeid}
+            </if>
+            <if test="orderid != null">
+                and orderid = #{orderid}
+            </if>
+            <if test="pinyin != null and pinyin != ''">
+                and pinyin = #{pinyin}
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAllByGroupName" resultMap="PlatformGroupMap">
+        select
+        iid,uuid , name, spec, puuid, codeid, orderid, pinyin
+        from sswh.platform_group
+        <where>
+            <if test="iid != null">
+                and iid = #{iid}
+            </if>
+            <if test="uuid != null and uuid != ''">
+                and uuid = #{uuid}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="spec != null and spec != ''">
+                and spec = #{spec}
+            </if>
+            <if test="puuid != null">
+                and puuid = #{puuid}
+            </if>
+            <if test="codeid != null and codeid != ''">
+                and codeid = #{codeid}
+            </if>
+            <if test="orderid != null">
+                and orderid = #{orderid}
+            </if>
+            <if test="pinyin != null and pinyin != ''">
+                and pinyin = #{pinyin}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="iid" useGeneratedKeys="true">
+        insert into sswh.platform_group(name,uuid, spec, puuid, codeid, orderid, pinyin)
+        values (#{name},#{uuid}, #{spec}, #{puuid}, #{codeid}, #{orderid}, #{pinyin})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sswh.platform_group
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="spec != null and spec != ''">
+                spec = #{spec},
+            </if>
+            <if test="puuid != null">
+                puuid = #{puuid},
+            </if>
+            <if test="codeid != null and codeid != ''">
+                codeid = #{codeid},
+            </if>
+            <if test="orderid != null">
+                orderid = #{orderid},
+            </if>
+            <if test="pinyin != null and pinyin != ''">
+                pinyin = #{pinyin},
+            </if>
+        </set>
+        where iid = #{iid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from sswh.platform_group where iid = #{iid}
+    </delete>
+
+</mapper>
