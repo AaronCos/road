@@ -59,4 +59,16 @@ import java.util.List;
      * @return
      */
      PlatformUser findByIdCard(String idCard);
+
+    /**
+     * 查询用户列表
+     * @return
+     */
+     List<PlatformUser> findAllPlatformUser();
+
+    /**
+     * 标题
+     * @return
+     */
+    List<PlatformUser> findAllByTitle(String title);
 }

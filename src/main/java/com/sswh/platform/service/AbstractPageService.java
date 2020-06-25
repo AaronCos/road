@@ -55,4 +55,32 @@ public abstract class AbstractPageService<T, E> {
      */
     public abstract List<T> findByTitle(String title);
 
+    /**
+     * 通过id查找对应的信息
+     * @param iid
+     * @return
+     */
+    public abstract T findByIid(int iid);
+
+    /**
+     * 传入实体，添加所有的字段
+     * @param entity
+     * @return
+     */
+    public abstract int addByEntity(T entity);
+
+    /**
+     * 删除通过ids串
+     * @param ids
+     * @return
+     */
+    public abstract boolean deleteByIds(String ids);
+
+    /**
+     * 更新除了iid之外的所有字段
+     * @param entity
+     * @return
+     */
+    public abstract boolean updateByEntity(T entity);
+
 }

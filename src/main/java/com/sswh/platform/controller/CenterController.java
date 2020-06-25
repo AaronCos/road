@@ -87,7 +87,16 @@ public class CenterController {
         return mv;
     }
 
-
+    /**
+     * 管理员管理-机构管理列表
+     * @return
+     */
+    @RequestMapping("grouplist")
+    public ModelAndView showGroupPage(){
+        ModelAndView mv = new ModelAndView("sswh/platform/center/group-list");
+        mv.addObject("cite","机构管理");
+        return mv;
+    }
     /**
      * 管理员管理-角色管理列表
      * @return
@@ -99,14 +108,17 @@ public class CenterController {
         return mv;
     }
 
+
     /**
-     * 管理员管理-机构管理列表
+     * 管理员管理-用户管理列表
      * @return
      */
-    @RequestMapping("grouplist")
-    public ModelAndView showGroupPage(){
-        ModelAndView mv = new ModelAndView("sswh/platform/center/group-list");
-        mv.addObject("cite","机构管理");
+    @RequestMapping("puserlist")
+    public ModelAndView showPlatformUserPage(){
+        ModelAndView mv = new ModelAndView("sswh/platform/center/puser-list");
+        mv.addObject("cite","用户管理");
         return mv;
     }
+
+
 }

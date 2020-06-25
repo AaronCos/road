@@ -4,7 +4,7 @@ package com.sswh.platform.service;
 import com.sswh.entity.PlatformUser;
 
 /**
- * Created by wangchengcheng on 2019/3/10
+ * Created by nuanfeng on 2019/3/10
  */
 public interface LoginOutService {
 

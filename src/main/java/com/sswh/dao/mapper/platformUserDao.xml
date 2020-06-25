@@ -67,4 +67,17 @@
             </if>
         </where>
     </select>
+    <select id="findAllPlatformUser" resultType="com.sswh.entity.PlatformUser">
+        SELECT iid, username, password, mobilephone, idcard, password_salt, useruuid
+        FROM platformuser
+    </select>
+    <select id="findAllByTitle" resultType="com.sswh.entity.PlatformUser">
+        SELECT iid, username, password, mobilephone, idcard, password_salt, useruuid
+        FROM platformuser
+        <where>
+            <if test="_parameter != null">
+                username = #{username}
+            </if>
+        </where>
+    </select>
 </mapper>

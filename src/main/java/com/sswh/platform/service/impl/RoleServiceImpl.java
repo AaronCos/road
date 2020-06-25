@@ -32,4 +32,24 @@ public class RoleServiceImpl extends AbstractPageService<PlatformRoles, Platform
         List<PlatformRoles> allRoles = pageDao.findAllRoles();
         return allRoles;
     }
+
+    @Override
+    public PlatformRoles findByIid(int iid) {
+        return null;
+    }
+
+    @Override
+    public int addByEntity(PlatformRoles entity) {
+        return 0;
+    }
+
+    @Override
+    public boolean deleteByIds(String ids) {
+        return false;
+    }
+
+    @Override
+    public boolean updateByEntity(PlatformRoles entity) {
+        return false;
+    }
 }
