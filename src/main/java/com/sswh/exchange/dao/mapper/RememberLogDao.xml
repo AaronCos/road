@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sswh.exchange.dao.RememberLogDao">
+
+    <resultMap type="com.sswh.exchange.entity.RememberLog" id="RememberLogMap">
+        <result property="iid" column="iid" jdbcType="INTEGER"/>
+        <result property="rememberListIid" column="remember_list_iid" jdbcType="INTEGER"/>
+        <result property="sendtime" column="sendTime" jdbcType="TIMESTAMP"/>
+        <result property="client" column="client" jdbcType="INTEGER"/>
+        <result property="result" column="result" jdbcType="INTEGER"/>
+        <result property="finished" column="finished" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RememberLogMap">
+        select
+          iid, remember_list_iid, sendTime, client, result, finished
+        from sswh.remember_log
+        where iid = #{iid}
+    </select>
+    <select id="queryByRememberListIid" resultMap="RememberLogMap">
+        select
+            iid, remember_list_iid, sendTime, client, result, finished
+        from sswh.remember_log where remember_list_iid = #{rememberListIid} and sendTime &lt;= now()
+                                 and finished = 0
+
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RememberLogMap">
+        select
+          iid, remember_list_iid, sendTime, client, result, finished
+        from sswh.remember_log
+        limit #{offset}, #{limit}
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RememberLogMap">
+        select
+          iid, remember_list_iid, sendTime, client, result, finished
+        from sswh.remember_log
+        <where>
+            <if test="iid != null">
+                and iid = #{iid}
+            </if>
+            <if test="rememberListIid != null">
+                and remember_list_iid = #{rememberListIid}
+            </if>
+            <if test="sendtime != null">
+                and sendTime = #{sendtime}
+            </if>
+            <if test="client != null">
+                and client = #{client}
+            </if>
+            <if test="result != null">
+                and result = #{result}
+            </if>
+            <if test="finished != null">
+                and finished = #{finished}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="iid" useGeneratedKeys="true">
+        insert into sswh.remember_log(remember_list_iid, sendTime, client, result, finished)
+        values (#{rememberListIid}, #{sendtime}, #{client}, #{result}, #{finished})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sswh.remember_log
+        <set>
+            <if test="rememberListIid != null">
+                remember_list_iid = #{rememberListIid},
+            </if>
+            <if test="sendtime != null">
+                sendTime = #{sendtime},
+            </if>
+            <if test="client != null">
+                client = #{client},
+            </if>
+            <if test="result != null">
+                result = #{result},
+            </if>
+            <if test="finished != null">
+                finished = #{finished},
+            </if>
+        </set>
+        where iid = #{iid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from sswh.remember_log where iid = #{iid}
+    </delete>
+
+</mapper>

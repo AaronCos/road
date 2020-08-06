@@ -84,13 +84,14 @@
         });
 
         //监听提交
-        form.on('submit(puser)', function(data){
+        form.on('submit(puseri-add)', function(data){
             let dataField = data.field;
             $.ajax({
                 url :  "${path}/puser/add.do",
                 type : "POST",
                 datatype : "json",
                 data : dataField,
+
                 success:function(resp) {
                     layer.msg('保存成功！');
                 },

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sswh.exchange.dao.RememberListDao">
+
+    <resultMap type="com.sswh.exchange.entity.RememberList" id="RememberListMap">
+        <result property="iid" column="iid" jdbcType="INTEGER"/>
+        <result property="userid" column="userid" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="OTHER"/>
+        <result property="createtime" column="createtime" jdbcType="TIMESTAMP"/>
+        <result property="updatetime" column="updatetime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RememberListMap">
+        select
+          iid, userid, title, content, createtime, updatetime
+        from sswh.remember_list
+        where iid = #{iid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryByUserId" resultMap="RememberListMap">
+        select
+            iid, userid, title, content, createtime, updatetime
+        from sswh.remember_list
+        where userid = #{userId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RememberListMap">
+        select
+          iid, userid, title, content, createtime, updatetime
+        from sswh.remember_list
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RememberListMap">
+        select
+          iid, userid, title, content, createtime, updatetime
+        from sswh.remember_list
+        <where>
+            <if test="iid != null">
+                and iid = #{iid}
+            </if>
+            <if test="userid != null">
+                and userid = #{userid}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="createtime != null">
+                and createtime = #{createtime}
+            </if>
+            <if test="updatetime != null">
+                and updatetime = #{updatetime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="iid" useGeneratedKeys="true">
+        insert into sswh.remember_list(userid, title, content, createtime, updatetime)
+        values (#{userid}, #{title}, #{content}, #{createtime}, #{updatetime})
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sswh.remember_list
+        <set>
+            <if test="userid != null">
+                userid = #{userid},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime},
+            </if>
+            <if test="updatetime != null">
+                updatetime = #{updatetime},
+            </if>
+        </set>
+        where iid = #{iid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from sswh.remember_list where iid = #{iid}
+    </delete>
+
+</mapper>

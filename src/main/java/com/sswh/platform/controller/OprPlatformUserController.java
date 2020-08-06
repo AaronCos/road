@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * TODO: 后台用户管理
+ *
  *
  * @author nuanfeng
  * @date 2020/3/6 22:51
@@ -26,7 +26,7 @@ public class OprPlatformUserController {
     public ModelAndView showAdd() {
         ModelAndView mv = new ModelAndView("sswh/platform/center/puser-opr");
         mv.addObject("url", "add.do");
-        mv.addObject("puserurl","puser");
+        mv.addObject("puserurl","puser-add");
         return mv;
     }
 

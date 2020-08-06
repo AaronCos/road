@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 前台招聘信息后台维护列表控制器 TODO: 招聘信息的列表页面
+ * 前台招聘信息后台维护列表控制器
  * @author Aaron
  * @date 2020/3/6 22:49
  */

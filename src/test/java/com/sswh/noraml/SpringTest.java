@@ -1,10 +1,17 @@
 package com.sswh.noraml;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.druid.support.json.JSONUtils;
+import com.sswh.Enum.AbhsUnit;
 import com.sswh.dao.IPlatformUserDao;
 import com.sswh.dao.RecruitDao;
 import com.sswh.entity.PlatformUser;
+import com.sswh.exchange.dao.RememberLogDao;
+import com.sswh.exchange.entity.RememberList;
+import com.sswh.exchange.entity.RememberLog;
+import com.sswh.exchange.service.impl.RememberListServiceImpl;
+import com.sswh.exchange.service.impl.RememberLogServiceImpl;
 import com.sswh.front.dao.IFrontUserDao;
 import com.sswh.front.dao.IStudentGradeDao;
 import com.sswh.front.entity.FrontUserEntity;
@@ -15,6 +22,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +33,7 @@ import redis.clients.jedis.ShardedJedisPool;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,6 +60,14 @@ public class SpringTest {
     @Resource(name = "securityManager")
     SecurityManager securityManager;
 
+    @Autowired
+    RememberLogDao rememberLogDao;
+
+    @Autowired
+    RememberLogServiceImpl rememberLogService;
+
+    @Autowired
+    RememberListServiceImpl rememberListService;
 
     /**
      * jedis集群获取对象
@@ -63,19 +80,111 @@ public class SpringTest {
      */
     @Test
     public void testStrUtil() {
-        System.out.println( StrUtil.equals("123", null));//false
-        System.out.println(StrUtil.equals(null, null)); //true
+        RememberList rememberList = new RememberList();
+        rememberList.setTitle("将进酒");
+        rememberList.setContent("《将进酒》\n" +
+                "李白\n" +
+                "君不见， \n" +
+                "黄河之水天上来，奔流到海不复回。 \n" +
+                "君不见，\n" +
+                " 高堂明镜悲白发，朝如青丝暮成雪。 \n" +
+                "人生得意须尽欢，莫使金樽空对月。 \n" +
+                "天生我材必有用，千金散尽还复来。 \n" +
+                "烹羊宰牛且为乐，会须一饮三百杯。 \n" +
+                "岑夫子，丹丘生，将进酒，杯莫停。 \n" +
+                "与君歌一曲，请君为我倾耳听。\n" +
+                " 钟鼓馔玉不足贵，但愿长醉不复醒。 \n" +
+                "古来圣贤皆寂寞，惟有饮者留其名。\n" +
+                " 陈王昔时宴平乐，斗酒十千恣欢谑。 \n" +
+                "主人何为言少钱，径须沽取对君酌。 \n" +
+                "五花马，千金裘， \n" +
+                "呼儿将出换美酒，与尔同销万古愁");
+        rememberList.setCreatetime(new Date());
+        rememberList.setUpdatetime(null);
+        rememberList.setUserid(7788);
+        rememberListService.abhsInsert(rememberList);
 
-        System.out.println(StrUtil.isEmpty(null)); //true
-        System.out.println(StrUtil.isEmpty(""));   //true
     }
+
+    /**
+     * 查询未复习的记录
+     */
+    @Test
+    public void testReadRememberLists(){
+        List<RememberList> rememberLists = rememberListService.queryByUserId(7788);
+        Assert.assertEquals(rememberLists.size(),3 );
+    }
+
+
     @Test
     public void testDao(){
 
-/*
+        RememberList rememberList = new RememberList();
+        rememberList.setTitle("news");
+        rememberList.setCreatetime(new Date());
+        rememberList.setUpdatetime(null);
+        rememberList.setUserid(12345);
+        RememberList result = rememberListService.insert(rememberList);
+
+        int rememberListIid = result.getIid();
+
+
+        List<RememberLog> rememberLogs = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            RememberLog rememberLog = new RememberLog();
+            rememberLog.setRememberListIid(rememberListIid);
+            rememberLog.setSendtime(new Date());
+            rememberLog.setClient(1);
+            rememberLog.setResult(1);
+            rememberLog.setFinished(0);
+            rememberLogs.add(rememberLog);
+        }
+        for (int i = 0; i < rememberLogs.size(); i++) {
+            rememberLogService.insert(rememberLogs.get(i));
+        }
+
+
+
+
+
+      /*  List<RememberLog> rememberLogs = rememberLogService.queryAllByLimit(0, 10);
+        System.out.println(rememberLogs);
+        Date sendtime = rememberLogs.get(0).getSendtime();
+        SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+        String format = df.format(sendtime);
+        System.out.println(format);*/
+
+/*rememberLogService
         RecruitEntity group = groupDao.findRecruit(com.sswh.Enum.Subject.CHINESE);
         System.out.println("----");*/
     }
+    @Test
+    public void testMonth(){
+        int[] days = {1,2,5,7,8,9};
+        Date initDate = new Date();
+        List<DateTime> dates = new ArrayList<>();
+        long current = DateUtil.current(false);
+
+        long after20 = 0L;
+        after20 = current + AbhsUnit.MINUTE.getMillis()*20; //20分钟后
+        DateTime dateTime = new DateTime(after20);
+        dates.add(dateTime);
+
+        //System.out.println(dateTime);
+        for (int i = 0; i < days.length; i++) {
+            long temp = current;
+            temp = temp + AbhsUnit.DAY.getMillis()*days[i];
+            DateTime dateTimeTemp = new DateTime(temp);
+            dates.add(dateTimeTemp);
+        }
+        for (int i = 0; i < dates.size(); i++) {
+            System.out.println(dates.get(i));
+        }
+
+
+    }
+
+
    @Test
     public void testjson(){
        String s = memberService.organizeMemberJson();
