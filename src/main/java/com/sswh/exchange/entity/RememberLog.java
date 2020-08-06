@@ -7,7 +7,7 @@ import java.io.Serializable;
  * (RememberLog)实体类
  *
  * @author makejava
- * @since 2020-08-06 10:41:59
+ * @since 2020-08-06 19:41:59
  */
 public class RememberLog implements Serializable {
     private static final long serialVersionUID = 788070791993171761L;

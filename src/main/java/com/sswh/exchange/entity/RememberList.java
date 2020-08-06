@@ -7,7 +7,7 @@ import java.io.Serializable;
  * (RememberList)实体类
  *
  * @author makejava
- * @since 2020-08-05 16:18:44
+ * @since 2020-08-05 19:18:44
  */
 public class RememberList implements Serializable {
     private static final long serialVersionUID = -10578718870804653L;

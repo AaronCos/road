@@ -10,7 +10,7 @@ import java.util.List;
  * (RememberLog)表数据库访问层
  *
  * @author makejava
- * @since 2020-08-06 10:42:02
+ * @since 2020-08-06 19:42:02
  */
 @Repository
 public interface RememberLogDao {
