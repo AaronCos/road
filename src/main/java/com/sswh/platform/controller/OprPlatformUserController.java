@@ -42,6 +42,7 @@ public class OprPlatformUserController {
     @RequestMapping("add")
     @ResponseBody
     public String addPlatformUser(PlatformUser puserEntity) {
+
         int i = puserService.addByEntity(puserEntity);
         return "success";
     }
@@ -49,7 +50,7 @@ public class OprPlatformUserController {
     @RequestMapping("delete")
     @ResponseBody
     public String deleteByIds(String ids) {
-        puserService.deleteByIds(ids);
+        boolean b = puserService.deleteByIds(ids);
         return "success";
     }
 

@@ -1,11 +1,12 @@
 package com.sswh.entity;
 
 /**
- * Created by wangchengcheng on 2019/2/22
+ * 后台用户
  */
 public class PlatformUser {
     private long iid;
     private String userUuid;
+    private String groupUuid;
     private String username;
     private String password;
     private String mobilePhone;
@@ -22,6 +23,14 @@ public class PlatformUser {
 
     public void setIid(long iid) {
         this.iid = iid;
+    }
+
+    public String getGroupUuid() {
+        return groupUuid;
+    }
+
+    public void setGroupUuid(String groupUuid) {
+        this.groupUuid = groupUuid;
     }
 
     public String getUsername() {
@@ -76,6 +85,8 @@ public class PlatformUser {
     public String toString() {
         return "PlatformUser{" +
                 "iid=" + iid +
+                ", userUuid='" + userUuid + '\'' +
+                ", groupUuid='" + groupUuid + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +

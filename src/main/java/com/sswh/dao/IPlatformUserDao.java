@@ -2,6 +2,7 @@ package com.sswh.dao;
 
 
 import com.sswh.entity.PlatformUser;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,6 +32,15 @@ import java.util.List;
      * @return
      */
      PlatformUser findByIid(long userId);
+
+    /**
+     * 查询指定行数据
+     *
+     * @param offset 查询起始位置
+     * @param limit 查询条数
+     * @return 对象列表
+     */
+    List<PlatformUser> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
     /**
      * 查询用户列表
@@ -71,4 +81,11 @@ import java.util.List;
      * @return
      */
     List<PlatformUser> findAllByTitle(String title);
+
+    /**
+     * 根据ids删除用户
+     * @param ids
+     * @return
+     */
+    int deleteByIds(List<Integer> ids);
 }

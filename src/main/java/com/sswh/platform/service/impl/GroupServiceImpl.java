@@ -3,6 +3,7 @@ package com.sswh.platform.service.impl;
 import com.sswh.dao.PlatformGroupDao;
 import com.sswh.entity.PlatformGroup;
 import com.sswh.platform.service.GroupService;
+import com.sswh.utils.core.StrUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -83,4 +84,15 @@ public class GroupServiceImpl implements GroupService {
     public boolean deleteById(Integer iid) {
         return this.platformGroupDao.deleteById(iid) > 0;
     }
+
+    @Override
+    public boolean deleteByIds(String iids) {
+        if (iids.isEmpty()) {
+            return false;
+        }
+        int i = this.platformGroupDao.deleteByIds(StrUtil.idsToList(iids, ","));
+        return i>0 ? true : false;
+    }
+
+
 }

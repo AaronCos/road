@@ -59,5 +59,12 @@ public interface GroupService {
      * @return 是否成功
      */
     boolean deleteById(Integer iid);
+    /**
+     * 通过主键删除数据
+     *
+     * @param iids 主键
+     * @return 是否成功
+     */
+    boolean deleteByIds(String iids);
 
 }

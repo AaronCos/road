@@ -71,4 +71,12 @@ public interface PlatformGroupDao {
      */
     int deleteById(Integer iid);
 
+    /**
+     * 通过主键列表删除数据
+     *
+     * @param iids 主键
+     * @return 影响行数
+     */
+    int deleteByIds(List<Integer> iids);
+
 }
