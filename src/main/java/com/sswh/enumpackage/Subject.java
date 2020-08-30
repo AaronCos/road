@@ -1,4 +1,4 @@
-package com.sswh.Enum;
+package com.sswh.enumpackage;
 
 /**
  * 课程代号

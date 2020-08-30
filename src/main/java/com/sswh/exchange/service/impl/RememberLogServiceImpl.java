@@ -2,11 +2,11 @@ package com.sswh.exchange.service.impl;
 
 import com.sswh.exchange.dao.RememberLogDao;
 import com.sswh.exchange.entity.RememberLog;
-import com.sswh.exchange.service.RememberListService;
 import com.sswh.exchange.service.RememberLogService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,10 +20,6 @@ public class RememberLogServiceImpl implements RememberLogService {
 
     @Resource
     private RememberLogDao rememberLogDao;
-
-
-    @Resource
-    private RememberListService rememberListService;
 
 
     /**
@@ -44,7 +40,7 @@ public class RememberLogServiceImpl implements RememberLogService {
      */
     @Override
     public List<RememberLog> queryByRememberListIid(Integer rememberListIid) {
-        return rememberLogDao.queryByRememberListIid(rememberListIid);
+        return rememberLogDao.queryByRememberListIid(rememberListIid,0,new Date());
     }
 
     /**

@@ -1,10 +1,12 @@
 package com.sswh.utils;
 
+import java.io.Serializable;
+
 /**
  * 针对layui的json返回格式封装的map工具类
  * @author nuanfeng
  */
-public class JsonQResult {
+public class JsonQResult implements Serializable {
 
     public static JsonQResult jsonQResult;
     /**

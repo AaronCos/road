@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sswh.exchange.dao.RememberLogDao">
 
+    <select id="queryByRememberListIid" resultMap="RememberLogMap">
+        select
+        iid, remember_list_iid, sendTime, client, result, finished
+        from sswh.remember_log where remember_list_iid = #{rememberListIid} and sendTime &lt;= #{date}
+        <!--2的时候是显示所有-->
+        <if test="state != 2">
+            and finished = #{state}
+        </if>
+    </select>
+
+    <!--查询单个-->
     <resultMap type="com.sswh.exchange.entity.RememberLog" id="RememberLogMap">
         <result property="iid" column="iid" jdbcType="INTEGER"/>
         <result property="rememberListIid" column="remember_list_iid" jdbcType="INTEGER"/>
@@ -10,20 +21,11 @@
         <result property="result" column="result" jdbcType="INTEGER"/>
         <result property="finished" column="finished" jdbcType="INTEGER"/>
     </resultMap>
-
-    <!--查询单个-->
     <select id="queryById" resultMap="RememberLogMap">
         select
           iid, remember_list_iid, sendTime, client, result, finished
         from sswh.remember_log
         where iid = #{iid}
-    </select>
-    <select id="queryByRememberListIid" resultMap="RememberLogMap">
-        select
-            iid, remember_list_iid, sendTime, client, result, finished
-        from sswh.remember_log where remember_list_iid = #{rememberListIid} and sendTime &lt;= now()
-                                 and finished = 0
-
     </select>
 
     <!--查询指定行数据-->

@@ -12,12 +12,6 @@ import java.util.List;
 public interface RememberListService {
 
 
-    /**
-     *
-     * @param rememberList
-     * @return 成功插入的数量
-     */
-    public int abhsInsert(RememberList rememberList);
 
 
     /**
@@ -28,11 +22,7 @@ public interface RememberListService {
      */
     RememberList queryById(Integer iid);
 
-    /**
-     * 通过用户id查询多条基础
-     * @return
-     */
-    List<RememberList> queryByUserId(Integer userId);
+
 
 
     /**

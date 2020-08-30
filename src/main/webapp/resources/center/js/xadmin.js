@@ -65,15 +65,14 @@
 	    })
 	}
 	/**
-	 * [open 打开弹出层]
-	 * @param  {[type]}  title [弹出层标题]
-	 * @param  {[type]}  url   [弹出层地址]
-	 * @param  {[type]}  w     [宽]
-	 * @param  {[type]}  h     [高]
-	 * @param  {Boolean} full  [全屏]
-	 * @return {[type]}        [description]
-	 */
-	Xadmin.prototype.open = function (title,url,w,h,full) {
+     * [open 打开弹出层]
+     * @param  {[type]}  title [弹出层标题]
+     * @param  {[type]}  url   [弹出层地址]
+     * @param  {[type]}  w     [宽]
+     * @param  {[type]}  h     [高]
+     * @return {[type]}        [description]
+     */
+	Xadmin.prototype.open = function (title, url, w, h) {
 		if (title == null || title == '') {
 	        var title=false;
 	    };

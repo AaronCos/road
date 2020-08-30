@@ -2,7 +2,7 @@ package com.sswh.utils;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
-import com.sswh.Enum.AbhsUnit;
+import com.sswh.enumpackage.AbhsTimeUnit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +28,13 @@ public class AbhsUtil {
         long current = DateUtil.current(false);
         long after20 = 0L;
         //20分钟后
-        after20 = current + AbhsUnit.MINUTE.getMillis() * 20;
+        after20 = current + AbhsTimeUnit.MINUTE.getMillis() * 20;
         DateTime dateTime = new DateTime(after20);
         dates.add(dateTime);
 
         for (int i = 0; i < days.length; i++) {
             long temp = current;
-            temp = temp + AbhsUnit.DAY.getMillis() * days[i];
+            temp = temp + AbhsTimeUnit.DAY.getMillis() * days[i];
             DateTime dateTimeTemp = new DateTime(temp);
             dates.add(dateTimeTemp);
         }

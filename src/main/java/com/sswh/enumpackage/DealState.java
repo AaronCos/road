@@ -1,4 +1,4 @@
-package com.sswh.Enum;
+package com.sswh.enumpackage;
 
 /**
  * 事件处理状态
@@ -7,7 +7,7 @@ package com.sswh.Enum;
  * @date 2020/8/6 22:49
  */
 public enum DealState {
-    FINISHED(1), UNFINISHED(2);
+    FINISHED(1), UNFINISHED(0), All(2);
     private final int state;
 
     DealState(int code) {

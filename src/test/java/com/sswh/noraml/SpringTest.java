@@ -3,13 +3,14 @@ package com.sswh.noraml;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.druid.support.json.JSONUtils;
-import com.sswh.Enum.AbhsUnit;
+import com.sswh.enumpackage.AbhsTimeUnit;
 import com.sswh.dao.IPlatformUserDao;
 import com.sswh.dao.RecruitDao;
 import com.sswh.entity.PlatformUser;
 import com.sswh.exchange.dao.RememberLogDao;
 import com.sswh.exchange.entity.RememberList;
 import com.sswh.exchange.entity.RememberLog;
+import com.sswh.exchange.service.RememberService;
 import com.sswh.exchange.service.impl.RememberListServiceImpl;
 import com.sswh.exchange.service.impl.RememberLogServiceImpl;
 import com.sswh.front.dao.IFrontUserDao;
@@ -22,7 +23,6 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +69,9 @@ public class SpringTest {
     @Autowired
     RememberListServiceImpl rememberListService;
 
+    @Autowired
+    RememberService rememberService;
+
     /**
      * jedis集群获取对象
      */
@@ -102,7 +105,7 @@ public class SpringTest {
         rememberList.setCreatetime(new Date());
         rememberList.setUpdatetime(null);
         rememberList.setUserid(7788);
-        rememberListService.abhsInsert(rememberList);
+        rememberService.abhsInsert(rememberList);
 
     }
 
@@ -111,8 +114,8 @@ public class SpringTest {
      */
     @Test
     public void testReadRememberLists(){
-        List<RememberList> rememberLists = rememberListService.queryByUserId(7788);
-        Assert.assertEquals(rememberLists.size(),3 );
+        //List<RememberList> rememberLists = rememberService.unfinished(7788);
+        //Assert.assertEquals(rememberLists.size(),4 );
     }
 
 
@@ -166,14 +169,14 @@ public class SpringTest {
         long current = DateUtil.current(false);
 
         long after20 = 0L;
-        after20 = current + AbhsUnit.MINUTE.getMillis()*20; //20分钟后
+        after20 = current + AbhsTimeUnit.MINUTE.getMillis()*20; //20分钟后
         DateTime dateTime = new DateTime(after20);
         dates.add(dateTime);
 
         //System.out.println(dateTime);
         for (int i = 0; i < days.length; i++) {
             long temp = current;
-            temp = temp + AbhsUnit.DAY.getMillis()*days[i];
+            temp = temp + AbhsTimeUnit.DAY.getMillis()*days[i];
             DateTime dateTimeTemp = new DateTime(temp);
             dates.add(dateTimeTemp);
         }

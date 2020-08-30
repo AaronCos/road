@@ -14,6 +14,7 @@ class JedisShardInfo {
      -  String name = null;
 }
 ShardInfo <|-- JedisShardInfo
+JedisShardInfo --|> ShardInfo
 
 
 @enduml

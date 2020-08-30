@@ -4,6 +4,7 @@ import com.sswh.exchange.entity.RememberLog;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,9 +27,12 @@ public interface RememberLogDao {
     /**
      * 通过rememberList表中的唯一键查询所有复习记录
      * @param rememberListIid remberlist 唯一键
+     * @param state 处理状态
+     * @param date  截止时间
      * @return
      */
-    List<RememberLog> queryByRememberListIid(@Param("rememberListIid") Integer rememberListIid);
+    List<RememberLog> queryByRememberListIid(@Param("rememberListIid") Integer rememberListIid
+            , @Param("state") Integer state, @Param("date") Date date);
 
     /**
      * 查询指定行数据

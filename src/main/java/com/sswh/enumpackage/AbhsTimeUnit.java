@@ -1,11 +1,11 @@
-package com.sswh.Enum;
+package com.sswh.enumpackage;
 
 /**
  * 艾宾浩斯时间单元
  * @author nuanfeng
  * @date 2020/8/6 12:36
  */
-public enum AbhsUnit {
+public enum AbhsTimeUnit {
     /** 一毫秒 */
     MS(1),
     /** 一秒的毫秒数 */
@@ -20,7 +20,7 @@ public enum AbhsUnit {
     WEEK(DAY.getMillis() * 7);
 
     private final long millis;
-    AbhsUnit(long millis){
+    AbhsTimeUnit(long millis){
         this.millis = millis;
     }
 
