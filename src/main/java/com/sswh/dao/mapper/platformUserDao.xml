@@ -3,6 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sswh.dao.IPlatformUserDao">
+    <delete id="deleteByIds">
+        delete from platformuser  WHERE iid IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
     <select id="findByIid" parameterType="long" resultMap="seeShare">
         SELECT iid, username, password, mobilephone, idcard
         FROM platformuser
@@ -23,6 +29,8 @@
     <resultMap id="seeShare" type="com.sswh.entity.PlatformUser">
         <id column="iid" property="iid"/>
         <result column="username" property="username"/>
+        <result column="useruuid" property="userUuid"/>
+        <result column="groupuuid" property="groupUuid"/>
         <result column="password" property="password"/>
         <result column="mobilephone" property="mobilePhone"/>
         <result column="idcard" property="idCard"/>
@@ -79,5 +87,12 @@
                 username = #{username}
             </if>
         </where>
+    </select>
+    <select id="queryAllByLimit" resultType="com.sswh.entity.PlatformUser">
+        select
+            iid, username, password, mobilephone, idcard, password_salt, useruuid
+        from sswh.platformuser
+        limit #{offset}, #{limit}
+
     </select>
 </mapper>

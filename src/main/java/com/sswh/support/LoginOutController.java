@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 /**
  * Created by wangchengcheng on 2019/3/9
@@ -44,36 +44,33 @@ public class LoginOutController {
     @RequestMapping("login")
     public ModelAndView login(HttpServletRequest request, HttpServletResponse respose, HttpSession session) {
         ModelAndView mv = new ModelAndView("support/login");
-        mv.addObject("url", "dologin.do");
         PlatformUser platformUser = new PlatformUser();
         String username = (String) SecurityUtils.getSubject().getPrincipal();
-        if (StrUtil.isEmpty(username)) {
-            mv.addObject("platformUser", platformUser);
-        } else {
-            try {
-                respose.sendRedirect(request.getContextPath() + "/support/managerpage.do");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            platformUser.setUsername(username);
-            mv.addObject("platformUser", platformUser);
+        if (StrUtil.isNotEmpty(username)) {
+            RedirectView redirectView = new RedirectView(request.getContextPath() + "/manager/center/index.do");
+            mv.setView(redirectView);
         }
-
+        mv.addObject("url", "dologin.do");
+        //mv.addObject("platformUser",platformUser);
         return mv;
     }
 
     @RequestMapping(value = "/dologin", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-    public ModelAndView subLogin(PlatformUser user, String gotoUrl) {
+    public ModelAndView subLogin(PlatformUser user, HttpServletRequest request,String gotoUrl) {
         log.info("username is:{} and password is:{}", user.getUsername(), user.getPassword());
-        ModelAndView mv = new ModelAndView("support/managerpage");
+        ModelAndView mv = new ModelAndView("/manager/center/index.do");
+        RedirectView redirectView = new RedirectView(request.getContextPath() + "/manager/center/index.do");
+        mv.setView(redirectView);
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         try {
             subject.login(token);
         } catch (AuthenticationException e) {
-
+            //Todo:登录失败跳转页面
+            redirectView = new RedirectView(request.getContextPath() + "/exception_show.do?exception=用户名或者密码错误");
+            mv.setView(redirectView);
+            return mv;
         }
-        mv.addObject("username", token.getUsername());
         return mv;
     }
 

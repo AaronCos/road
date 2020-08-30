@@ -37,7 +37,7 @@
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="title" placeholder="请输入用户名称" autocomplete="on"
+                            <input type="text" name="title" placeholder="请输入用户名称" autocomplete="off"
                                    class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
@@ -63,10 +63,10 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 </script>
 <script type="text/html" id="barManual">
-    <button class="layui-btn layui-btn-danger" lay-event="delpuser"><i class="layui-icon"></i>删除
-    </button>
     <button class="layui-btn" onclick="xadmin.open('新增用户','${path}/puser/showadd.do',500,300)"><i
             class="layui-icon"></i>添加
+    </button>
+    <button class="layui-btn layui-btn-danger" lay-event="delpuser"><i class="layui-icon"></i>删除
     </button>
 </script>
 <script type="text/html" id="is-default">

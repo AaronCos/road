@@ -18,9 +18,8 @@
 
 
 <form class="layui-form" action="" lay-filter="groupForm">
-    <c:if test="${url != 'add.do'}">
-        <input type="hidden" name="iid">
-    </c:if>
+    <input type="hidden" id="iid" name="iid">
+    <input type="hidden" id="uuid" name="uuid">
     <div class="layui-form-item">
         <label class="layui-form-label">机构名称</label>
         <div class="layui-input-block">
@@ -38,7 +37,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">父级机构</label>
         <div class="layui-input-block">
-            <select name="subject" lay-filter="aihao" lay-verify="required|subject" >
+            <select name="puuid" lay-filter="aihao" lay-verify="required|subject" >
                 <option value=""></option>
                 <option value="1" selected="">语文</option>
                 <option value="2">数学</option>
@@ -67,10 +66,7 @@
                 <input type="tel" name="pinyin"  class="layui-input">
             </div>
         </div>
-
     </div>
-
-
 </form>
 
 <script>
@@ -83,37 +79,28 @@
 
         //日期
         layDate.render({
-            elem: '#date'
+            elem: '#date,#date1'
             ,showBottom: true
         });
-        layDate.render({
-            elem: '#date1'
-            ,showBottom: true
-        });
-
-        var abc =${group };
-        if (abc != 'null' && abc != null && abc != undefined && abc != '') {
+        if(${url == 'edit.do'}){
+        var return_show_group =${group };
+        if (return_show_group != 'null' && return_show_group != null && return_show_group != undefined && return_show_group != '') {
             form.val("groupForm",{
-                "iid":abc.iid,
-                "title":abc.title,
-                "subject":abc.subject,
-                "content":abc.content,
-                "salaryLow":abc.salaryLow,
-                "salaryHigh":abc.salaryHigh,
-                "humanResource":abc.humanResource,
-                "phone":abc.phone,
-                "email":abc.email,
-                "createTime":abc.createTime,
-                "endTime":abc.endTime,
-                "pageshow":abc.pageshow
+                "iid":return_show_group.iid,
+                "uuid":return_show_group.uuid,
+                "name":return_show_group.name,
+                "spec":return_show_group.spec,
+                "puuid":return_show_group.puuid,
+                "codeid":return_show_group.codeid
             });
+        }
         }
 
 
 
 
         //自定义验证规则
-        form.verify({
+     /*   form.verify({
             subject: function (value) {
                 if(value.length != 1){
                     return '请选择科目';
@@ -126,12 +113,8 @@
                     return '最多输入500个字';
                 }
             }
-        });
+        });*/
 
-        //监听指定开关
-        form.on('switch(switchTest)', function(data){
-            layer.tips('开启后招聘信息将在网站展示',data.other);
-        });
 
         //监听提交
         form.on('submit(group)', function(data){

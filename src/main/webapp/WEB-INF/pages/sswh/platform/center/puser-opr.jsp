@@ -37,13 +37,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">身份证号</label>
         <div class="layui-input-block">
-            <input type="text" name="idcard" lay-verify="required" lay-reqtext="身份证号不能为空" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="idCard" lay-verify="required" lay-reqtext="身份证号不能为空" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">手机号码</label>
         <div class="layui-input-block">
-            <input type="text" name="idcard" lay-verify="required" lay-reqtext="手机号不能为空" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="mobilePhone" lay-verify="required" lay-reqtext="手机号不能为空" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -62,7 +62,7 @@
             ,layDate = layui.laydate
             ,$=layui.jquery;//为了使用jquery 的ajax
 
-        var abc =${puser };
+   /*     var abc =${puser };
         if (abc != 'null' && abc != null && abc != undefined && abc != '') {
             form.val("puserForm",{
                 "iid":abc.iid,
@@ -70,7 +70,7 @@
                 "password":abc.password,
                 "mobilePhone":abc.mobilePhone,
             });
-        }
+        }*/
 
         //自定义验证规则
         form.verify({
@@ -84,7 +84,7 @@
         });
 
         //监听提交
-        form.on('submit(puseri-add)', function(data){
+        form.on('submit(puser-add)', function(data){
             let dataField = data.field;
             $.ajax({
                 url :  "${path}/puser/add.do",

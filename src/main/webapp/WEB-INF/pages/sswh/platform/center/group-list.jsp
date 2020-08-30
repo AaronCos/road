@@ -41,14 +41,14 @@
                                    class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
-                            <button class="layui-btn" lay-submit lay-filter="group_sreach_filter"><i class="layui-icon">&#xe615;</i>
+                            <button class="layui-btn" lay-submit lay-filter="lay-filter-search"><i class="layui-icon">&#xe615;</i>
                             </button>
                         </div>
                     </form>
                 </div>
 
                 <div class="layui-card-body layui-table-body layui-table-main">
-                    <table id="role-table" class="layui-table layui-form" lay-filter="group-table-filter">
+                    <table id="id-table" class="layui-table layui-form" lay-filter="lay-filter-table">
 
                     </table>
                 </div>
@@ -59,19 +59,21 @@
 </body>
 
 
+
+<script type="text/html" id="id-toolBar">
+    <button class="layui-btn" lay-event="add"><i
+            class="layui-icon"></i>添加
+    </button>
+    <button class="layui-btn layui-btn-danger" lay-event="delete"><i class="layui-icon"></i>删除
+    </button>
+</script>
 <script type="text/html" id="editBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 </script>
-<script type="text/html" id="barManual">
-    <button class="layui-btn layui-btn-danger" lay-event="delGroup"><i class="layui-icon"></i>删除
-    </button>
-    <button class="layui-btn" onclick="xadmin.open('新增招聘','${path}/group/showadd.do',500,300)"><i
-            class="layui-icon"></i>添加
-    </button>
-</script>
 <script type="text/html" id="is-student">
-    <input type="checkbox" name="pageshow" value="{{d.iid}}" lay-skin="switch" lay-text="是|否" lay-filter="pageshow-filter" {{ d.pageshow == 1 ? 'checked': ''}} >
+    <input type="checkbox" name="pageshow" value="{{d.iid}}" lay-skin="switch" lay-text="是|否" lay-filter="lay-filter-show" {{ d.pageshow == 1 ? 'checked': ''}} >
 </script>
+
 
 <script>
     let table;
@@ -81,8 +83,8 @@
         table = layui.table;
         //加载table数据
         table.render({
-            toolbar: '#barManual',
-            elem: '#role-table',
+            toolbar: '#id-toolBar',
+            elem: '#id-table',
             //height:400,
             url: '${path}/group/group-data.do',
             method: 'get',
@@ -98,8 +100,8 @@
             limits: [10, 20, 30]
         });
         //支持全局搜索
-        form.on('submit(group_sreach_filter)', function (obj) {
-            table.reload('role-table', {
+        form.on('submit(lay-filter-search)', function (obj) {
+            table.reload('id-table', {
                 where: obj.field
                 , page: {
                     curr: 1 //重新从第 1 页开始
@@ -108,12 +110,12 @@
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         })
 
-        table.on('tool(group-table-filter)', function (obj) {
+        table.on('tool(lay-filter-table)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
                 layer.open({
                     type: 2,
-                    title: "编辑招聘",
+                    title: "编辑机构",
                     area: ['40%', '95%'],
                     fix: false,
                     maxmin: true,
@@ -139,7 +141,7 @@
             elem: '#end' //指定元素
         });
         //监听switch事件，更新pageshow的状态
-        form.on('switch(pageshow-filter)', function(obj){
+        form.on('switch(lay-filter-show)', function(obj){
             var state ;
             if(obj.elem.checked){
                 state = 1;
@@ -163,10 +165,13 @@
             });
         });
         //头工具栏事件
-        table.on('toolbar(group-table-filter)', function (obj) {
+        table.on('toolbar(lay-filter-table)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
-                case 'delGroup':
+                case 'add':
+                    xadmin.open('新增机构','${path}/group/showadd.do',500,300);
+                    break;
+                case 'delete':
                     var data = checkStatus.data;
                     if (data.length == 0) {
                         layer.alert("请先选择数据");
@@ -180,7 +185,7 @@
                     layer.confirm('是否确认删除选中信息？', {
                         btn: ['确认', '取消'] //按钮
                     }, function () {
-                        delGroup(results);
+                        deleteByIds(results);
                         layer.msg('共删除了' + ids.length + '条信息', {icon: 1});
 
                     }, function () {
@@ -200,7 +205,7 @@
 
     });
 
-    function delGroup(ids) {
+    function deleteByIds(ids){
         $.ajax({
             url: "${path}/group/delete.do",
             type: "POST",
@@ -210,7 +215,7 @@
             success: function (data) {
                 layer.alert("删除成功！");
                 var $ = layui.$;
-                table.reload('role-table');
+                table.reload('id-table');
 
             },
             error: function () {

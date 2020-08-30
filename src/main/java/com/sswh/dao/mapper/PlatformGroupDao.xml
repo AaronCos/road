@@ -132,5 +132,11 @@
     <delete id="deleteById">
         delete from sswh.platform_group where iid = #{iid}
     </delete>
+    <delete id="deleteByIds">
+        delete from sswh.platform_group where iid IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+        </foreach>
+    </delete>
 
 </mapper>
