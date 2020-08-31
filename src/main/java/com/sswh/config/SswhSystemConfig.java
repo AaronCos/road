@@ -16,7 +16,7 @@ import java.beans.PropertyVetoException;
  */
 @Configuration
 @ComponentScan(basePackages = "com.sswh")
-@Import(ThreadPoolConfig.class)
+@Import({ThreadPoolConfig.class, RedisPoolConfig.class})
 public class SswhSystemConfig {
     /**
      * 连接池的配置

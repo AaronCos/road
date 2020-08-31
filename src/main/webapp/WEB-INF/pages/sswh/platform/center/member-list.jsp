@@ -212,7 +212,7 @@
                        shade: 0.4,
                        skin: 'layui-layer-rim',
                        // btn:['确定','取消'],
-                       content:["memberedit.do?iid="+data.iid, "no"],
+                       content:["memberedit.do?iid="+data.iid, "yes"],
                        success: function(layer, newWin) { //弹窗成功后回调
 
                        }
