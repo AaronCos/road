@@ -50,7 +50,7 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
     <bean class="com.sswh.config.RedisPoolConfig"></bean>
     <import resource="spring_shiro.xml"></import>
     <import resource="spring_mybatis.xml"></import>
-<!--    <import resource="spring_redis.xml"></import>-->
+<!--   <import resource="spring_redis.xml"></import>-->
 </beans>
 
 

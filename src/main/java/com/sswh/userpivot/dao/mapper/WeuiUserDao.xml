@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sswh.userpivot.dao.WeuiUserDao">
+
+    <resultMap type="com.sswh.userpivot.entity.WeuiUser" id="WeuiUserMap">
+        <result property="iid" column="iid" jdbcType="INTEGER"/>
+        <result property="weId" column="we_id" jdbcType="VARCHAR"/>
+        <result property="weName" column="we_name" jdbcType="VARCHAR"/>
+        <result property="complatUserid" column="complat_userid" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WeuiUserMap">
+        select
+          iid, we_id, we_name, complat_userid
+        from sswh.weui_user
+        where iid = #{iid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="WeuiUserMap">
+        select
+          iid, we_id, we_name, complat_userid
+        from sswh.weui_user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="WeuiUserMap">
+        select
+          iid, we_id, we_name, complat_userid
+        from sswh.weui_user
+        <where>
+            <if test="iid != null">
+                and iid = #{iid}
+            </if>
+            <if test="weId != null and weId != ''">
+                and we_id = #{weId}
+            </if>
+            <if test="weName != null and weName != ''">
+                and we_name = #{weName}
+            </if>
+            <if test="complatUserid != null and complatUserid != ''">
+                and complat_userid = #{complatUserid}
+            </if>
+        </where>
+    </select>
+    <select id="queryByWeId" resultType="com.sswh.userpivot.entity.WeuiUser">
+        select
+            iid, we_id, we_name, complat_userid
+        from sswh.weui_user
+        where we_id = #{weid}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="iid" useGeneratedKeys="true">
+        insert into sswh.weui_user(we_id, we_name, complat_userid)
+        values (#{weId}, #{weName}, #{complatUserid})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sswh.weui_user
+        <set>
+            <if test="weId != null and weId != ''">
+                we_id = #{weId},
+            </if>
+            <if test="weName != null and weName != ''">
+                we_name = #{weName},
+            </if>
+            <if test="complatUserid != null and complatUserid != ''">
+                complat_userid = #{complatUserid},
+            </if>
+        </set>
+        where iid = #{iid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from sswh.weui_user where iid = #{iid}
+    </delete>
+
+</mapper>

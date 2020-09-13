@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.*;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,16 +44,16 @@ class TestRedis{
     @Autowired
     ShardedJedisPool shardedJedisPool;
 
-    @PostConstruct
+   // @PostConstruct
     public void testRedis(){
         try (ShardedJedis jedis = shardedJedisPool.getResource()) {//使用try-with-resource可以自动关闭jedis
-            jedis.set("wife", "zhangqingqing");
-            jedis.set("husband", "wangchengcheng");
+            jedis.set("gggg", "qwert");
+            jedis.set("kkkk", "yuiop");
             //assertEquals(jedis.get("wife"), "zhangqingqin");
             Client wife = jedis.getShard("wife").getClient();
             System.out.println("port"+wife.getPort()+";host:"+wife.getHost());
             ShardedJedisPipeline pipelined = jedis.pipelined();
-            jedis.set("son","girl","nx","ex",12);
+            jedis.set("son","girl");
             Jedis son = jedis.getShard("son");
             System.out.println(son.get("son"));
             jedis.lpop("list");
