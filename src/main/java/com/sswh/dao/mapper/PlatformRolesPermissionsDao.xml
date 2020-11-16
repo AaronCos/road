@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sswh.dao.PlatformRolesPermissionsDao">
+
+    <resultMap type="com.sswh.entity.PlatformRolesPermissions" id="PlatformRolesPermissionsMap">
+        <result property="iid" column="iid" jdbcType="INTEGER"/>
+        <result property="roleid" column="roleid" jdbcType="INTEGER"/>
+        <result property="permissionid" column="permissionid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PlatformRolesPermissionsMap">
+        select iid,
+               roleid,
+               permissionid
+        from sswh.platform_roles_permissions
+        where iid = #{iid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PlatformRolesPermissionsMap">
+        select iid,
+               roleid,
+               permissionid
+        from sswh.platform_roles_permissions
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PlatformRolesPermissionsMap">
+        select
+        iid, roleid, permissionid
+        from sswh.platform_roles_permissions
+        <where>
+            <if test="iid != null">
+                and iid = #{iid}
+            </if>
+            <if test="roleid != null">
+                and roleid = #{roleid}
+            </if>
+            <if test="permissionid != null">
+                and permissionid = #{permissionid}
+            </if>
+        </where>
+    </select>
+    <select id="queryByRoleId" resultType="com.sswh.entity.PlatformRolesPermissions">
+        select
+        iid, roleid, permissionid
+        from sswh.platform_roles_permissions
+        <where>
+            <if test="roleid != null">
+                and roleid = #{roleid}
+            </if>
+        </where>
+
+    </select>
+    <select id="queryByRoleIdList" resultType="com.sswh.entity.PlatformRolesPermissions">
+        select
+        iid, roleid, permissionid
+        from sswh.platform_roles_permissions
+        <where>
+            roleid in
+            <foreach collection="roleIdList" index="index" item="item" open="(" separator="," close=")">
+                           #{item}
+            </foreach>
+        </where>
+
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="iid" useGeneratedKeys="true">
+        insert into sswh.platform_roles_permissions(roleid, permissionid)
+        values (#{roleid}, #{permissionid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="iid" useGeneratedKeys="true">
+        insert into sswh.platform_roles_permissions(roleid, permissionid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.roleid}, #{entity.permissionid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="iid" useGeneratedKeys="true">
+        insert into sswh.platform_roles_permissions(roleid, permissionid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.roleid}, #{entity.permissionid})
+        </foreach>
+        on duplicate key update
+        roleid = values(roleid) , permissionid = values(permissionid)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sswh.platform_roles_permissions
+        <set>
+            <if test="roleid != null">
+                roleid = #{roleid},
+            </if>
+            <if test="permissionid != null">
+                permissionid = #{permissionid},
+            </if>
+        </set>
+        where iid = #{iid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from sswh.platform_roles_permissions
+        where iid = #{iid}
+    </delete>
+
+</mapper>

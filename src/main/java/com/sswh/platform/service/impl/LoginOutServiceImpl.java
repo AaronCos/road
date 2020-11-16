@@ -1,6 +1,6 @@
 package com.sswh.platform.service.impl;
 
-import com.sswh.dao.IPlatformUserDao;
+import com.sswh.dao.PlatformUserDao;
 import com.sswh.entity.PlatformUser;
 import com.sswh.platform.service.LoginOutService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,8 @@ import java.util.List;
 @Service
 public class LoginOutServiceImpl implements LoginOutService {
 
-    @Autowired
-    IPlatformUserDao userDao;
+    @Resource
+    PlatformUserDao userDao;
 
     /**
      * jedis连接池
@@ -28,7 +29,7 @@ public class LoginOutServiceImpl implements LoginOutService {
 
     public void initCacheUser(){
         int no = 1;
-        int limit = 100;
+        int limit = 1000;
         List<PlatformUser> list = userDao.queryAllByLimit(no - 1, limit);
         List<PlatformUser> platformUsers = new ArrayList<>();
         while (list != null && list.size() > 0) {

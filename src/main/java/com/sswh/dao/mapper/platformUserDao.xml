@@ -2,26 +2,26 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sswh.dao.IPlatformUserDao">
+<mapper namespace="com.sswh.dao.PlatformUserDao">
     <delete id="deleteByIds">
-        delete from platformuser  WHERE iid IN
+        delete from sswh.platformuser  WHERE iid IN
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>
     </delete>
-    <select id="findByIid" parameterType="long" resultMap="seeShare">
-        SELECT iid, username, password, mobilephone, idcard
-        FROM platformuser
+    <select id="findByIid"  resultMap="seeShare">
+        SELECT iid, username, password, mobilephone, idcard, groupiid
+        FROM sswh.platformuser
         <where>
             iid = #{iid}
         </where>
     </select>
     <insert id="registUser" parameterType="com.sswh.entity.PlatformUser">
-        INSERT INTO platformuser(useruuid,username,password,mobilephone,idcard,password_salt)
-        VALUES(#{userUuid},#{username},#{password},#{mobilePhone},#{idCard},#{password_salt});
+        INSERT INTO sswh.platformuser(username, password, mobilephone, idcard, password_salt)
+        VALUES(#{username},#{password},#{mobilePhone},#{idCard},#{passwordSalt});
     </insert>
     <select id="findByIids" resultMap="seeShare">
-        SELECT iid,username,password,mobilephone,idcard FROM platformuser WHERE iid IN
+        SELECT iid, username, password, mobilephone, idcard FROM sswh.platformuser WHERE iid IN
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -29,18 +29,17 @@
     <resultMap id="seeShare" type="com.sswh.entity.PlatformUser">
         <id column="iid" property="iid"/>
         <result column="username" property="username"/>
-        <result column="useruuid" property="userUuid"/>
-        <result column="groupuuid" property="groupUuid"/>
+        <result column="groupiid" property="groupIid"/>
         <result column="password" property="password"/>
         <result column="mobilephone" property="mobilePhone"/>
         <result column="idcard" property="idCard"/>
-        <result column="password_salt" property="password_salt"/>
+        <result column="password_salt" property="passwordSalt"/>
     </resultMap>
     <!-- 插入物品信息 -->
     <insert id="registUsers"  parameterType="java.util.List">
-        INSERT INTO platformuser
+        INSERT INTO sswh.platformuser
         (
-        username, password, mobilephone, idcard,password_salt
+        username, password, mobilephone, idcard, password_salt
         )
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
@@ -49,7 +48,7 @@
             #{item.password},
             #{item.mobilePhone},
             #{item.idCard},
-            #{item.password_salt}
+            #{item.passwordSalt}
             )
         </foreach>
     </insert>
@@ -59,7 +58,7 @@
         WHERE username like #{username}
     </select>
     <select id="findCountByUsername" parameterType="java.lang.String" resultType="int">
-        SELECT count(*) FROM platformuser
+        SELECT count(*) FROM sswh.platformuser
         <where>
             <if test="_parameter != null">
                 username like #{username}
@@ -68,7 +67,7 @@
     </select>
     <select id="findByIdCard" parameterType="java.lang.String" resultMap="seeShare">
         SELECT iid, username, password, mobilephone, idcard, password_salt
-        FROM platformuser
+        FROM sswh.platformuser
         <where>
             <if test="_parameter != null">
                 idcard = #{idCard}
@@ -76,12 +75,12 @@
         </where>
     </select>
     <select id="findAllPlatformUser" resultType="com.sswh.entity.PlatformUser">
-        SELECT iid, username, password, mobilephone, idcard, password_salt, useruuid
-        FROM platformuser
+        SELECT iid, username, password, mobilephone, idcard, password_salt
+         FROM sswh.platformuser
     </select>
     <select id="findAllByTitle" resultType="com.sswh.entity.PlatformUser">
-        SELECT iid, username, password, mobilephone, idcard, password_salt, useruuid
-        FROM platformuser
+        SELECT iid, username, password, mobilephone, idcard, password_salt
+        FROM sswh.platformuser
         <where>
             <if test="_parameter != null">
                 username = #{username}
@@ -90,7 +89,7 @@
     </select>
     <select id="queryAllByLimit" resultType="com.sswh.entity.PlatformUser">
         select
-            iid, username, password, mobilephone, idcard, password_salt, useruuid
+            iid, username, password, mobilephone, idcard, password_salt
         from sswh.platformuser
         limit #{offset}, #{limit}
 

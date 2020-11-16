@@ -4,10 +4,9 @@
 
     <resultMap type="com.sswh.entity.PlatformGroup" id="PlatformGroupMap">
         <result property="iid" column="iid" jdbcType="INTEGER"/>
-        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="spec" column="spec" jdbcType="VARCHAR"/>
-        <result property="puuid" column="puuid" jdbcType="INTEGER"/>
+        <result property="piid" column="piid" jdbcType="INTEGER"/>
         <result property="codeid" column="codeid" jdbcType="VARCHAR"/>
         <result property="orderid" column="orderid" jdbcType="INTEGER"/>
         <result property="pinyin" column="pinyin" jdbcType="VARCHAR"/>
@@ -16,7 +15,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="PlatformGroupMap">
         select
-          iid, uuid, name, spec, puuid, codeid, orderid, pinyin
+          iid, name, spec, piid, codeid, orderid, pinyin
         from sswh.platform_group
         where iid = #{iid}
     </select>
@@ -24,7 +23,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PlatformGroupMap">
         select
-          a.iid, a.uuid, a.name, a.spec, (select b.name from sswh.platform_group b where a.puuid = b.uuid) as puuid, codeid, orderid, pinyin
+          a.iid, a.name, a.spec, (select b.name from sswh.platform_group b where a.piid = b.iid) as piid, codeid, orderid, pinyin
         from sswh.platform_group a
         limit #{offset}, #{limit}
     </select>
@@ -32,14 +31,11 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="PlatformGroupMap">
         select
-          iid,uuid , name, spec, puuid, codeid, orderid, pinyin
+          iid , name, spec, piid, codeid, orderid, pinyin
         from sswh.platform_group
         <where>
             <if test="iid != null">
                 and iid = #{iid}
-            </if>
-            <if test="uuid != null and uuid != ''">
-                and uuid = #{uuid}
             </if>
             <if test="name != null and name != ''">
                 and name = #{name}
@@ -47,8 +43,8 @@
             <if test="spec != null and spec != ''">
                 and spec = #{spec}
             </if>
-            <if test="puuid != null">
-                and puuid = #{puuid}
+            <if test="piid != null">
+                and piid = #{piid}
             </if>
             <if test="codeid != null and codeid != ''">
                 and codeid = #{codeid}
@@ -65,23 +61,21 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAllByGroupName" resultMap="PlatformGroupMap">
         select
-        iid,uuid , name, spec, puuid, codeid, orderid, pinyin
+        iid, name, spec, piid, codeid, orderid, pinyin
         from sswh.platform_group
         <where>
             <if test="iid != null">
                 and iid = #{iid}
             </if>
-            <if test="uuid != null and uuid != ''">
-                and uuid = #{uuid}
-            </if>
+
             <if test="name != null and name != ''">
                 and name = #{name}
             </if>
             <if test="spec != null and spec != ''">
                 and spec = #{spec}
             </if>
-            <if test="puuid != null">
-                and puuid = #{puuid}
+            <if test="piid != null">
+                and piid = #{piid}
             </if>
             <if test="codeid != null and codeid != ''">
                 and codeid = #{codeid}
@@ -98,8 +92,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="iid" useGeneratedKeys="true">
-        insert into sswh.platform_group(name,uuid, spec, puuid, codeid, orderid, pinyin)
-        values (#{name},#{uuid}, #{spec}, #{puuid}, #{codeid}, #{orderid}, #{pinyin})
+        insert into sswh.platform_group(name, spec, piid, codeid, orderid, pinyin)
+        values (#{name}, #{spec}, #{piid}, #{codeid}, #{orderid}, #{pinyin})
     </insert>
 
     <!--通过主键修改数据-->
@@ -112,8 +106,8 @@
             <if test="spec != null and spec != ''">
                 spec = #{spec},
             </if>
-            <if test="puuid != null">
-                puuid = #{puuid},
+            <if test="piid != null">
+                piid = #{piid},
             </if>
             <if test="codeid != null and codeid != ''">
                 codeid = #{codeid},

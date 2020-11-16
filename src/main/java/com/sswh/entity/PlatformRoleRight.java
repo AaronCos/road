@@ -1,7 +1,7 @@
 package com.sswh.entity;
 
 /**
- * Created by wangchengcheng on 2019/3/9
+ * Created by AaronCos on 2019/3/9
  */
 public class PlatformRoleRight {
 

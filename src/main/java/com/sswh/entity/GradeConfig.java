@@ -1,7 +1,5 @@
 package com.sswh.entity;
 
-import java.util.Date;
-
 
 public class GradeConfig {
 

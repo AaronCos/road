@@ -34,7 +34,6 @@ public class RememberController {
                 break;
             default:
                 dealState = DealState.UNFINISHED;
-                break;
         }
         return rememberService.rememberList(userId, dealState, new Date());
     }

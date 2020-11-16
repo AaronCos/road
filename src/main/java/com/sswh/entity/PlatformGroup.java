@@ -14,10 +14,7 @@ public class PlatformGroup implements Serializable {
     * 主键
     */
     private Integer iid;
-    /**
-     * 主键
-     */
-    private String  uuid;
+
     
     private String name;
     /**
@@ -27,7 +24,7 @@ public class PlatformGroup implements Serializable {
     /**
      * 父级id
      */
-    private String puuid;
+    private Integer piid;
     
     private String codeid;
     
@@ -60,20 +57,12 @@ public class PlatformGroup implements Serializable {
         this.spec = spec;
     }
 
-    public String getUuid() {
-        return uuid;
+    public Integer getPiid() {
+        return piid;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getPuuid() {
-        return puuid;
-    }
-
-    public void setPuuid(String puuid) {
-        this.puuid = puuid;
+    public void setPiid(Integer piid) {
+        this.piid = piid;
     }
 
     public String getCodeid() {

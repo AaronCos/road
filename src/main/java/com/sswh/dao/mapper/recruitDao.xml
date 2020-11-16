@@ -7,45 +7,81 @@
 <mapper namespace="com.sswh.dao.RecruitDao">
 
     <insert id="writeRecruit" parameterType="com.sswh.entity.RecruitEntity">
-        insert into recruit( title,subject,content,humanResource,phone,email,image,createTime,endTime,salaryLow,salaryHigh,pageshow,orderid)
-        values (#{title},#{subject},#{content},#{humanResource},#{phone},#{email},#{image},#{createTime},#{endTime},#{salaryLow},#{salaryHigh},#{pageshow},#{orderid});
+        insert into
+            sswh.recruit(title, subject, content, humanResource, phone, email, image, createTime, endTime, salaryLow,
+                            salaryHigh, pageshow, orderid)
+        values (#{title}, #{subject}, #{content}, #{humanResource}, #{phone}, #{email}, #{image}, #{createTime},
+                #{endTime}, #{salaryLow}, #{salaryHigh}, #{pageshow}, #{orderid});
     </insert>
     <delete id="deleteRecruit">
-        DELETE FROM recruit where iid in
-        <foreach collection="array" open="(" close=")" item="item" separator="," >
-            #{item}
-        </foreach>
+        DELETE FROM sswh.recruit
+        <where>
+            iid in
+            <foreach collection="array" open="(" close=")" item="item" separator=",">
+                #{item}
+            </foreach>
+        </where>
     </delete>
     <select id="findByTitle" resultType="com.sswh.entity.RecruitEntity">
-        select  iid,title,subject,content,humanResource,phone,email,image,createTime,endTime,salaryLow,salaryHigh,pageshow,orderid from sswh.recruit
+        select
+        iid,title,subject,content,humanResource,phone,email,image,createTime,endTime,salaryLow,salaryHigh,pageshow,orderid
+        from sswh.recruit
         <where>
             title like concat('%',#{title},'%')
         </where>
     </select>
     <select id="findByIid" parameterType="int" resultType="com.sswh.entity.RecruitEntity">
-        select  iid,title,subject,content,humanResource,phone,email,image,createTime,endTime,salaryLow,salaryHigh,pageshow,orderid from sswh.recruit
+        select
+        iid,title,subject,content,humanResource,phone,email,image,createTime,endTime,salaryLow,salaryHigh,pageshow,orderid
+        from sswh.recruit
         <where>
             iid=#{iid}
         </where>
     </select>
     <select id="findAllRecruit" resultType="com.sswh.entity.RecruitEntity">
-        select iid,title,subject,content,humanResource,phone,email,image,createTime,endTime,salaryLow,salaryHigh,pageshow,orderid from sswh.recruit
+        select iid,
+               title,
+               subject,
+               content,
+               humanResource,
+               phone,
+               email,
+               image,
+               createTime,
+               endTime,
+               salaryLow,
+               salaryHigh,
+               pageshow,
+               orderid
+        from sswh.recruit
     </select>
     <select id="findBySubjectBh" resultType="com.sswh.entity.RecruitEntity">
-        select iid,title,subject,content,humanResource,phone,email,image,createTime,endTime,salaryLow,salaryHigh,pageshow,orderid from sswh.recruit
+        select
+        iid,title,subject,content,humanResource,phone,email,image,createTime,endTime,salaryLow,salaryHigh,pageshow,orderid
+        from sswh.recruit
         <where>
             subject=#{subject}
         </where>
     </select>
     <update id="changePageShow" parameterType="int">
-        update recruit set pageshow=#{pageshow} where iid=#{iid}
+        update recruit
+        set pageshow=#{pageshow}
+        where iid = #{iid}
     </update>
     <update id="updateRecruit" parameterType="com.sswh.entity.RecruitEntity">
-        update recruit set pageshow=#{pageshow},title=#{title},
-                           subject=#{subject},content=#{content},
-                        salaryLow=#{salaryLow},salaryHigh=#{salaryHigh},
-                           humanResource=#{humanResource},phone=#{phone},email=#{email},
-                           createTime=#{createTime},endTime=#{endTime} where iid=#{iid}
+        update recruit
+        set pageshow=#{pageshow},
+            title=#{title},
+            subject=#{subject},
+            content=#{content},
+            salaryLow=#{salaryLow},
+            salaryHigh=#{salaryHigh},
+            humanResource=#{humanResource},
+            phone=#{phone},
+            email=#{email},
+            createTime=#{createTime},
+            endTime=#{endTime}
+        where iid = #{iid}
 
     </update>
 

@@ -3,15 +3,13 @@ package com.sswh.dao;
 
 import com.sswh.entity.PlatformUser;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @author nuanfeng
  */
-@Repository(value = "iPlatformUserDao")
- public interface IPlatformUserDao {
+ public interface PlatformUserDao {
     /**
      * 注册用户
      * @param pfuser 后台用户实体

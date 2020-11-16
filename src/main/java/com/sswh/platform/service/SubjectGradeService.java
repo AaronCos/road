@@ -2,6 +2,7 @@ package com.sswh.platform.service;
 
 import com.sswh.entity.GradeConfig;
 import com.sswh.entity.SubjectGrade;
+
 import java.util.List;
 
 public interface SubjectGradeService {

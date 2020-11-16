@@ -1,7 +1,7 @@
 package com.sswh.exchange.entity;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (RememberLog)实体类
@@ -11,27 +11,29 @@ import java.io.Serializable;
  */
 public class RememberLog implements Serializable {
     private static final long serialVersionUID = 788070791993171761L;
-    
+
     private Integer iid;
-    
+
     private Integer rememberListIid;
-    
-    private Date sendtime; //可以直接获取到数据库中Datetime类型
+
     /**
-    * 1、pc
-2、wx小程序
-3、wx公众号
-4、支付宝小程序
-5、短信
-    */
+     * 可以直接获取到数据库中Datetime类型
+     */
+    private Date sendtime;
+    /**
+     * 1、pc
+     * 2、wx小程序
+     * 3、wx公众号
+     * 4、支付宝小程序
+     * 5、短信
+     */
     private Integer client;
-    
+
     private Integer result;
     /**
-    * 1、已读
-0、未读 default
-
-    */
+     * 1、已读
+     * 0、未读 default
+     */
     private Integer finished;
 
 

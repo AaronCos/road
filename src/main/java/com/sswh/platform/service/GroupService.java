@@ -67,4 +67,11 @@ public interface GroupService {
      */
     boolean deleteByIds(String iids);
 
+    /**
+     * 子级机构及其所有父机构列表
+     * @param groupId
+     * @return
+     */
+    List<Integer> queryGroupLevelList(Integer groupId, List<Integer> list);
+
 }

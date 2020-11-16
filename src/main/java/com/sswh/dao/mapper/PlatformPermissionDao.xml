@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sswh.dao.PlatformPermissionDao">
+
+    <resultMap type="com.sswh.entity.PlatformPermission" id="PlatformPermissionMap">
+        <result property="iid" column="iid" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="specify" column="specify" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PlatformPermissionMap">
+        select iid,
+               name,
+               specify
+        from sswh.platform_permission
+        where iid = #{iid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PlatformPermissionMap">
+        select iid,
+               name,
+               specify
+        from sswh.platform_permission
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PlatformPermissionMap">
+        select
+        iid, name, specify
+        from sswh.platform_permission
+        <where>
+            <if test="iid != null">
+                and iid = #{iid}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="specify != null and specify != ''">
+                and specify = #{specify}
+            </if>
+        </where>
+    </select>
+    <select id="queryByIdList" resultType="com.sswh.entity.PlatformPermission">
+        select
+        iid, name, specify
+        from sswh.platform_permission
+            where iid IN
+                <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                       #{item}
+              </foreach>
+
+
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="iid" useGeneratedKeys="true">
+        insert into sswh.platform_permission(name, specify)
+        values (#{name}, #{specify})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="iid" useGeneratedKeys="true">
+        insert into sswh.platform_permission(name, specify)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.specify})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="iid" useGeneratedKeys="true">
+        insert into sswh.platform_permission(name, specify)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.specify})
+        </foreach>
+        on duplicate key update
+        name = values(name) , specify = values(specify)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sswh.platform_permission
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="specify != null and specify != ''">
+                specify = #{specify},
+            </if>
+        </set>
+        where iid = #{iid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from sswh.platform_permission
+        where iid = #{iid}
+    </delete>
+
+</mapper>

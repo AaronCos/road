@@ -20,6 +20,13 @@ public interface PlatformRolesDao {
     List<PlatformRoles> findAllRoles();
 
     /**
+     * 角色id列表
+     * @param idList
+     * @return
+     */
+    List<PlatformRoles> findByIdList(List<Integer> idList);
+
+    /**
      * 通过招聘标题获取招聘实体信息
      * @param title 标题
      * @return

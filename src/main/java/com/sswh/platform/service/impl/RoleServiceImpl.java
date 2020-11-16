@@ -6,7 +6,9 @@ import com.sswh.platform.service.AbstractPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author nuanfeng
@@ -27,11 +29,24 @@ public class RoleServiceImpl extends AbstractPageService<PlatformRoles, Platform
         return allRoles;
     }
 
+    public Set<String> queryRoleNameSet(List<Integer> roleIdList){
+        List<PlatformRoles> platformRoleList = pageDao.findByIdList(roleIdList);
+        Set<String> roleNameSet = new HashSet<>();
+        for (PlatformRoles platformRoles : platformRoleList) {
+            roleNameSet.add(platformRoles.getName());
+        }
+        return roleNameSet;
+
+
+    }
+
     @Override
     public List<PlatformRoles> findByTitle(String title) {
         List<PlatformRoles> allRoles = pageDao.findAllRoles();
         return allRoles;
     }
+
+
 
     @Override
     public PlatformRoles findByIid(int iid) {

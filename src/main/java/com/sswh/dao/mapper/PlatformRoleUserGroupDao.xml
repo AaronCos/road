@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sswh.dao.PlatformRoleUserGroupDao">
+
+    <resultMap type="com.sswh.entity.PlatformRoleUserGroup" id="PlatformRoleUserGroupMap">
+        <result property="iid" column="iid" jdbcType="INTEGER"/>
+        <result property="roleid" column="roleid" jdbcType="INTEGER"/>
+        <result property="userid" column="userid" jdbcType="INTEGER"/>
+        <result property="groupid" column="groupid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PlatformRoleUserGroupMap">
+        select
+          iid, roleid, userid, groupid
+        from sswh.platform_role_user_group
+        where  = #{iid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PlatformRoleUserGroupMap">
+        select
+          iid, roleid, userid, groupid
+        from sswh.platform_role_user_group
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PlatformRoleUserGroupMap">
+        select
+        iid, roleid, userid, groupid
+        from sswh.platform_role_user_group
+        <where>
+            <if test="iid != null">
+                and iid = #{iid}
+            </if>
+            <if test="roleid != null">
+                and roleid = #{roleid}
+            </if>
+            <if test="userid != null">
+                and userid = #{userid}
+            </if>
+            <if test="groupid != null">
+                and groupid = #{groupid}
+            </if>
+        </where>
+    </select>
+    <select id="queryByGroupId" resultMap="PlatformRoleUserGroupMap">
+        select
+        iid, roleid, userid, groupid
+        from sswh.platform_role_user_group
+        <where>
+            <if test="groupid != null">
+                and groupid = #{groupid}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryByUserId" resultMap="PlatformRoleUserGroupMap">
+        select
+        iid, roleid, userid, groupid
+        from sswh.platform_role_user_group
+        <where>
+            <if test="userid != null">
+                and userid = #{userid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into sswh.platform_role_user_group(iid, roleid, userid, groupid)
+        values (#{iid}, #{roleid}, #{userid}, #{groupid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="" useGeneratedKeys="true">
+        insert into sswh.platform_role_user_group(iid, roleid, userid, groupid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.iid}, #{entity.roleid}, #{entity.userid}, #{entity.groupid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="" useGeneratedKeys="true">
+        insert into sswh.platform_role_user_group(iid, roleid, userid, groupid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.iid}, #{entity.roleid}, #{entity.userid}, #{entity.groupid})
+        </foreach>
+        on duplicate key update
+        iid = values(iid) , roleid = values(roleid) , userid = values(userid) , groupid = values(groupid)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sswh.platform_role_user_group
+        <set>
+            <if test="iid != null">
+                iid = #{iid},
+            </if>
+            <if test="roleid != null">
+                roleid = #{roleid},
+            </if>
+            <if test="userid != null">
+                userid = #{userid},
+            </if>
+            <if test="groupid != null">
+                groupid = #{groupid},
+            </if>
+        </set>
+        where = #{}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from sswh.platform_role_user_group where  = #{iid}
+    </delete>
+
+</mapper>
