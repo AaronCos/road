@@ -3,10 +3,10 @@ package com.sswh.noraml;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.druid.support.json.JSONUtils;
-import com.sswh.enumpackage.AbhsTimeUnit;
-import com.sswh.dao.IPlatformUserDao;
+import com.sswh.dao.PlatformUserDao;
 import com.sswh.dao.RecruitDao;
 import com.sswh.entity.PlatformUser;
+import com.sswh.enumpackage.AbhsTimeUnit;
 import com.sswh.exchange.dao.RememberLogDao;
 import com.sswh.exchange.entity.RememberList;
 import com.sswh.exchange.entity.RememberLog;
@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"}) //加载配置文件
 public class SpringTest {
     @Autowired
-    IPlatformUserDao pdao;
+    PlatformUserDao pdao;
     @Autowired
     IStudentGradeDao studentGradeDao;
     @Autowired

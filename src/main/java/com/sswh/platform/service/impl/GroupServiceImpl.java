@@ -3,7 +3,7 @@ package com.sswh.platform.service.impl;
 import com.sswh.dao.PlatformGroupDao;
 import com.sswh.entity.PlatformGroup;
 import com.sswh.platform.service.GroupService;
-import com.sswh.util.NumberUtil;
+import com.sswh.util.math.NumberUtil;
 import com.sswh.utils.core.StrUtil;
 import org.springframework.stereotype.Service;
 

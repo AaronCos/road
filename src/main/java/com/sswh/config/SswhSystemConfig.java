@@ -27,7 +27,7 @@ public class SswhSystemConfig {
     public ComboPooledDataSource dataSource() throws PropertyVetoException {
         ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
         comboPooledDataSource.setDriverClass("com.mysql.jdbc.Driver");
-        comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/sswh?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false");
+        comboPooledDataSource.setJdbcUrl("jdbc:mysql://192.168.219.131:3306/sswh?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false");
         comboPooledDataSource.setUser("root");
         comboPooledDataSource.setPassword("root");
         return comboPooledDataSource;
